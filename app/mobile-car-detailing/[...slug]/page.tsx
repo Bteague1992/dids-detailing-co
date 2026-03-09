@@ -14,6 +14,7 @@ import {
   generateCityMetaDescription,
 } from "@/src/lib/seo-content";
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/src/lib/metadata";
 
 export async function generateStaticParams() {
   return businessConfig.serviceAreaCities.map((city) => ({
@@ -29,24 +30,26 @@ export async function generateMetadata({
   const { slug } = await params;
   const citySlug = slug[0];
   const city = businessConfig.serviceAreaCities.find(
-    (c) => c.slug === citySlug
+    (c) => c.slug === citySlug,
   );
 
   if (!city || slug[1] !== "nc") {
     return {
       title: "City Not Found",
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
   const description = generateCityMetaDescription(city);
 
-  return {
-    title: `Mobile Car Detailing in ${city.name}, NC | ${siteConfig.title}`,
+  return createPageMetadata({
+    title: `Mobile Car Detailing in ${city.name}, NC | Book A Detail Today | ${siteConfig.title}`,
     description,
-    alternates: {
-      canonical: `/mobile-car-detailing-${citySlug}-nc`,
-    },
-  };
+    canonical: `/mobile-car-detailing-${citySlug}-nc`,
+  });
 }
 
 const cityFAQs = [
@@ -75,7 +78,7 @@ export default async function CitySeoPage({
   const { slug } = await params;
   const citySlug = slug[0];
   const city = businessConfig.serviceAreaCities.find(
-    (c) => c.slug === citySlug
+    (c) => c.slug === citySlug,
   );
 
   if (!city || slug[1] !== "nc") {
@@ -164,7 +167,7 @@ export default async function CitySeoPage({
               size="lg"
               className="text-lg px-8 py-6 bg-secondary-foreground/10 text-secondary-foreground border-secondary-foreground/20 hover:bg-secondary-foreground/20"
             >
-              <Link href="/service-area">View All Service Areas</Link>
+              <Link href="/#service-area">View All Service Areas</Link>
             </Button>
           </div>
         </Container>

@@ -17,15 +17,15 @@ import {
   Clock,
 } from "lucide-react";
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/src/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Packages & Pricing",
+export const metadata: Metadata = createPageMetadata({
+  title:
+    "Packages & Pricing | Mobile Car Detailing Services | Dad's Mobile Detailing Co.",
   description:
     "View our mobile car detailing packages and pricing. Basic Exterior, Basic Interior, and Full Detail options available for sedans, SUVs, and trucks.",
-  alternates: {
-    canonical: "/packages",
-  },
-};
+  canonical: "/packages",
+});
 
 const pricingFAQs = [
   {
@@ -85,7 +85,7 @@ const packageHighlights = [
 export default function PackagesPage() {
   const launchOffer = servicesConfig.launchOffer;
   const fullDetailPackage = servicesConfig.packages.find(
-    (p) => p.id === launchOffer.packageId
+    (p) => p.id === launchOffer.packageId,
   );
 
   return (

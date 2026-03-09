@@ -1,9 +1,11 @@
 import { FAQList } from "@/components/marketing/faq-list";
+import { FAQSchema } from "@/components/seo/faq-schema";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { getSmsHref } from "@/src/lib/cta";
 import { siteConfig } from "@/src/config/site";
+import { createPageMetadata } from "@/src/lib/metadata";
 import {
   MessageSquare,
   HelpCircle,
@@ -15,14 +17,13 @@ import {
 } from "lucide-react";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "FAQ",
+export const metadata: Metadata = createPageMetadata({
+  title:
+    "FAQ | Have Questions About Mobile Detailing? | Dad's Mobile Detailing Co.",
   description:
     "Frequently asked questions about mobile car detailing services, pricing, booking, and more.",
-  alternates: {
-    canonical: "/faq",
-  },
-};
+  canonical: "/faq",
+});
 
 const faqCategories = [
   {
@@ -63,7 +64,7 @@ const faqCategories = [
       {
         question: "What vehicles do you work on?",
         answer:
-          "We work on cars, trucks, and SUVs. Currently, we don't offer services for boats, RVs, or motorcycles, but feel free to text us if you have questions about a specific vehicle type.",
+          "We work on cars, trucks, SUVs and motorcycles. Currently, we don't offer services for boats, or RVs, but feel free to text us if you have questions about a specific vehicle type.",
       },
     ],
   },
@@ -126,6 +127,7 @@ export default function FAQPage() {
 
   return (
     <>
+      <FAQSchema faqs={allFAQs} pagePath="/faq" />
       {/* Hero Section */}
       <Section
         variant="default"

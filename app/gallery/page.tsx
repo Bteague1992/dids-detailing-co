@@ -4,21 +4,29 @@ import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { getSmsHref } from "@/src/lib/cta";
 import { siteConfig } from "@/src/config/site";
+import { createPageMetadata } from "@/src/lib/metadata";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Gallery",
   description:
     "View before and after photos of our mobile car detailing work. See the quality and care we bring to every detail.",
-  alternates: {
-    canonical: "/gallery",
+  canonical: "/gallery",
+  robots: {
+    index: false,
+    follow: false,
   },
-};
+});
 
 export default function GalleryPage() {
   return (
     <>
-      <Section variant="default" title="Our Work" description="See the transformation we bring to every vehicle. Quality detailing that makes your car look and feel like new." className="pt-8">
+      <Section
+        variant="default"
+        title="Our Work"
+        description="See the transformation we bring to every vehicle. Quality detailing that makes your car look and feel like new."
+        className="pt-8"
+      >
         <Container maxWidth="5xl">
           <GalleryGrid />
         </Container>
@@ -31,11 +39,7 @@ export default function GalleryPage() {
           <p className="text-lg text-secondary-foreground/90 mb-8">
             Text us to book your detail and see the difference for yourself.
           </p>
-          <Button
-            asChild
-            size="lg"
-            className="text-lg px-8 py-6"
-          >
+          <Button asChild size="lg" className="text-lg px-8 py-6">
             <a
               href={getSmsHref()}
               aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a detail`}

@@ -8,7 +8,7 @@ import Image from "next/image";
 export function Hero() {
   const launchOffer = servicesConfig.launchOffer;
   const fullDetailPackage = servicesConfig.packages.find(
-    (p) => p.id === launchOffer.packageId
+    (p) => p.id === launchOffer.packageId,
   );
 
   return (
@@ -25,15 +25,16 @@ export function Hero() {
             className="mx-auto mb-6"
           />
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
-            Mobile Car Detailing in Hickory & Surrounding Areas
+            Mobile Car Detailing That Comes to You — Hickory, NC & Surrounding
+            Areas
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8">
             Affordable, convenient, dad-approved detailing that comes to you.
           </p>
           {launchOffer.active && fullDetailPackage && (
             <p className="text-lg text-foreground mb-8">
-              <span className="font-semibold">Launch Special:</span> First 20
-              Full Details from ${launchOffer.sedanPrice} (sedan) / $
+              <span className="font-semibold">{launchOffer.title}:</span> Full
+              Details from ${launchOffer.sedanPrice} (sedan) / $
               {launchOffer.suvTruckPrice} (SUV/Truck)
             </p>
           )}

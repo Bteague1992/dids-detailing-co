@@ -13,15 +13,14 @@ import {
   MessageSquare,
 } from "lucide-react";
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/src/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "About Us",
+export const metadata: Metadata = createPageMetadata({
+  title: "About Us | Dad's Mobile Detailing Co.",
   description:
     "Learn about Dad's Mobile Detailing Co. - a dad-owned, reliable mobile car detailing service in Hickory, NC. Honest pricing, quality service, and convenience.",
-  alternates: {
-    canonical: "/about",
-  },
-};
+  canonical: "/about",
+});
 
 const values = [
   {

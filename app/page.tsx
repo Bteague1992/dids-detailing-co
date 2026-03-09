@@ -10,22 +10,17 @@ import { LocalBusinessSchema } from "@/components/seo/local-business-schema";
 import { getSmsHref } from "@/src/lib/cta";
 import { siteConfig } from "@/src/config/site";
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/src/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Mobile Car Detailing in Hickory, NC",
+export const metadata: Metadata = createPageMetadata({
+  title:
+    "Mobile Car Detailing in Hickory, NC | We Come to You | Starting At $70 | Dad's Mobile Detailing Co.",
   description:
-    "Mobile car detailing in Hickory, NC and surrounding areas. Honest pricing and dad-level care for cars, trucks, and SUVs. Text to book your detail today.",
-  alternates: {
-    canonical: "/",
-  },
-};
+    "Mobile car detailing in Hickory, NC starting at $70 | We come to you | Honest pricing, no drop-off needed. Text to book today.",
+  canonical: "/",
+});
 
 const homeFAQs = [
-  {
-    question: "Do I need to provide water or power?",
-    answer:
-      "No! We're fully mobile and self-contained. We bring all our own water, power, and equipment. Just provide us with access to your vehicle.",
-  },
   {
     question: "How long does a detail take?",
     answer:

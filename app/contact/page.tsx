@@ -13,15 +13,14 @@ import {
   Zap,
 } from "lucide-react";
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/src/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Contact Us",
+export const metadata: Metadata = createPageMetadata({
+  title: "Contact Us | Book A Detail Today | Dad's Mobile Detailing Co.",
   description:
     "Contact Dad's Mobile Detailing Co. Text us to book your detail, or reach out via phone or email. We're here to help!",
-  alternates: {
-    canonical: "/contact",
-  },
-};
+  canonical: "/contact",
+});
 
 const contactMethods = [
   {
