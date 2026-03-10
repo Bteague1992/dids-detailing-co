@@ -61,7 +61,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // SEO city pages
   const seoCityPages: MetadataRoute.Sitemap =
     businessConfig.serviceAreaCities.map((city) => ({
-      url: `${baseUrl}/mobile-car-detailing-${city.slug}-nc`,
+      url: `${baseUrl}/mobile-car-detailing/${city.slug}/nc`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.9,
@@ -69,7 +69,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const motorcycleCityPages: MetadataRoute.Sitemap =
     businessConfig.serviceAreaCities.map((city) => ({
-      url: `${baseUrl}/mobile-motorcycle-detailing-${city.slug}-nc`,
+      url: `${baseUrl}/mobile-motorcycle-detailing/${city.slug}/nc`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.9,

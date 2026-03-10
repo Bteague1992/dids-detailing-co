@@ -127,7 +127,12 @@ export default async function MotorcycleCitySeoPage({
         </Container>
       </Section>
 
-      <Section id="services" variant="muted" title="Motorcycle Services" withBorder>
+      <Section
+        id="services"
+        variant="muted"
+        title="Motorcycle Services"
+        withBorder
+      >
         <Container maxWidth="5xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {servicesConfig.motorcycleServices.map((service) => (

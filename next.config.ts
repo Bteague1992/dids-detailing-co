@@ -11,6 +11,14 @@ const nextConfig: NextConfig = {
         source: "/mobile-car-detailing-:slug-nc/:path*",
         destination: "/mobile-car-detailing/:slug/nc/:path*",
       },
+      {
+        source: "/mobile-motorcycle-detailing-:slug-nc",
+        destination: "/mobile-motorcycle-detailing/:slug/nc",
+      },
+      {
+        source: "/mobile-motorcycle-detailing-:slug-nc/:path*",
+        destination: "/mobile-motorcycle-detailing/:slug/nc/:path*",
+      },
     ];
   },
 };
