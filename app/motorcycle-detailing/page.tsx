@@ -149,11 +149,7 @@ export default function MotorcycleDetailingPage() {
       <HowItWorks />
 
       {/* City pages */}
-      <Section
-        variant="muted"
-        title="Cities We Serve"
-        withBorder
-      >
+      <Section variant="muted" title="Cities We Serve" withBorder>
         <Container maxWidth="5xl">
           <p className="text-center text-muted-foreground mb-8">
             We bring mobile motorcycle detailing to 8 cities in the Hickory, NC
@@ -163,7 +159,7 @@ export default function MotorcycleDetailingPage() {
             {businessConfig.serviceAreaCities.map((city) => (
               <Link
                 key={city.slug}
-                href={`/mobile-motorcycle-detailing/${city.slug}/nc`}
+                href={`/mobile-motorcycle-detailing-${city.slug}-nc`}
                 className="border-2 border-border/60 rounded-xl p-4 bg-card hover:shadow-lg hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 text-center"
               >
                 <p className="font-heading font-semibold">{city.name}, NC</p>

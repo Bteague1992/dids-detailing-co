@@ -62,10 +62,10 @@ export default function CarDetailingPage() {
             </h1>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
               Dad&apos;s Mobile Detailing Co. brings professional car detailing
-              directly to you in Hickory, NC and surrounding areas — no
-              drop-off required. We come to your home or workplace to detail
-              your car, truck, or SUV. Exterior washes start at $70. Text us to
-              book your detail today.
+              directly to you in Hickory, NC and surrounding areas — no drop-off
+              required. We come to your home or workplace to detail your car,
+              truck, or SUV. Exterior washes start at $70. Text us to book your
+              detail today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="text-lg px-8 py-6">
@@ -174,7 +174,7 @@ export default function CarDetailingPage() {
             {businessConfig.serviceAreaCities.map((city) => (
               <Link
                 key={city.slug}
-                href={`/mobile-car-detailing/${city.slug}/nc`}
+                href={`/mobile-car-detailing-${city.slug}-nc`}
                 className="border-2 border-border/60 rounded-xl p-4 bg-card hover:shadow-lg hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 text-center"
               >
                 <p className="font-heading font-semibold">{city.name}, NC</p>
