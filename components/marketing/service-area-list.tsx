@@ -17,10 +17,16 @@ export function ServiceAreaList() {
           </p>
           <div className="flex flex-col gap-2 text-sm">
             <Link
-              href={`/mobile-car-detailing-${city.slug}-nc`}
+              href={`/mobile-car-detailing/${city.slug}/nc`}
               className="text-primary hover:underline"
             >
               Mobile Car Detailing in {city.name} →
+            </Link>
+            <Link
+              href={`/mobile-motorcycle-detailing/${city.slug}/nc`}
+              className="text-primary hover:underline"
+            >
+              Mobile Motorcycle Detailing in {city.name} →
             </Link>
           </div>
         </div>

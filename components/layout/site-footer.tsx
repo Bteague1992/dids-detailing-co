@@ -59,6 +59,22 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link
+                  href="/car-detailing"
+                  className="text-secondary-foreground/80 hover:text-secondary-foreground"
+                >
+                  Car Detailing
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/motorcycle-detailing"
+                  className="text-secondary-foreground/80 hover:text-secondary-foreground"
+                >
+                  Motorcycle Detailing
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/faq"
                   className="text-secondary-foreground/80 hover:text-secondary-foreground"
                 >
@@ -95,7 +111,7 @@ export function SiteFooter() {
                   {businessConfig.serviceAreaCities.map((city) => (
                     <li key={`seo-${city.slug}`}>
                       <Link
-                        href={`/mobile-car-detailing-${city.slug}-nc`}
+                        href={`/mobile-car-detailing/${city.slug}/nc`}
                         className="text-secondary-foreground/80 hover:text-secondary-foreground text-xs"
                       >
                         {city.name}

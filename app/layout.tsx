@@ -18,10 +18,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: {
     template: "%s | Dad's Mobile Detailing Co.",
-    default: "Mobile Car Detailing in Hickory, NC",
+    default: "Mobile Car Detailing in Hickory, NC — Starting at $70",
   },
   description:
-    "Mobile car detailing in Hickory, NC starting at $70 | We come to you — no drop-off needed | Exterior, interior & full detail. Text to book.",
+    "Mobile car detailing in Hickory, NC starting at $70. We come to you — no drop-off needed. Cars, trucks, SUVs & motorcycles. Text to book.",
   metadataBase: new URL("https://www.dadsdetailco.com"),
   alternates: {
     canonical: "/",

@@ -54,7 +54,7 @@ const faqCategories = [
       {
         question: "Do I need to provide water or power?",
         answer:
-          "Yes, we currently need access to water and power hookups, but plan to be self-contained and not need hookups in the future.",
+          "Yes, we need access to a water hookup and power outlet at your location. Most driveways work perfectly.",
       },
       {
         question: "How long does a detail take?",
@@ -65,6 +65,11 @@ const faqCategories = [
         question: "What vehicles do you work on?",
         answer:
           "We work on cars, trucks, SUVs and motorcycles. Currently, we don't offer services for boats, or RVs, but feel free to text us if you have questions about a specific vehicle type.",
+      },
+      {
+        question: "Do you detail motorcycles?",
+        answer:
+          "Yes! We offer mobile motorcycle detailing starting at $65 for a basic wash and $120 for a full detail. We come to you — no drop-off needed. Text us to book or get a quote.",
       },
     ],
   },

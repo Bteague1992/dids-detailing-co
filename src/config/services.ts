@@ -1,3 +1,12 @@
+export interface MotorcycleService {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  features: string[];
+  price: number;
+}
+
 export interface ServicePackage {
   id: string;
   name: string;
@@ -74,4 +83,37 @@ export const servicesConfig = {
     sedanPrice: 100,
     suvTruckPrice: 130,
   } as LaunchOffer,
+  motorcycleServices: [
+    {
+      id: "motorcycle-basic-wash",
+      name: "Motorcycle Basic Wash",
+      slug: "motorcycle-basic-wash",
+      description:
+        "A thorough hand wash to keep your bike looking clean and road-ready.",
+      features: [
+        "Foam bath + hand wash",
+        "Wheels + tires cleaned",
+        "Towel dry",
+        "Tire shine",
+        "Exterior surfaces wiped down",
+      ],
+      price: 65,
+    },
+    {
+      id: "motorcycle-full-detail",
+      name: "Motorcycle Full Detail",
+      slug: "motorcycle-full-detail",
+      description: "A complete detail to make your bike look showroom-ready.",
+      features: [
+        "Everything in Basic Wash",
+        "Chrome polished",
+        "Engine bay wipe down",
+        "Crevices and spokes detailed",
+        "Brake calipers cleaned",
+        "Seat cleaned and conditioned",
+        "UV protectant on plastics and trim",
+      ],
+      price: 120,
+    },
+  ] as MotorcycleService[],
 } as const;

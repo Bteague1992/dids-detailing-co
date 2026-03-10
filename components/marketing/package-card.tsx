@@ -46,6 +46,9 @@ export function PackageCard({ package: pkg }: PackageCardProps) {
           </div>
         </div>
 
+        <p className="text-xs text-muted-foreground mb-4">
+          Motorcycle detailing available from $65 — text us for details.
+        </p>
         <Button asChild className="w-full">
           <a
             href={getSmsHref({

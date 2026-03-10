@@ -13,10 +13,9 @@ import type { Metadata } from "next";
 import { createPageMetadata } from "@/src/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
-  title:
-    "Mobile Car Detailing in Hickory, NC | We Come to You | Starting At $70 | Dad's Mobile Detailing Co.",
+  title: "Mobile Car Detailing in Hickory, NC — Starting at $70",
   description:
-    "Mobile car detailing in Hickory, NC starting at $70 | We come to you | Honest pricing, no drop-off needed. Text to book today.",
+    "Mobile car detailing in Hickory, NC starting at $70. We come to you — cars, trucks, SUVs & motorcycles. Text to book today.",
   canonical: "/",
 });
 

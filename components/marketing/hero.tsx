@@ -12,9 +12,7 @@ export function Hero() {
   );
 
   return (
-    <section className="relative py-10 bg-linear-to-br from-secondary/90 via-accent/100 to-primary/30 overflow-hidden">
-      {/* <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.05),transparent_50%)] pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(251,146,60,0.08),transparent_50%)] pointer-events-none" /> */}
+    <section className="relative py-10 bg-linear-to-br from-secondary/90 via-accent to-primary/30 overflow-hidden">
       <Container className="relative">
         <div className="text-center max-w-3xl mx-auto">
           <Image
@@ -29,7 +27,8 @@ export function Hero() {
             Areas
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-            Affordable, convenient, dad-approved detailing that comes to you.
+            Affordable, convenient detailing for cars, trucks, SUVs &
+            motorcycles — we come to you.
           </p>
           {launchOffer.active && fullDetailPackage && (
             <p className="text-lg text-foreground mb-8">
@@ -38,6 +37,7 @@ export function Hero() {
               {launchOffer.suvTruckPrice} (SUV/Truck)
             </p>
           )}
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8 py-6">
               <a

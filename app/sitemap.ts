@@ -44,16 +44,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/motorcycle-detailing`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/car-detailing`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
   ];
 
   // SEO city pages
   const seoCityPages: MetadataRoute.Sitemap =
     businessConfig.serviceAreaCities.map((city) => ({
-      url: `${baseUrl}/mobile-car-detailing-${city.slug}-nc`,
+      url: `${baseUrl}/mobile-car-detailing/${city.slug}/nc`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.9,
     }));
 
-  return [...staticPages, ...seoCityPages];
+  const motorcycleCityPages: MetadataRoute.Sitemap =
+    businessConfig.serviceAreaCities.map((city) => ({
+      url: `${baseUrl}/mobile-motorcycle-detailing/${city.slug}/nc`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    }));
+
+  return [...staticPages, ...seoCityPages, ...motorcycleCityPages];
 }
