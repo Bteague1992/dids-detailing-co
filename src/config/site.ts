@@ -3,7 +3,7 @@ export const siteConfig = {
   title: "Dad's Mobile Detailing Co.",
   description:
     "Mobile car detailing in Hickory, NC starting at $70. Honest pricing, dad-level care for cars, trucks, SUVs & motorcycles. We come to you — text to book.",
-  phone: "828-261-6906",
+  phone: "828-548-0018",
   email: "dadsmobiledetailingnc@gmail.com",
   hours: {
     days: "Sunday–Saturday",

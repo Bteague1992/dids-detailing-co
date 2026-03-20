@@ -33,7 +33,7 @@ const faqCategories = [
       {
         question: "How do I book a detail?",
         answer:
-          "Simply text us at 828-261-6906 with your vehicle type, preferred package, and location. We'll coordinate a time that works for you. No forms, no hassle!",
+          "Simply text us at 828-548-0018 with your vehicle type, preferred package, and location. We'll coordinate a time that works for you. No forms, no hassle!",
       },
       {
         question: "Do you come to my home or workplace?",
