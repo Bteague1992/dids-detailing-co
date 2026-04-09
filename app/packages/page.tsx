@@ -3,14 +3,10 @@ import { Section } from "@/components/ui/section";
 import { FAQList } from "@/components/marketing/faq-list";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { getSmsHref } from "@/src/lib/cta";
 import { siteConfig } from "@/src/config/site";
-import { servicesConfig } from "@/src/config/services";
 import {
-  Sparkles,
   Car,
-  Sparkle,
   CheckCircle2,
   DollarSign,
   MessageSquare,
@@ -42,11 +38,6 @@ const pricingFAQs = [
     question: "Can I customize a package?",
     answer:
       "Absolutely! When you text us, let us know what specific services you're looking for and we can create a custom package that fits your needs and budget.",
-  },
-  {
-    question: "Is the launch special still available?",
-    answer:
-      "The launch special for Full Detail is available for the first 20 customers. Text us to check availability and book your detail at the special price.",
   },
 ];
 
@@ -83,11 +74,6 @@ const packageHighlights = [
 ];
 
 export default function PackagesPage() {
-  const launchOffer = servicesConfig.launchOffer;
-  const fullDetailPackage = servicesConfig.packages.find(
-    (p) => p.id === launchOffer.packageId,
-  );
-
   return (
     <>
       {/* Hero Section */}
@@ -113,71 +99,6 @@ export default function PackagesPage() {
           </div>
         </Container>
       </Section>
-
-      {/* Launch Special Banner */}
-      {launchOffer.active && fullDetailPackage && (
-        <Section variant="muted" className="border-y-2 border-primary/30">
-          <Container maxWidth="5xl">
-            <div className="bg-card rounded-2xl p-8 md:p-12 border-2 border-primary/30 shadow-lg">
-              <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="flex-shrink-0">
-                  <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center ring-4 ring-primary/10">
-                    <Sparkles className="h-8 w-8 text-primary" />
-                  </div>
-                </div>
-                <div className="flex-1 text-center md:text-left">
-                  <div className="flex items-center justify-center md:justify-start gap-2 mb-3">
-                    <Badge variant="default" className="text-sm px-3 py-1">
-                      Limited Time Offer
-                    </Badge>
-                    <Sparkle className="h-4 w-4 text-primary" />
-                  </div>
-                  <h2 className="text-2xl md:text-3xl font-heading font-bold mb-2">
-                    {launchOffer.title}
-                  </h2>
-                  <p className="text-lg text-muted-foreground mb-4">
-                    Get a Full Detail at a special launch price. Limited to the
-                    first 20 customers.
-                  </p>
-                  <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-lg">
-                    <div>
-                      <span className="text-muted-foreground">Sedan: </span>
-                      <span className="font-heading font-bold text-primary text-2xl">
-                        ${launchOffer.sedanPrice}
-                      </span>
-                      <span className="text-muted-foreground line-through ml-2 text-sm">
-                        ${fullDetailPackage.sedanPrice}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-muted-foreground">SUV/Truck: </span>
-                      <span className="font-heading font-bold text-primary text-2xl">
-                        ${launchOffer.suvTruckPrice}
-                      </span>
-                      <span className="text-muted-foreground line-through ml-2 text-sm">
-                        ${fullDetailPackage.suvTruckPrice}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex-shrink-0">
-                  <Button asChild size="lg" className="text-lg px-6 py-6">
-                    <a
-                      href={getSmsHref({
-                        packageName: fullDetailPackage.name,
-                      })}
-                      aria-label={`Text ${siteConfig.title} to book ${fullDetailPackage.name} at launch price`}
-                    >
-                      <MessageSquare className="h-5 w-5 mr-2" />
-                      Book Launch Special
-                    </a>
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </Container>
-        </Section>
-      )}
 
       {/* Packages Grid */}
       <Section

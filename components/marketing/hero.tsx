@@ -1,16 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { getSmsHref } from "@/src/lib/cta";
 import { siteConfig } from "@/src/config/site";
-import { servicesConfig } from "@/src/config/services";
 import { Container } from "@/components/ui/container";
 import Image from "next/image";
 
 export function Hero() {
-  const launchOffer = servicesConfig.launchOffer;
-  const fullDetailPackage = servicesConfig.packages.find(
-    (p) => p.id === launchOffer.packageId,
-  );
-
   return (
     <section className="relative py-10 bg-linear-to-br from-secondary/90 via-accent to-primary/30 overflow-hidden">
       <Container className="relative">
@@ -30,13 +24,6 @@ export function Hero() {
             Affordable, convenient detailing for cars, trucks, SUVs &
             motorcycles — we come to you.
           </p>
-          {launchOffer.active && fullDetailPackage && (
-            <p className="text-lg text-foreground mb-8">
-              <span className="font-semibold">{launchOffer.title}:</span> Full
-              Details from ${launchOffer.sedanPrice} (sedan) / $
-              {launchOffer.suvTruckPrice} (SUV/Truck)
-            </p>
-          )}
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8 py-6">

@@ -35,15 +35,16 @@ export function PackageCard({ package: pkg }: PackageCardProps) {
           <div className="flex justify-between items-center mb-2">
             <span className="text-sm text-muted-foreground">Sedan:</span>
             <span className="text-2xl font-heading font-bold">
-              ${pkg.sedanPrice}
+              ${pkg.sedanPrice}–${pkg.sedanPrice + 50}
             </span>
           </div>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mb-2">
             <span className="text-sm text-muted-foreground">SUV/Truck:</span>
             <span className="text-2xl font-heading font-bold">
-              ${pkg.suvTruckPrice}
+              ${pkg.suvTruckPrice}–${pkg.suvTruckPrice + 50}
             </span>
           </div>
+          <p className="text-xs text-muted-foreground">Price depends on condition.</p>
         </div>
 
         <p className="text-xs text-muted-foreground mb-4">

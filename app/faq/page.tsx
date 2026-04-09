@@ -90,7 +90,7 @@ const faqCategories = [
       {
         question: "Do you offer any discounts or specials?",
         answer:
-          "We're currently running a launch special for the first 20 customers - Full Detail at discounted pricing. Text us to check availability and book at the special price.",
+          "We occasionally run specials and seasonal offers. Text us to ask about any current deals.",
       },
     ],
   },
