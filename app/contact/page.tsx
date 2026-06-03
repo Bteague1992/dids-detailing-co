@@ -16,9 +16,9 @@ import type { Metadata } from "next";
 import { createPageMetadata } from "@/src/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Contact Us | Book A Detail Today | Dad's Mobile Detailing Co.",
+  title: "Contact Us | Mobile Car Detailing in Hickory, NC | Dad's Mobile Detailing Co.",
   description:
-    "Contact Dad's Mobile Detailing Co. Text us to book your detail, or reach out via phone or email. We're here to help!",
+    "Book mobile car detailing in Hickory, NC and surrounding areas. Text us to schedule — no forms, no hassle. Serving Hickory, Newton, Morganton, Lenoir & more.",
   canonical: "/contact",
 });
 

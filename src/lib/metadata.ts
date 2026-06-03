@@ -35,6 +35,8 @@ export function createPageMetadata({
       images: [
         {
           url: DEFAULT_OG_IMAGE,
+          width: 512,
+          height: 512,
           alt: `${siteConfig.title} logo`,
         },
       ],

@@ -8,7 +8,7 @@ export function LocalBusinessSchema() {
 
   const schema = {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "AutoWash"],
+    "@type": ["LocalBusiness", "AutoWash", "AutoDetailingShop"],
     "@id": `${siteConfig.domain}#business`,
     name: siteConfig.title,
     url: siteConfig.domain,
@@ -54,6 +54,11 @@ export function LocalBusinessSchema() {
       name: city.name,
       addressRegion: businessConfig.address.state,
     })),
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 35.7343,
+      longitude: -81.3412,
+    },
     priceRange: "$$",
     serviceType: "Mobile Car Detailing",
     hasMap: `https://maps.google.com/?q=${encodeURIComponent(siteConfig.title + " " + businessConfig.address.city + " " + businessConfig.address.state)}`,

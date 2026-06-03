@@ -18,10 +18,9 @@ import {
 import type { Metadata } from "next";
 
 export const metadata: Metadata = createPageMetadata({
-  title:
-    "FAQ | Have Questions About Mobile Detailing? | Dad's Mobile Detailing Co.",
+  title: "FAQ | Mobile Car Detailing in Hickory, NC | Dad's Mobile Detailing Co.",
   description:
-    "Frequently asked questions about mobile car detailing services, pricing, booking, and more.",
+    "Frequently asked questions about mobile car detailing in Hickory, NC and surrounding areas. Pricing, booking, service area, and more.",
   canonical: "/faq",
 });
 

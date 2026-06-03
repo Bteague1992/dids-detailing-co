@@ -58,21 +58,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  const primaryCities = new Set(["hickory", "newton", "morganton", "lenoir"]);
+
   // SEO city pages
   const seoCityPages: MetadataRoute.Sitemap =
     businessConfig.serviceAreaCities.map((city) => ({
       url: `${baseUrl}/mobile-car-detailing/${city.slug}/nc`,
       lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.9,
+      changeFrequency: "monthly" as const,
+      priority: primaryCities.has(city.slug) ? 1.0 : 0.85,
     }));
 
   const motorcycleCityPages: MetadataRoute.Sitemap =
     businessConfig.serviceAreaCities.map((city) => ({
       url: `${baseUrl}/mobile-motorcycle-detailing/${city.slug}/nc`,
       lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.9,
+      changeFrequency: "monthly" as const,
+      priority: primaryCities.has(city.slug) ? 1.0 : 0.85,
     }));
 
   return [...staticPages, ...seoCityPages, ...motorcycleCityPages];

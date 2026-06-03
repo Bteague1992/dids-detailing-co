@@ -16,9 +16,9 @@ import type { Metadata } from "next";
 import { createPageMetadata } from "@/src/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "About Us | Dad's Mobile Detailing Co.",
+  title: "About Us | Dad's Mobile Detailing Co. | Hickory, NC",
   description:
-    "Learn about Dad's Mobile Detailing Co. - a dad-owned, reliable mobile car detailing service in Hickory, NC. Honest pricing, quality service, and convenience.",
+    "Dad's Mobile Detailing Co. is a dad-owned mobile car detailing service in Hickory, NC. Honest pricing, quality work, and we come to you. Serving Hickory, Newton, Morganton, Lenoir & more.",
   canonical: "/about",
 });
 

@@ -37,6 +37,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/images/dmd-logo.png",
+        width: 512,
+        height: 512,
         alt: "Dad's Mobile Detailing Co. logo",
       },
     ],

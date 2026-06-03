@@ -174,7 +174,7 @@ export default function CarDetailingPage() {
             {businessConfig.serviceAreaCities.map((city) => (
               <Link
                 key={city.slug}
-                href={`/mobile-car-detailing-${city.slug}-nc`}
+                href={`/mobile-car-detailing/${city.slug}/nc`}
                 className="border-2 border-border/60 rounded-xl p-4 bg-card hover:shadow-lg hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 text-center"
               >
                 <p className="font-heading font-semibold">{city.name}, NC</p>
