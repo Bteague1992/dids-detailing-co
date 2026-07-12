@@ -8,15 +8,18 @@ import { Button } from "@/components/ui/button";
 import { getSmsHref } from "@/src/lib/cta";
 import { siteConfig } from "@/src/config/site";
 import { businessConfig } from "@/src/config/business";
-import { servicesConfig } from "@/src/config/services";
+import {
+  servicesConfig,
+  motorcycleBasicWashPrice,
+  motorcycleFullDetailPrice,
+} from "@/src/config/services";
 import { Check } from "lucide-react";
 import type { Metadata } from "next";
 import { createPageMetadata } from "@/src/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
   title: `Mobile Motorcycle Detailing in NC | Hickory & Surrounding Areas | ${siteConfig.title}`,
-  description:
-    "Mobile motorcycle detailing in Hickory, NC and surrounding areas starting at $65. We come to you — no drop-off needed. Basic wash & full detail available. Text to book.",
+  description: `Mobile motorcycle detailing in Hickory, NC and surrounding areas starting at $${motorcycleBasicWashPrice}. We come to you — no drop-off needed. Basic wash & full detail available. Text to book.`,
   canonical: "/motorcycle-detailing",
 });
 
@@ -33,8 +36,7 @@ const faqs = [
   },
   {
     question: "How much does motorcycle detailing cost?",
-    answer:
-      "Basic wash starts at $65 and full detail is $120. We come to your location — no drop-off required.",
+    answer: `Basic wash starts at $${motorcycleBasicWashPrice} and full detail is $${motorcycleFullDetailPrice}. We come to your location — no drop-off required.`,
   },
   {
     question: "Do I need to provide water or power?",
@@ -65,8 +67,9 @@ export default function MotorcycleDetailingPage() {
               detailing directly to you in Hickory, NC and surrounding areas —
               no drop-off required. Whether you ride a cruiser, sport bike, or
               touring bike, we come to wherever your bike is parked with
-              everything needed to make it shine. Basic wash starts at $65, full
-              detail at $120.
+              everything needed to make it shine. Basic wash starts at $
+              {motorcycleBasicWashPrice}, full detail at $
+              {motorcycleFullDetailPrice}.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="text-lg px-8 py-6">

@@ -3,6 +3,7 @@ import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
 import { SiteShell } from "@/components/layout/site-shell";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
+import { startingCarPrice } from "@/src/config/services";
 
 const poppins = Poppins({
   variable: "--font-heading",
@@ -18,10 +19,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: {
     template: "%s | Dad's Mobile Detailing Co.",
-    default: "Mobile Car Detailing in Hickory, NC — Starting at $70",
+    default: `Mobile Car Detailing in Hickory, NC — Starting at $${startingCarPrice}`,
   },
-  description:
-    "Mobile car detailing in Hickory, NC starting at $70. We come to you — no drop-off needed. Cars, trucks, SUVs & motorcycles. Text to book.",
+  description: `Mobile car detailing in Hickory, NC starting at $${startingCarPrice}. We come to you — no drop-off needed. Cars, trucks, SUVs & motorcycles. Text to book.`,
   metadataBase: new URL("https://www.dadsdetailco.com"),
   alternates: {
     canonical: "/",
@@ -29,8 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title:
       "Mobile Car Detailing in Hickory, NC — We Come to You | Dad's Mobile Detailing Co.",
-    description:
-      "Mobile car detailing in Hickory, NC starting at $70 | We come to you — no drop-off needed | Exterior, interior & full detail. Text to book.",
+    description: `Mobile car detailing in Hickory, NC starting at $${startingCarPrice} | We come to you — no drop-off needed | Exterior, interior & full detail. Text to book.`,
     url: "/",
     siteName: "Dad's Mobile Detailing Co.",
     type: "website",
@@ -45,10 +44,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title:
-      "Mobile Car Detailing in Hickory, NC | We Come to You | Starting At $70 | Dad's Mobile Detailing Co.",
-    description:
-      "Mobile car detailing in Hickory, NC starting at $70 | We come to you — no drop-off needed | Exterior, interior & full detail. Text to book.",
+    title: `Mobile Car Detailing in Hickory, NC | We Come to You | Starting At $${startingCarPrice} | Dad's Mobile Detailing Co.`,
+    description: `Mobile car detailing in Hickory, NC starting at $${startingCarPrice} | We come to you — no drop-off needed | Exterior, interior & full detail. Text to book.`,
     images: ["/images/dmd-logo.png"],
   },
 };

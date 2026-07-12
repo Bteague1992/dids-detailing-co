@@ -41,8 +41,8 @@ export const servicesConfig = {
         "Tire shine",
         "Exterior glass cleaned",
       ],
-      sedanPrice: 70,
-      suvTruckPrice: 90,
+      sedanPrice: 100,
+      suvTruckPrice: 120,
     },
     {
       id: "basic-interior",
@@ -56,8 +56,8 @@ export const servicesConfig = {
         "Interior glass cleaned",
         "Light spot wipe on seats (no deep extraction)",
       ],
-      sedanPrice: 80,
-      suvTruckPrice: 100,
+      sedanPrice: 110,
+      suvTruckPrice: 130,
     },
     {
       id: "full-detail",
@@ -70,19 +70,10 @@ export const servicesConfig = {
         "Everything in Basic Interior",
         "Extra attention to crevices & touchpoints",
       ],
-      sedanPrice: 130,
-      suvTruckPrice: 160,
+      sedanPrice: 160,
+      suvTruckPrice: 190,
     },
   ] as ServicePackage[],
-  launchOffer: {
-    active: true,
-    title: "Spring Launch Special — Book Before May 1st",
-    description:
-      "Get a Full Detail at our launch price while the offer lasts. Limited time only.",
-    packageId: "full-detail",
-    sedanPrice: 100,
-    suvTruckPrice: 130,
-  } as LaunchOffer,
   motorcycleServices: [
     {
       id: "motorcycle-basic-wash",
@@ -97,7 +88,7 @@ export const servicesConfig = {
         "Tire shine",
         "Exterior surfaces wiped down",
       ],
-      price: 65,
+      price: 95,
     },
     {
       id: "motorcycle-full-detail",
@@ -113,7 +104,19 @@ export const servicesConfig = {
         "Seat cleaned and conditioned",
         "UV protectant on plastics and trim",
       ],
-      price: 120,
+      price: 150,
     },
   ] as MotorcycleService[],
 } as const;
+
+export const startingCarPrice = servicesConfig.packages.find(
+  (p) => p.id === "basic-exterior",
+)!.sedanPrice;
+
+export const motorcycleBasicWashPrice = servicesConfig.motorcycleServices.find(
+  (m) => m.id === "motorcycle-basic-wash",
+)!.price;
+
+export const motorcycleFullDetailPrice = servicesConfig.motorcycleServices.find(
+  (m) => m.id === "motorcycle-full-detail",
+)!.price;

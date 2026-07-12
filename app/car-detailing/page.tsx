@@ -8,17 +8,26 @@ import { Button } from "@/components/ui/button";
 import { getSmsHref } from "@/src/lib/cta";
 import { siteConfig } from "@/src/config/site";
 import { businessConfig } from "@/src/config/business";
-import { servicesConfig } from "@/src/config/services";
+import { servicesConfig, startingCarPrice } from "@/src/config/services";
 import { Check } from "lucide-react";
 import type { Metadata } from "next";
 import { createPageMetadata } from "@/src/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
   title: `Mobile Car Detailing in NC | Hickory & Surrounding Areas | ${siteConfig.title}`,
-  description:
-    "Mobile car detailing in Hickory, NC and surrounding areas starting at $70. We come to you — no drop-off needed. Cars, trucks & SUVs. Text to book today.",
+  description: `Mobile car detailing in Hickory, NC and surrounding areas starting at $${startingCarPrice}. We come to you — no drop-off needed. Cars, trucks & SUVs. Text to book today.`,
   canonical: "/car-detailing",
 });
+
+const basicExterior = servicesConfig.packages.find(
+  (p) => p.id === "basic-exterior",
+)!;
+const basicInterior = servicesConfig.packages.find(
+  (p) => p.id === "basic-interior",
+)!;
+const fullDetail = servicesConfig.packages.find(
+  (p) => p.id === "full-detail",
+)!;
 
 const faqs = [
   {
@@ -33,8 +42,7 @@ const faqs = [
   },
   {
     question: "How much does car detailing cost?",
-    answer:
-      "Basic Exterior starts at $70 (sedan) / $90 (SUV/Truck). Basic Interior starts at $80 / $100. Full Detail starts at $130 / $160. We come to your location — no drop-off required.",
+    answer: `Basic Exterior starts at $${basicExterior.sedanPrice} (sedan) / $${basicExterior.suvTruckPrice} (SUV/Truck). Basic Interior starts at $${basicInterior.sedanPrice} / $${basicInterior.suvTruckPrice}. Full Detail starts at $${fullDetail.sedanPrice} / $${fullDetail.suvTruckPrice}. We come to your location — no drop-off required.`,
   },
   {
     question: "Do I need to provide water or power?",
@@ -64,8 +72,8 @@ export default function CarDetailingPage() {
               Dad&apos;s Mobile Detailing Co. brings professional car detailing
               directly to you in Hickory, NC and surrounding areas — no drop-off
               required. We come to your home or workplace to detail your car,
-              truck, or SUV. Exterior washes start at $70. Text us to book your
-              detail today.
+              truck, or SUV. Exterior washes start at ${startingCarPrice}.
+              Text us to book your detail today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="text-lg px-8 py-6">

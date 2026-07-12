@@ -9,13 +9,13 @@ import { Container } from "@/components/ui/container";
 import { LocalBusinessSchema } from "@/components/seo/local-business-schema";
 import { getSmsHref } from "@/src/lib/cta";
 import { siteConfig } from "@/src/config/site";
+import { startingCarPrice } from "@/src/config/services";
 import type { Metadata } from "next";
 import { createPageMetadata } from "@/src/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Mobile Car Detailing in Hickory, NC — Starting at $70",
-  description:
-    "Mobile car detailing in Hickory, NC starting at $70. We come to you — cars, trucks, SUVs & motorcycles. Text to book today.",
+  title: `Mobile Car Detailing in Hickory, NC — Starting at $${startingCarPrice}`,
+  description: `Mobile car detailing in Hickory, NC starting at $${startingCarPrice}. We come to you — cars, trucks, SUVs & motorcycles. Text to book today.`,
   canonical: "/",
 });
 

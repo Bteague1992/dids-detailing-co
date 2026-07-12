@@ -5,6 +5,10 @@ import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { getSmsHref } from "@/src/lib/cta";
 import { siteConfig } from "@/src/config/site";
+import {
+  motorcycleBasicWashPrice,
+  motorcycleFullDetailPrice,
+} from "@/src/config/services";
 import { createPageMetadata } from "@/src/lib/metadata";
 import {
   MessageSquare,
@@ -67,8 +71,7 @@ const faqCategories = [
       },
       {
         question: "Do you detail motorcycles?",
-        answer:
-          "Yes! We offer mobile motorcycle detailing starting at $65 for a basic wash and $120 for a full detail. We come to you — no drop-off needed. Text us to book or get a quote.",
+        answer: `Yes! We offer mobile motorcycle detailing starting at $${motorcycleBasicWashPrice} for a basic wash and $${motorcycleFullDetailPrice} for a full detail. We come to you — no drop-off needed. Text us to book or get a quote.`,
       },
     ],
   },

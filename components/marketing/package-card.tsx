@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getSmsHref } from "@/src/lib/cta";
 import { siteConfig } from "@/src/config/site";
-import { servicesConfig } from "@/src/config/services";
+import { motorcycleBasicWashPrice } from "@/src/config/services";
 import type { ServicePackage } from "@/src/config/services";
 import { Check } from "lucide-react";
 
@@ -48,7 +48,8 @@ export function PackageCard({ package: pkg }: PackageCardProps) {
         </div>
 
         <p className="text-xs text-muted-foreground mb-4">
-          Motorcycle detailing available from $65 — text us for details.
+          Motorcycle detailing available from ${motorcycleBasicWashPrice} —
+          text us for details.
         </p>
         <Button asChild className="w-full">
           <a

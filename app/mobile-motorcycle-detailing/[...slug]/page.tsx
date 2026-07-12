@@ -9,7 +9,11 @@ import { Button } from "@/components/ui/button";
 import { getSmsHref } from "@/src/lib/cta";
 import { siteConfig } from "@/src/config/site";
 import { businessConfig } from "@/src/config/business";
-import { servicesConfig } from "@/src/config/services";
+import {
+  servicesConfig,
+  motorcycleBasicWashPrice,
+  motorcycleFullDetailPrice,
+} from "@/src/config/services";
 import {
   generateMotorcycleCitySeoIntro,
   generateMotorcycleCityMetaDescription,
@@ -71,7 +75,7 @@ export default async function MotorcycleCitySeoPage({
   const cityFAQs = [
     {
       question: `Do you detail motorcycles in ${city.name}?`,
-      answer: `Yes! We come directly to you in ${city.name}, NC. Basic wash starts at $65 and full detail is $120. Text us to book.`,
+      answer: `Yes! We come directly to you in ${city.name}, NC. Basic wash starts at $${motorcycleBasicWashPrice} and full detail is $${motorcycleFullDetailPrice}. Text us to book.`,
     },
     {
       question: "What types of motorcycles do you detail?",
