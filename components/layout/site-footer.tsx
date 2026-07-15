@@ -144,6 +144,17 @@ export function SiteFooter() {
           <p>
             © {currentYear} {siteConfig.title}. All rights reserved.
           </p>
+          <p className="mt-2">
+            Built by{" "}
+            <a
+              href="https://www.getbuiltdifferent.co"
+              target="_blank"
+              rel="noopener"
+              className="text-secondary-foreground hover:text-primary"
+            >
+              Built Different Labs
+            </a>
+          </p>
         </div>
       </div>
     </footer>
