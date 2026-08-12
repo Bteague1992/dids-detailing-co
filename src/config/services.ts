@@ -41,8 +41,8 @@ export const servicesConfig = {
         "Tire shine",
         "Exterior glass cleaned",
       ],
-      sedanPrice: 100,
-      suvTruckPrice: 120,
+      sedanPrice: 70,
+      suvTruckPrice: 90,
     },
     {
       id: "basic-interior",
@@ -56,8 +56,8 @@ export const servicesConfig = {
         "Interior glass cleaned",
         "Light spot wipe on seats (no deep extraction)",
       ],
-      sedanPrice: 110,
-      suvTruckPrice: 130,
+      sedanPrice: 80,
+      suvTruckPrice: 100,
     },
     {
       id: "full-detail",
@@ -70,8 +70,8 @@ export const servicesConfig = {
         "Everything in Basic Interior",
         "Extra attention to crevices & touchpoints",
       ],
-      sedanPrice: 160,
-      suvTruckPrice: 190,
+      sedanPrice: 130,
+      suvTruckPrice: 160,
     },
   ] as ServicePackage[],
   motorcycleServices: [
@@ -88,7 +88,7 @@ export const servicesConfig = {
         "Tire shine",
         "Exterior surfaces wiped down",
       ],
-      price: 95,
+      price: 65,
     },
     {
       id: "motorcycle-full-detail",
@@ -104,7 +104,7 @@ export const servicesConfig = {
         "Seat cleaned and conditioned",
         "UV protectant on plastics and trim",
       ],
-      price: 150,
+      price: 120,
     },
   ] as MotorcycleService[],
 } as const;
