@@ -16,7 +16,11 @@ export function ContactForm() {
     event.preventDefault();
     setStatus("submitting");
 
-    const formData = new FormData(event.currentTarget);
+    // Capture the form element synchronously — event.currentTarget is nulled
+    // out once the event finishes dispatching, which has already happened by
+    // the time an `await` below resolves, so it can't be read after that.
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     const payload = {
       name: String(formData.get("name") ?? ""),
       phone: String(formData.get("phone") ?? ""),
@@ -47,7 +51,7 @@ export function ContactForm() {
       }
 
       setStatus("success");
-      event.currentTarget.reset();
+      form.reset();
     } catch {
       setStatus("error");
     }

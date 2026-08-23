@@ -25,8 +25,11 @@ const basicExterior = servicesConfig.packages.find(
 const basicInterior = servicesConfig.packages.find(
   (p) => p.id === "basic-interior",
 )!;
-const fullDetail = servicesConfig.packages.find(
+const basicFullDetail = servicesConfig.packages.find(
   (p) => p.id === "basic-full-detail",
+)!;
+const premiumFullDetail = servicesConfig.packages.find(
+  (p) => p.id === "premium-full-detail",
 )!;
 
 const faqs = [
@@ -42,7 +45,7 @@ const faqs = [
   },
   {
     question: "How much does car detailing cost?",
-    answer: `Basic Exterior starts at $${basicExterior.sedanPrice} (sedan) / $${basicExterior.suvTruckPrice} (SUV/Truck). Basic Interior starts at $${basicInterior.sedanPrice} / $${basicInterior.suvTruckPrice}. Full Detail starts at $${fullDetail.sedanPrice} / $${fullDetail.suvTruckPrice}. We come to your location — no drop-off required.`,
+    answer: `Basic Exterior starts at $${basicExterior.sedanPrice} (sedan) / $${basicExterior.suvTruckPrice} (SUV/Truck). Basic Interior starts at $${basicInterior.sedanPrice} / $${basicInterior.suvTruckPrice}. Basic Full Detail starts at $${basicFullDetail.sedanPrice} / $${basicFullDetail.suvTruckPrice}, and our top-tier Premium Full Detail starts at $${premiumFullDetail.sedanPrice} / $${premiumFullDetail.suvTruckPrice}. We come to your location — no drop-off required.`,
   },
   {
     question: "Do I need to provide water or power?",
@@ -52,7 +55,7 @@ const faqs = [
   {
     question: "How long does a car detail take?",
     answer:
-      "Basic Exterior takes about 45-60 minutes, Basic Interior takes about 60-75 minutes, and a Full Detail typically takes 2-3 hours depending on the size and condition of your vehicle.",
+      "Basic Exterior takes about 45-60 minutes, Basic Interior takes about 60-75 minutes, and a Basic Full Detail typically takes 2-3 hours depending on the size and condition of your vehicle. Premium Full Detail runs longer to allow for paint decontamination and a full interior extraction.",
   },
 ];
 

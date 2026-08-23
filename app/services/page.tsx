@@ -10,7 +10,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = createPageMetadata({
   title: `All Services | ${siteConfig.title}`,
   description:
-    "Mobile detailing services for cars, motorcycles, campers/RVs, rinsless washes, and recurring maintenance plans — we come to you.",
+    "Mobile detailing services for cars, motorcycles, campers/RVs, and recurring maintenance plans — we come to you.",
   canonical: "/services",
 });
 

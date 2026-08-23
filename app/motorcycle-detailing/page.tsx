@@ -19,7 +19,7 @@ import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
   title: `Mobile Motorcycle Detailing in NC | Hickory & Surrounding Areas | ${siteConfig.title}`,
-  description: `Mobile motorcycle detailing in Hickory, NC and surrounding areas starting at $${motorcycleBasicWashPrice}. We come to you — no drop-off needed. Basic wash & full detail available. Text to book.`,
+  description: `Mobile motorcycle detailing in Hickory, NC and surrounding areas starting at $${motorcycleBasicWashPrice}. We come to you — no drop-off needed. Basic wash & Premium detail available. Text to book.`,
   canonical: "/motorcycle-detailing",
 });
 
@@ -36,7 +36,7 @@ const faqs = [
   },
   {
     question: "How much does motorcycle detailing cost?",
-    answer: `Basic wash starts at $${motorcycleBasicWashPrice} and full detail is $${motorcycleFullDetailPrice}. We come to your location — no drop-off required.`,
+    answer: `Basic wash starts at $${motorcycleBasicWashPrice}, and our Premium detail is $${motorcycleFullDetailPrice}. We come to your location — no drop-off required.`,
   },
   {
     question: "Do I need to provide water or power?",
@@ -46,7 +46,7 @@ const faqs = [
   {
     question: "How long does a motorcycle detail take?",
     answer:
-      "Basic wash takes about 45-60 minutes. Full detail typically takes 1.5-2 hours depending on the condition of the bike.",
+      "Basic wash takes about 45-60 minutes. Premium detail typically takes 1.5-2 hours depending on the condition of the bike.",
   },
 ];
 
@@ -68,7 +68,7 @@ export default function MotorcycleDetailingPage() {
               no drop-off required. Whether you ride a cruiser, sport bike, or
               touring bike, we come to wherever your bike is parked with
               everything needed to make it shine. Basic wash starts at $
-              {motorcycleBasicWashPrice}, full detail at $
+              {motorcycleBasicWashPrice}, Premium detail at $
               {motorcycleFullDetailPrice}.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

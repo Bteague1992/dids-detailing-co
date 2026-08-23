@@ -84,6 +84,14 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link
+                  href="/service-areas"
+                  className="text-secondary-foreground/80 hover:text-secondary-foreground"
+                >
+                  All Service Areas
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/portfolio"
                   className="text-secondary-foreground/80 hover:text-secondary-foreground"
                 >

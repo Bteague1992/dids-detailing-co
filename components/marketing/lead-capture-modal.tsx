@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { serviceCategories } from "@/config/service-categories";
 import { trackEvent } from "@/lib/analytics";
 import { Loader2, Send, CheckCircle2, X } from "lucide-react";
 
@@ -122,8 +121,6 @@ export function LeadCaptureModal() {
       name: String(formData.get("name") ?? ""),
       phone: String(formData.get("phone") ?? ""),
       email: String(formData.get("email") ?? ""),
-      serviceInterest: String(formData.get("serviceInterest") ?? ""),
-      vehicleInfo: String(formData.get("vehicleInfo") ?? ""),
       message: String(formData.get("message") ?? ""),
       pageContext: pathname,
       company: String(formData.get("company") ?? ""), // honeypot
@@ -261,47 +258,13 @@ export function LeadCaptureModal() {
               </div>
 
               <div>
-                <label htmlFor="lead-service" className="block text-sm font-medium mb-1">
-                  Service Interest
-                </label>
-                <select
-                  id="lead-service"
-                  name="serviceInterest"
-                  className="w-full rounded-md border-2 border-border/60 bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary"
-                  defaultValue=""
-                >
-                  <option value="" disabled>
-                    Select a service...
-                  </option>
-                  {serviceCategories.map((category) => (
-                    <option key={category.slug} value={category.name}>
-                      {category.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="lead-vehicle" className="block text-sm font-medium mb-1">
-                  Vehicle Make/Model
-                </label>
-                <input
-                  type="text"
-                  id="lead-vehicle"
-                  name="vehicleInfo"
-                  placeholder="e.g. 2019 Honda Accord"
-                  className="w-full rounded-md border-2 border-border/60 bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary"
-                />
-              </div>
-
-              <div>
                 <label htmlFor="lead-message" className="block text-sm font-medium mb-1">
                   Message
                 </label>
                 <textarea
                   id="lead-message"
                   name="message"
-                  rows={2}
+                  rows={3}
                   className="w-full rounded-md border-2 border-border/60 bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary"
                 />
               </div>

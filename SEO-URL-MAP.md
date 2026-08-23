@@ -16,9 +16,9 @@ split across near-duplicate pages. See `config/service-categories.ts`
 | `/mobile-car-detailing/[city]/nc` (8 cities) | `/service-areas/[city]/car-detailing` | **Keep old, redirect new** (308) | Already indexed per-city (e.g. Morganton has 400+ Search Console impressions). New combined page would duplicate it exactly. |
 | `/mobile-motorcycle-detailing/[city]/nc` (8 cities) | `/service-areas/[city]/motorcycle-detailing` | **Keep old, redirect new** (308) | Same reasoning. |
 | `/packages` | — | **Keep old, no new equivalent generated** | Still the single full-pricing reference page (all vehicle types + maintenance plans); nothing in the new structure replaces it. |
-| *(none — new categories)* | `/services/rinsless-wash`, `/services/camper-rv-detailing`, `/services/maintenance-plans` | **New pages, generated & sitemapped** | No legacy equivalent exists; net-new coverage. |
-| *(none — new categories × 8 cities = 24 pages)* | `/service-areas/[city]/rinsless-wash`, `/service-areas/[city]/camper-rv-detailing`, `/service-areas/[city]/maintenance-plans` | **New pages, generated & sitemapped** | Same — no legacy equivalent, no cannibalization risk. |
-| *(none)* | `/service-areas/[city]` (city hub, 8 pages) | **New page, generated & sitemapped** | No old generic per-city hub existed; links out to the legacy car/moto pages plus the new RV/rinsless/maintenance pages for that city. |
+| *(none — new categories)* | `/services/camper-rv-detailing`, `/services/maintenance-plans` | **New pages, generated & sitemapped** | No legacy equivalent exists; net-new coverage. |
+| *(none — new categories × 8 cities = 16 pages)* | `/service-areas/[city]/camper-rv-detailing`, `/service-areas/[city]/maintenance-plans` | **New pages, generated & sitemapped** | Same — no legacy equivalent, no cannibalization risk. |
+| *(none)* | `/service-areas/[city]` (city hub, 8 pages) | **New page, generated & sitemapped** | No old generic per-city hub existed; links out to the legacy car/moto pages plus the new RV/maintenance pages for that city. |
 | *(none)* | `/services` (category index) | **New page, generated & sitemapped** | No old equivalent; links to the legacy car/moto pages plus the new category pages. |
 
 ## How the redirect-vs-keep logic is enforced in code

@@ -75,7 +75,7 @@ export default async function MotorcycleCitySeoPage({
   const cityFAQs = [
     {
       question: `Do you detail motorcycles in ${city.name}?`,
-      answer: `Yes! We come directly to you in ${city.name}, NC. Basic wash starts at $${motorcycleBasicWashPrice} and full detail is $${motorcycleFullDetailPrice}. Text us to book.`,
+      answer: `Yes! We come directly to you in ${city.name}, NC. Basic wash starts at $${motorcycleBasicWashPrice}, and our Premium detail is $${motorcycleFullDetailPrice}. Text us to book.`,
     },
     {
       question: "What types of motorcycles do you detail?",
@@ -90,7 +90,7 @@ export default async function MotorcycleCitySeoPage({
     {
       question: "How long does a motorcycle detail take?",
       answer:
-        "Basic wash takes about 45-60 minutes. Full detail typically takes 1.5-2 hours depending on the condition of the bike.",
+        "Basic wash takes about 45-60 minutes. Premium detail typically takes 1.5-2 hours depending on the condition of the bike.",
     },
   ];
 

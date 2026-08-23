@@ -18,9 +18,6 @@ import type { Metadata } from "next";
 import { createPageMetadata } from "@/lib/metadata";
 
 const carCategory = serviceCategories.find((c) => c.slug === "car-detailing")!;
-const rinslessCategory = serviceCategories.find(
-  (c) => c.slug === "rinsless-wash",
-)!;
 const motoCategory = serviceCategories.find(
   (c) => c.slug === "motorcycle-detailing",
 )!;
@@ -35,7 +32,7 @@ export const metadata: Metadata = createPageMetadata({
   title:
     "Packages & Pricing | Mobile Car Detailing Services | Dad's Mobile Detailing Co.",
   description:
-    "View our mobile car detailing packages and pricing. Basic Exterior, Basic Interior, and Full Detail options available for sedans, SUVs, and trucks.",
+    "View our mobile car detailing packages and pricing. Basic Exterior, Basic Interior, Basic Full Detail & Premium Full Detail options available for sedans, SUVs, and trucks.",
   canonical: "/packages",
 });
 
@@ -43,7 +40,7 @@ const pricingFAQs = [
   {
     question: "What's included in each package?",
     answer:
-      "Each package includes specific services listed on the package card. Basic Exterior covers exterior washing and cleaning, Basic Interior covers interior vacuuming and cleaning, and Full Detail includes everything from both packages plus extra attention to detail.",
+      "Each package includes specific services listed on the package card. Basic Exterior covers exterior washing and cleaning, Basic Interior covers interior vacuuming and cleaning, Basic Full Detail combines both with extra attention to detail, and Premium Full Detail adds paint decontamination, protective sealant, and a full interior extraction on top of that.",
   },
   {
     question: "Why is there a price difference between sedan and SUV/Truck?",
@@ -83,7 +80,7 @@ const packageHighlights = [
     items: [
       "Basic Exterior: 45-60 minutes",
       "Basic Interior: 60-75 minutes",
-      "Full Detail: 2-3 hours",
+      "Basic Full Detail: 2-3 hours",
       "Flexible timing to fit your schedule",
     ],
   },
@@ -128,23 +125,10 @@ export default function PackagesPage() {
         </Container>
       </Section>
 
-      {/* Rinsless Wash */}
-      <Section
-        id="rinsless-wash"
-        variant="default"
-        title="Rinsless Wash"
-        description={rinslessCategory.shortDescription}
-        withBorder
-      >
-        <Container maxWidth="6xl">
-          <TierGrid groups={getCategoryTierGroups(rinslessCategory)} />
-        </Container>
-      </Section>
-
       {/* Motorcycles */}
       <Section
         id="motorcycles"
-        variant="muted"
+        variant="default"
         title="Motorcycles"
         description={motoCategory.shortDescription}
         withBorder
@@ -157,7 +141,7 @@ export default function PackagesPage() {
       {/* Campers & RVs */}
       <Section
         id="campers-rvs"
-        variant="default"
+        variant="muted"
         title="Campers & RVs"
         description={rvCategory.shortDescription}
         withBorder
@@ -170,7 +154,7 @@ export default function PackagesPage() {
       {/* Maintenance Plans */}
       <Section
         id="maintenance-plans"
-        variant="muted"
+        variant="default"
         title="Maintenance Plans"
         description={maintenanceCategory.shortDescription}
         withBorder

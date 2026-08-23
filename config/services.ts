@@ -73,21 +73,6 @@ export interface LaunchOffer {
 export const servicesConfig = {
   packages: [
     {
-      id: "rinsless-wash",
-      name: "Rinsless Wash",
-      slug: "rinsless-wash",
-      description:
-        "A quick, water-free maintenance wash — perfect for apartments, HOAs, or anywhere a hose hookup isn't available.",
-      features: [
-        "No hose or water hookup required",
-        "Lubricated rinseless wash solution + microfiber mitts",
-        "Wheels & tires wiped down",
-        "Quick streak-free dry",
-      ],
-      sedanPrice: 55,
-      suvTruckPrice: 70,
-    },
-    {
       id: "basic-exterior",
       name: "Basic Exterior",
       slug: "basic-exterior",
@@ -259,8 +244,8 @@ export const maintenancePlans = {
       name: "Weekly Maintenance Wash",
       slug: "car-maintenance-weekly",
       description:
-        "Keep your car consistently clean with a weekly rinseless wash — our best rate for our most frequent customers.",
-      features: ["Everything in Rinsless Wash", "No contract — cancel anytime", "Priority scheduling"],
+        "Keep your car consistently clean with a weekly exterior maintenance wash — our best rate for our most frequent customers.",
+      features: ["Quick exterior maintenance wash", "No contract — cancel anytime", "Priority scheduling"],
       frequency: "weekly",
       sedanPrice: 44,
       suvTruckPrice: 56,
@@ -270,8 +255,8 @@ export const maintenancePlans = {
       name: "Biweekly Maintenance Wash",
       slug: "car-maintenance-biweekly",
       description:
-        "A rinseless wash every two weeks to keep your car looking fresh between full details.",
-      features: ["Everything in Rinsless Wash", "No contract — cancel anytime"],
+        "An exterior maintenance wash every two weeks to keep your car looking fresh between full details.",
+      features: ["Quick exterior maintenance wash", "No contract — cancel anytime"],
       frequency: "biweekly",
       sedanPrice: 47,
       suvTruckPrice: 60,
@@ -280,8 +265,8 @@ export const maintenancePlans = {
       id: "car-maintenance-monthly",
       name: "Monthly Maintenance Wash",
       slug: "car-maintenance-monthly",
-      description: "A monthly rinseless wash to maintain your car's shine year-round.",
-      features: ["Everything in Rinsless Wash", "No contract — cancel anytime"],
+      description: "A monthly exterior maintenance wash to maintain your car's shine year-round.",
+      features: ["Quick exterior maintenance wash", "No contract — cancel anytime"],
       frequency: "monthly",
       sedanPrice: 50,
       suvTruckPrice: 63,
@@ -324,7 +309,7 @@ export const maintenancePlans = {
 } as const;
 
 export const startingCarPrice = servicesConfig.packages.find(
-  (p) => p.id === "rinsless-wash",
+  (p) => p.id === "basic-exterior",
 )!.sedanPrice;
 
 export const motorcycleBasicWashPrice = servicesConfig.motorcycleServices.find(

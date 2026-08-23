@@ -41,8 +41,8 @@ export function PackagesGrid() {
 
       <div className="mt-16 text-center">
         <p className="text-muted-foreground">
-          Also available: Rinsless Wash, Camper &amp; RV detailing, and
-          recurring maintenance plans.{" "}
+          Also available: Camper &amp; RV detailing and recurring maintenance
+          plans.{" "}
           <Link href="/packages" className="text-primary hover:underline">
             View full pricing →
           </Link>

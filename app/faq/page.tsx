@@ -62,16 +62,16 @@ const faqCategories = [
       {
         question: "How long does a detail take?",
         answer:
-          "Basic Exterior takes about 45-60 minutes, Basic Interior takes about 60-75 minutes, and a Full Detail typically takes 2-3 hours depending on the size and condition of your vehicle.",
+          "Basic Exterior takes about 45-60 minutes, Basic Interior takes about 60-75 minutes, and a Basic Full Detail typically takes 2-3 hours depending on the size and condition of your vehicle. Premium Full Detail runs longer to allow for paint decontamination and a full interior extraction.",
       },
       {
         question: "What vehicles do you work on?",
         answer:
-          "We work on cars, trucks, SUVs and motorcycles. Currently, we don't offer services for boats, or RVs, but feel free to text us if you have questions about a specific vehicle type.",
+          "We work on cars, trucks, SUVs, motorcycles, and campers/RVs. Text us if you have questions about a specific vehicle type.",
       },
       {
         question: "Do you detail motorcycles?",
-        answer: `Yes! We offer mobile motorcycle detailing starting at $${motorcycleBasicWashPrice} for a basic wash and $${motorcycleFullDetailPrice} for a full detail. We come to you — no drop-off needed. Text us to book or get a quote.`,
+        answer: `Yes! We offer mobile motorcycle detailing starting at $${motorcycleBasicWashPrice} for our Basic wash, with a Premium detail at $${motorcycleFullDetailPrice}. We come to you — no drop-off needed. Text us to book or get a quote.`,
       },
     ],
   },
@@ -82,7 +82,7 @@ const faqCategories = [
       {
         question: "What's the difference between the packages?",
         answer:
-          "Basic Exterior covers exterior washing and cleaning. Basic Interior covers interior vacuuming and cleaning. Full Detail includes everything from both packages plus extra attention to detail in crevices and touchpoints.",
+          "Basic Exterior covers exterior washing and cleaning. Basic Interior covers interior vacuuming and cleaning. Basic Full Detail combines both with extra attention to detail in crevices and touchpoints. Premium Full Detail adds paint decontamination, a protective sealant, and a full interior extraction on top of that.",
       },
       {
         question: "What payment methods do you accept?",

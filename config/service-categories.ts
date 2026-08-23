@@ -10,9 +10,9 @@ export interface ServiceCategory {
   shortDescription: string;
   /** Which array in servicesConfig / maintenancePlans this category pulls its pricing tiers from. */
   configSource: ServiceConfigSource;
-  /** Restrict to only these package ids (used by Rinsless Wash, which is one entry in `packages`). */
+  /** Restrict to only these package ids. */
   onlyIds?: string[];
-  /** Exclude these package ids (used by Car Detailing, which excludes the standalone Rinsless Wash entry). */
+  /** Exclude these package ids from the `packages` array for this category. */
   excludeIds?: string[];
   /**
    * True when this category already has an established, indexed page outside
@@ -35,7 +35,6 @@ export const serviceCategories: ServiceCategory[] = [
     shortDescription:
       "Mobile exterior, interior, and full detail packages for sedans, trucks, and SUVs.",
     configSource: "packages",
-    excludeIds: ["rinsless-wash"],
     legacyPage: true,
   },
   {
@@ -52,14 +51,6 @@ export const serviceCategories: ServiceCategory[] = [
     shortDescription:
       "Top-to-bottom exterior and interior detailing for campers, RVs, and trailers, priced by length.",
     configSource: "camperRvServices",
-  },
-  {
-    slug: "rinsless-wash",
-    name: "Rinsless Wash",
-    shortDescription:
-      "A quick, water-free maintenance wash for apartments, HOAs, or anywhere a hose hookup isn't available.",
-    configSource: "packages",
-    onlyIds: ["rinsless-wash"],
   },
   {
     slug: "maintenance-plans",
