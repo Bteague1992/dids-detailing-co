@@ -178,9 +178,10 @@ export default function PackagesPage() {
               return (
                 <div
                   key={idx}
-                  className="bg-card rounded-xl p-6 border-2 border-border/60 shadow-sm hover:shadow-lg transition-all hover:-translate-y-1"
+                  className="reveal bg-card rounded-xl p-6 border border-border/60 shadow-sm hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"
+                  style={{ transitionDelay: `${idx * 100}ms` }}
                 >
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary mb-4 ring-2 ring-primary/20">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-linear-to-br from-primary/20 to-secondary/10 text-primary mb-4 ring-2 ring-primary/20">
                     <Icon className="h-6 w-6" />
                   </div>
                   <h3 className="text-xl font-heading font-bold mb-4">

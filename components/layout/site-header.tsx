@@ -39,12 +39,13 @@ export function SiteHeader() {
     >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2 transition-transform hover:scale-105">
             <Image
               src="/images/dmd-logo.png"
               alt={siteConfig.title}
               width={50}
               height={50}
+              className="rounded-md"
             />
           </Link>
 
@@ -54,7 +55,7 @@ export function SiteHeader() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
+                className="relative text-sm font-medium text-foreground/80 transition-colors hover:text-foreground after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
               >
                 {link.label}
               </Link>
@@ -87,7 +88,7 @@ export function SiteHeader() {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t py-4 space-y-4">
+          <div className="md:hidden border-t py-4 space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
             {navLinks.map((link) => (
               <Link
                 key={link.href}

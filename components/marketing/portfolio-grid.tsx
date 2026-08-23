@@ -24,14 +24,15 @@ export function PortfolioGrid({ items }: { items: PortfolioItem[] }) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      {items.map((item) => {
+      {items.map((item, idx) => {
         const beforeUrl = sanityImageUrl(item.beforeImage);
         const afterUrl = sanityImageUrl(item.afterImage);
 
         return (
           <div
             key={item._id}
-            className="border-2 border-border/60 rounded-xl overflow-hidden bg-card shadow-sm hover:shadow-lg transition-all"
+            className="reveal border border-border/60 rounded-2xl overflow-hidden bg-card shadow-sm hover:shadow-lg hover:shadow-primary/10"
+            style={{ transitionDelay: `${(idx % 4) * 100}ms` }}
           >
             <div className="grid grid-cols-2">
               <div className="relative aspect-square bg-muted">
@@ -44,7 +45,7 @@ export function PortfolioGrid({ items }: { items: PortfolioItem[] }) {
                     sizes="(max-width: 768px) 50vw, 25vw"
                   />
                 )}
-                <span className="absolute top-2 left-2 bg-background/90 px-2 py-1 rounded text-xs font-medium">
+                <span className="absolute top-2 left-2 bg-secondary text-secondary-foreground px-2 py-1 rounded text-xs font-medium">
                   Before
                 </span>
               </div>
@@ -58,7 +59,7 @@ export function PortfolioGrid({ items }: { items: PortfolioItem[] }) {
                     sizes="(max-width: 768px) 50vw, 25vw"
                   />
                 )}
-                <span className="absolute top-2 right-2 bg-background/90 px-2 py-1 rounded text-xs font-medium">
+                <span className="absolute top-2 right-2 bg-primary text-primary-foreground px-2 py-1 rounded text-xs font-medium">
                   After
                 </span>
               </div>

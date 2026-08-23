@@ -8,8 +8,10 @@ export function SiteFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t-2 border-border/60 bg-secondary text-secondary-foreground">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="relative overflow-hidden bg-secondary text-secondary-foreground">
+      <div className="h-1 w-full bg-linear-to-r from-primary via-primary to-secondary-light" />
+      <div className="absolute inset-0 bg-dot-grid-light opacity-10 pointer-events-none" />
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Company Info */}
           <div>

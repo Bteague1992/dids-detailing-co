@@ -154,7 +154,7 @@ export function LeadCaptureModal() {
 
   return (
     <div
-      className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) handleClose();
       }}
@@ -165,7 +165,7 @@ export function LeadCaptureModal() {
         aria-modal="true"
         aria-labelledby="lead-capture-title"
         onKeyDown={handleKeyDown}
-        className="relative w-full max-w-md rounded-2xl bg-card border-2 border-primary/30 shadow-2xl p-6 md:p-8 max-h-[90vh] overflow-y-auto"
+        className="relative w-full max-w-md rounded-2xl bg-card border-2 border-primary/30 shadow-2xl p-6 md:p-8 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in-95 slide-in-from-bottom-4 duration-300"
       >
         <button
           type="button"

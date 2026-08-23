@@ -32,6 +32,7 @@
   --color-muted: var(--muted);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
+  --color-secondary-light: var(--secondary-light);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
   --color-popover-foreground: var(--popover-foreground);
@@ -61,12 +62,16 @@
   /* Secondary: Navy/Dark Blue for headers/navigation - deeper */
   --secondary: oklch(0.22 0.08 250);
   --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.96 0.02 240);
+  /* Secondary-light: a lifted navy used for gradient depth on the contrast band */
+  --secondary-light: oklch(0.32 0.09 252);
+  /* Muted: deepened with navy chroma so it reads as a real section break, not
+     a near-invisible off-white */
+  --muted: oklch(0.93 0.035 245);
   --muted-foreground: oklch(0.4 0 0);
   --accent: oklch(0.94 0.03 235);
   --accent-foreground: oklch(0.22 0.08 250);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.85 0 0);
+  --border: oklch(0.82 0.02 245);
   --input: oklch(0.88 0 0);
   --ring: oklch(0.62 0.22 55);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -95,6 +100,7 @@
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
+  --secondary-light: oklch(0.34 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
@@ -132,5 +138,58 @@
   h5,
   h6 {
     @apply font-heading;
+  }
+}
+
+@layer utilities {
+  /* Subtle dot-grid texture for hero/contrast sections — no image asset needed. */
+  .bg-dot-grid {
+    background-image: radial-gradient(
+      circle,
+      color-mix(in oklch, var(--foreground) 14%, transparent) 1px,
+      transparent 1px
+    );
+    background-size: 26px 26px;
+  }
+
+  .bg-dot-grid-light {
+    background-image: radial-gradient(
+      circle,
+      color-mix(in oklch, white 25%, transparent) 1px,
+      transparent 1px
+    );
+    background-size: 26px 26px;
+  }
+
+  /* One-time scroll-reveal: fade + rise into place the first time an element
+     enters the viewport (see components/ui/scroll-reveal-init.tsx). Kept to a
+     short duration and small travel distance so it reads as "polish" rather
+     than a slideshow effect. */
+  /* NOTE: elements using .reveal should NOT also use Tailwind's transition-all
+     / duration-* utilities — shorthand `transition` here fully owns
+     transition-property, so a competing shorthand/longhand from Tailwind on
+     the same element would silently cancel one side's animation. Any
+     interactive (hover/data-state) transition an element needs should be
+     added to this comma list instead. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 0.5s ease-out,
+      transform 0.5s ease-out,
+      box-shadow 0.3s ease,
+      border-color 0.3s ease,
+      background-color 0.3s ease;
+  }
+  .reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
   }
 }

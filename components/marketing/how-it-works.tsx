@@ -41,9 +41,13 @@ export function HowItWorks() {
           return (
             <div
               key={idx}
-              className="text-center p-6 rounded-xl bg-card border-2 border-border/60 shadow-sm hover:shadow-md transition-shadow"
+              className="reveal relative text-center p-6 rounded-2xl bg-card border border-border/60 shadow-sm hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"
+              style={{ transitionDelay: `${idx * 100}ms` }}
             >
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/15 text-primary mb-4 ring-2 ring-primary/20">
+              <span className="absolute top-3 right-4 text-3xl font-heading font-bold text-primary/10">
+                {idx + 1}
+              </span>
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-linear-to-br from-primary/20 to-secondary/10 text-primary mb-4 ring-2 ring-primary/20">
                 <Icon className="h-8 w-8" />
               </div>
               <h3 className="text-xl font-heading font-semibold mb-2 text-foreground">

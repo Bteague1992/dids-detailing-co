@@ -17,8 +17,13 @@ export function TierGrid({ groups, city }: TierGridProps) {
             </h3>
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {group.tiers.map((tier) => (
-              <TierCard key={tier.id} tier={tier} city={city} />
+            {group.tiers.map((tier, tierIdx) => (
+              <TierCard
+                key={tier.id}
+                tier={tier}
+                city={city}
+                revealDelayMs={(tierIdx % 3) * 100}
+              />
             ))}
           </div>
         </div>

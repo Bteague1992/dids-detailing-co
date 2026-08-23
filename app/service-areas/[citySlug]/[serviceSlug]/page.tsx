@@ -4,6 +4,8 @@ import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { TierGrid } from "@/components/marketing/tier-grid";
+import { FAQList } from "@/components/marketing/faq-list";
+import { FAQSchema } from "@/components/seo/faq-schema";
 import { getSmsHref } from "@/lib/cta";
 import { siteConfig } from "@/config/site";
 import { serviceAreas } from "@/config/service-areas";
@@ -12,6 +14,7 @@ import {
   getGeneratedServiceCategories,
 } from "@/config/service-categories";
 import { getCategoryTierGroups, getStartingPrice } from "@/lib/service-tiers";
+import { getCategoryCityIntro, getCategoryFaqs } from "@/lib/local-area-content";
 import { createPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 
@@ -49,10 +52,13 @@ export async function generateMetadata({
   }
 
   const startingPrice = getStartingPrice(getCategoryTierGroups(category));
+  const intro = getCategoryCityIntro(category.slug, area.slug);
 
   return createPageMetadata({
     title: `${category.name} in ${area.name}, ${area.state} | ${siteConfig.title}`,
-    description: `${category.name} in ${area.name}, ${area.state} — starting at $${startingPrice}. We come to you, no drop-off required. Text to book today.`,
+    description:
+      intro ??
+      `${category.name} in ${area.name}, ${area.state} — starting at $${startingPrice}. We come to you, no drop-off required. Text to book today.`,
     canonical: `/service-areas/${area.slug}/${category.slug}`,
   });
 }
@@ -71,9 +77,19 @@ export default async function ServiceAreaServicePage({
 
   const groups = getCategoryTierGroups(category);
   const startingPrice = getStartingPrice(groups);
+  const intro =
+    getCategoryCityIntro(category.slug, area.slug) ??
+    `${category.shortDescription} We come directly to you in ${area.name}, ${area.state} — no drop-off required. Starting at $${startingPrice}.`;
+  const categoryFaqs = getCategoryFaqs(category.slug);
 
   return (
     <>
+      {categoryFaqs.length > 0 && (
+        <FAQSchema
+          faqs={categoryFaqs}
+          pagePath={`/service-areas/${area.slug}/${category.slug}`}
+        />
+      )}
       <Section variant="default" className="pt-8">
         <Container maxWidth="5xl">
           <div className="text-center mb-12">
@@ -81,9 +97,7 @@ export default async function ServiceAreaServicePage({
               {category.name} in {area.name}, {area.state}
             </h1>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
-              {category.shortDescription} We come directly to you in{" "}
-              {area.name}, {area.state} — no drop-off required. Starting at $
-              {startingPrice}.
+              {intro}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="text-lg px-8 py-6">
@@ -109,7 +123,20 @@ export default async function ServiceAreaServicePage({
         </Container>
       </Section>
 
-      <Section variant="default" withBorder>
+      {categoryFaqs.length > 0 && (
+        <Section
+          id="faq"
+          variant="default"
+          title="Frequently Asked Questions"
+          withBorder
+        >
+          <Container maxWidth="3xl">
+            <FAQList faqs={categoryFaqs} />
+          </Container>
+        </Section>
+      )}
+
+      <Section variant="muted" withBorder>
         <Container maxWidth="4xl" className="text-center">
           <p className="text-muted-foreground">
             <Link href={`/services/${category.slug}`} className="text-primary hover:underline">

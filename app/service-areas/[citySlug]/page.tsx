@@ -3,10 +3,13 @@ import { notFound } from "next/navigation";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { FAQList } from "@/components/marketing/faq-list";
+import { FAQSchema } from "@/components/seo/faq-schema";
 import { getSmsHref } from "@/lib/cta";
 import { siteConfig } from "@/config/site";
 import { serviceAreas } from "@/config/service-areas";
 import { serviceCategories, getServiceAreaCategoryHref } from "@/config/service-categories";
+import { cityHubIntros, getCityHubFaqs } from "@/lib/local-area-content";
 import { createPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 
@@ -32,7 +35,7 @@ export async function generateMetadata({
 
   return createPageMetadata({
     title: `Mobile Detailing in ${area.name}, ${area.state} | ${siteConfig.title}`,
-    description: `Mobile car, motorcycle, and RV detailing in ${area.name}, ${area.state}. We come to you — no drop-off needed. Text to book today.`,
+    description: cityHubIntros[area.slug] ?? `Mobile car, motorcycle, camper, and RV detailing in ${area.name}, ${area.state}. We come to you — no drop-off needed. Text to book today.`,
     canonical: `/service-areas/${area.slug}`,
   });
 }
@@ -49,8 +52,14 @@ export default async function ServiceAreaPage({
     notFound();
   }
 
+  const intro =
+    cityHubIntros[area.slug] ??
+    `${siteConfig.title} brings professional mobile detailing directly to you in ${area.name}, ${area.state} — no drop-off required. We come to your home or workplace to detail your car, truck, SUV, motorcycle, camper, or RV.`;
+  const cityFaqs = getCityHubFaqs(area.name);
+
   return (
     <>
+      <FAQSchema faqs={cityFaqs} pagePath={`/service-areas/${area.slug}`} />
       <Section variant="default" className="pt-8">
         <Container maxWidth="5xl">
           <div className="text-center mb-12">
@@ -58,13 +67,8 @@ export default async function ServiceAreaPage({
               Mobile Detailing in {area.name}, {area.state}
             </h1>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
-              {siteConfig.title} brings professional mobile detailing directly
-              to you in {area.name}, {area.state} — no drop-off required. We
-              come to your home or workplace to detail your car, truck, SUV,
-              motorcycle, camper, or RV.
+              {intro}
             </p>
-            {/* TODO: add local detail — neighborhoods, landmarks, or HOA/apartment
-                complexes commonly served in this city, once available. */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="text-lg px-8 py-6">
                 <a
@@ -86,11 +90,12 @@ export default async function ServiceAreaPage({
       <Section id="services" variant="muted" title="Services Available" withBorder>
         <Container maxWidth="5xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {serviceCategories.map((category) => (
+            {serviceCategories.map((category, idx) => (
               <Link
                 key={category.slug}
                 href={getServiceAreaCategoryHref(area.slug, category)}
-                className="border-2 border-border/60 rounded-xl p-6 bg-card hover:shadow-lg hover:border-primary/30 transition-all duration-300 hover:-translate-y-1"
+                className="reveal border border-border/60 rounded-xl p-6 bg-card hover:shadow-lg hover:shadow-primary/10 hover:border-primary/40 hover:-translate-y-1"
+                style={{ transitionDelay: `${idx * 100}ms` }}
               >
                 <h3 className="text-xl font-heading font-bold mb-2">
                   {category.name} in {area.name}
@@ -101,6 +106,12 @@ export default async function ServiceAreaPage({
               </Link>
             ))}
           </div>
+        </Container>
+      </Section>
+
+      <Section id="faq" variant="muted" title="Frequently Asked Questions" withBorder>
+        <Container maxWidth="3xl">
+          <FAQList faqs={cityFaqs} />
         </Container>
       </Section>
 

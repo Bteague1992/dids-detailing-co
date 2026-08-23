@@ -20,14 +20,15 @@ export function GalleryGrid() {
   return (
     <Container>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {placeholderImages.map((image) => (
+        {placeholderImages.map((image, idx) => (
           <div
             key={image.id}
-            className="relative aspect-[4/3] rounded-xl overflow-hidden bg-muted border-2 border-border/60 shadow-sm hover:shadow-lg transition-all hover:-translate-y-1"
+            className="reveal relative aspect-[4/3] rounded-xl overflow-hidden bg-muted border border-border/60 shadow-sm hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"
+            style={{ transitionDelay: `${(idx % 3) * 100}ms` }}
           >
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center p-4">
-                <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg flex items-center justify-center">
+                <div className="w-full h-full bg-linear-to-br from-primary/20 to-secondary/20 rounded-lg flex items-center justify-center">
                   <div className="text-muted-foreground">
                     <p className="font-medium">{image.title}</p>
                     <p className="text-sm mt-2">Placeholder Image</p>

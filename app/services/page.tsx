@@ -19,13 +19,14 @@ export default function ServicesIndexPage() {
     <Section variant="default" title="Our Services" className="pt-8">
       <Container maxWidth="5xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {serviceCategories.map((category) => {
+          {serviceCategories.map((category, idx) => {
             const startingPrice = getStartingPrice(getCategoryTierGroups(category));
             return (
               <Link
                 key={category.slug}
                 href={getServiceCategoryHref(category)}
-                className="border-2 border-border/60 rounded-xl p-6 bg-card hover:shadow-lg hover:border-primary/30 transition-all duration-300 hover:-translate-y-1"
+                className="reveal border border-border/60 rounded-xl p-6 bg-card hover:shadow-lg hover:shadow-primary/10 hover:border-primary/40 hover:-translate-y-1"
+                style={{ transitionDelay: `${idx * 100}ms` }}
               >
                 <h2 className="text-xl font-heading font-bold mb-2">
                   {category.name}

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { TierGrid } from "@/components/marketing/tier-grid";
-import { TierCard } from "@/components/marketing/tier-card";
 import { getCategoryTierGroups } from "@/lib/service-tiers";
 import { serviceCategories } from "@/config/service-categories";
 
@@ -32,11 +31,7 @@ export function PackagesGrid() {
             </Link>
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {motoGroups[0].tiers.map((tier) => (
-            <TierCard key={tier.id} tier={tier} />
-          ))}
-        </div>
+        <TierGrid groups={motoGroups} />
       </div>
 
       <div className="mt-16 text-center">

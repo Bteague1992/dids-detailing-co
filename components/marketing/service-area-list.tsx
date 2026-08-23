@@ -4,10 +4,11 @@ import { businessConfig } from "@/config/business";
 export function ServiceAreaList() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {businessConfig.serviceAreaCities.map((city) => (
+      {businessConfig.serviceAreaCities.map((city, idx) => (
         <div
           key={city.slug}
-          className="border-2 border-border/60 rounded-xl p-6 hover:shadow-lg hover:border-primary/30 transition-all duration-300 bg-card hover:-translate-y-1"
+          className="reveal rounded-xl border border-border/60 bg-card p-6 hover:shadow-lg hover:shadow-primary/10 hover:border-primary/40 hover:-translate-y-1"
+          style={{ transitionDelay: `${(idx % 3) * 100}ms` }}
         >
           <h3 className="text-xl font-heading font-semibold mb-2">
             {city.name}, NC

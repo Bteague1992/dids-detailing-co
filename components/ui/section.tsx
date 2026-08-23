@@ -18,8 +18,8 @@ interface SectionProps {
  *
  * Variants:
  * - default: bg-background (light, primary content)
- * - muted: bg-muted (subtle contrast, secondary sections)
- * - contrast: bg-secondary text-secondary-foreground (navy band, final CTAs)
+ * - muted: gradient off the deepened --muted token (secondary sections)
+ * - contrast: navy gradient band with a dot-grid + glow accent (final CTAs)
  */
 export function Section({
   id,
@@ -33,23 +33,33 @@ export function Section({
 }: SectionProps) {
   const variantStyles = {
     default: "bg-background text-foreground",
-    muted: "bg-muted text-foreground",
-    contrast: "bg-secondary text-secondary-foreground",
+    muted: "bg-linear-to-b from-muted to-background text-foreground",
+    contrast:
+      "bg-linear-to-br from-secondary via-secondary to-secondary-light text-secondary-foreground",
   };
 
   return (
     <section
       id={id}
       className={cn(
-        "py-12 md:py-16",
+        "relative py-12 md:py-16 overflow-hidden",
         variantStyles[variant],
         withBorder && "border-t border-border/60",
         className
       )}
     >
+      {variant === "contrast" && (
+        <>
+          <div className="absolute inset-0 bg-dot-grid-light opacity-30 pointer-events-none" />
+          <div className="absolute -top-24 -right-16 h-72 w-72 rounded-full bg-primary/25 blur-3xl pointer-events-none" />
+        </>
+      )}
+      {variant === "muted" && (
+        <div className="absolute inset-0 bg-dot-grid opacity-10 pointer-events-none" />
+      )}
       <div
         className={cn(
-          "container mx-auto px-4 sm:px-6 lg:px-8",
+          "container relative z-10 mx-auto px-4 sm:px-6 lg:px-8",
           containerClassName
         )}
       >

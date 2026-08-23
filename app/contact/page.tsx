@@ -158,7 +158,8 @@ export default function ContactPage() {
                 return (
                   <div
                     key={idx}
-                    className="bg-card rounded-xl p-6 border-2 border-border/60 shadow-sm hover:shadow-lg transition-all hover:-translate-y-1"
+                    className="reveal bg-card rounded-xl p-6 border border-border/60 shadow-sm hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"
+                    style={{ transitionDelay: `${idx * 100}ms` }}
                   >
                     <div className="flex items-center gap-3 mb-4">
                       <div
@@ -219,7 +220,7 @@ export default function ContactPage() {
                 include these details in your text:
               </p>
             </div>
-            <div className="bg-card rounded-xl p-6 border-2 border-border/60 shadow-sm">
+            <div className="reveal bg-card rounded-xl p-6 border border-border/60 shadow-sm border-l-4 border-l-primary">
               <ul className="space-y-4">
                 {textChecklist.map((item, idx) => (
                   <li key={idx} className="flex items-start gap-3">

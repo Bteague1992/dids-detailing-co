@@ -2,6 +2,7 @@ import Link from "next/link";
 import { HowItWorks } from "@/components/marketing/how-it-works";
 import { FAQList } from "@/components/marketing/faq-list";
 import { FAQSchema } from "@/components/seo/faq-schema";
+import { TierGrid } from "@/components/marketing/tier-grid";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
@@ -9,13 +10,17 @@ import { getSmsHref } from "@/lib/cta";
 import { siteConfig } from "@/config/site";
 import { businessConfig } from "@/config/business";
 import {
-  servicesConfig,
   motorcycleBasicWashPrice,
   motorcycleFullDetailPrice,
 } from "@/config/services";
-import { Check } from "lucide-react";
+import { serviceCategories } from "@/config/service-categories";
+import { getCategoryTierGroups } from "@/lib/service-tiers";
 import type { Metadata } from "next";
 import { createPageMetadata } from "@/lib/metadata";
+
+const motoCategory = serviceCategories.find(
+  (c) => c.slug === "motorcycle-detailing",
+)!;
 
 export const metadata: Metadata = createPageMetadata({
   title: `Mobile Motorcycle Detailing in NC | Hickory & Surrounding Areas | ${siteConfig.title}`,
@@ -102,52 +107,7 @@ export default function MotorcycleDetailingPage() {
         withBorder
       >
         <Container maxWidth="5xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {servicesConfig.motorcycleServices.map((service) => (
-              <div
-                key={service.id}
-                className="border-2 border-border/60 rounded-xl p-6 bg-card shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
-              >
-                <div>
-                  <h3 className="text-2xl font-heading font-bold mb-4">
-                    {service.name}
-                  </h3>
-                  <p className="text-muted-foreground mb-6">
-                    {service.description}
-                  </p>
-                  <div className="mb-6 space-y-2">
-                    {service.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-primary mt-0.5 shrink-0" />
-                        <span className="text-sm">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <div className="border-t-2 border-muted pt-6 mb-6">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">
-                        Price:
-                      </span>
-                      <span className="text-2xl font-heading font-bold">
-                        ${service.price}
-                      </span>
-                    </div>
-                  </div>
-                  <Button asChild className="w-full">
-                    <a
-                      href={getSmsHref({ packageName: service.name })}
-                      aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a ${service.name}`}
-                      data-cta-location="motorcycle-detailing-package"
-                    >
-                      Text to Book
-                    </a>
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
+          <TierGrid groups={getCategoryTierGroups(motoCategory)} />
         </Container>
       </Section>
 
@@ -161,11 +121,12 @@ export default function MotorcycleDetailingPage() {
             area. Click your city for local pricing and booking.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {businessConfig.serviceAreaCities.map((city) => (
+            {businessConfig.serviceAreaCities.map((city, idx) => (
               <Link
                 key={city.slug}
                 href={`/mobile-motorcycle-detailing/${city.slug}/nc`}
-                className="border-2 border-border/60 rounded-xl p-4 bg-card hover:shadow-lg hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 text-center"
+                className="reveal border border-border/60 rounded-xl p-4 bg-card hover:shadow-lg hover:shadow-primary/10 hover:border-primary/40 hover:-translate-y-1 text-center"
+                style={{ transitionDelay: `${(idx % 4) * 75}ms` }}
               >
                 <p className="font-heading font-semibold">{city.name}, NC</p>
                 <p className="text-xs text-primary mt-1 hover:underline">

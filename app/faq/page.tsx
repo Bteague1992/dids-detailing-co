@@ -168,9 +168,10 @@ export default function FAQPage() {
               return (
                 <div
                   key={idx}
-                  className="bg-card rounded-xl p-4 border-2 border-border/60 shadow-sm text-center"
+                  className="reveal bg-card rounded-xl p-4 border border-border/60 shadow-sm text-center hover:shadow-md hover:shadow-primary/10 hover:-translate-y-0.5"
+                  style={{ transitionDelay: `${idx * 75}ms` }}
                 >
-                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary mb-2">
+                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-linear-to-br from-primary/20 to-secondary/10 text-primary mb-2">
                     <Icon className="h-5 w-5" />
                   </div>
                   <p className="text-sm font-medium text-foreground">
