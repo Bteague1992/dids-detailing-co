@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { getSmsHref } from "@/src/lib/cta";
-import { siteConfig } from "@/src/config/site";
+import { getSmsHref } from "@/lib/cta";
+import { siteConfig } from "@/config/site";
 import { Container } from "@/components/ui/container";
 import Image from "next/image";
 
@@ -30,6 +30,7 @@ export function Hero() {
               <a
                 href={getSmsHref()}
                 aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a detail`}
+                data-cta-location="hero"
               >
                 Text to Book
               </a>

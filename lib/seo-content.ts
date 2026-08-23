@@ -1,9 +1,9 @@
-import type { ServiceCity } from "@/src/config/business";
+import type { ServiceCity } from "@/config/business";
 import {
   motorcycleBasicWashPrice,
   motorcycleFullDetailPrice,
   startingCarPrice,
-} from "@/src/config/services";
+} from "@/config/services";
 
 const cityCarIntros: Record<string, string> = {
   hickory: `Dad's Mobile Detailing Co. is based right here in Hickory, NC — so when you book, you get fast turnaround from a local you can trust. We come to your driveway or workplace to detail your car, truck, SUV, or motorcycle. No drop-off, no waiting rooms. Exterior washes start at $${startingCarPrice}. Text us to get on the schedule today.`,
@@ -29,8 +29,11 @@ export function generateCitySeoIntro(city: ServiceCity): string {
   return cityCarIntros[city.slug] ?? DEFAULT_CAR_INTRO(city.name);
 }
 
+// Distinct wording/order from the homepage's meta description on purpose —
+// this targets booking-intent searches ("book mobile detailing in X") rather
+// than the homepage's broad branded query. See canonical note in app/page.tsx.
 export function generateCityMetaDescription(city: ServiceCity): string {
-  return `Mobile car detailing in ${city.name}, NC starting at $${startingCarPrice}. Cars, trucks, SUVs & motorcycles. We come to you — no drop-off needed. Text to book today.`;
+  return `Book mobile car detailing in ${city.name}, NC today. We come to your driveway or workplace — no drop-off. Cars, trucks, SUVs & motorcycles starting at $${startingCarPrice}.`;
 }
 
 export function generateMotorcycleCitySeoIntro(city: ServiceCity): string {

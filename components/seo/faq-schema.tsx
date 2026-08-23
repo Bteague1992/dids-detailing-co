@@ -1,4 +1,4 @@
-import { siteConfig } from "@/src/config/site";
+import { siteConfig } from "@/config/site";
 
 interface FAQItem {
   question: string;

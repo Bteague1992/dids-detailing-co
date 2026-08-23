@@ -7,15 +7,25 @@ import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { LocalBusinessSchema } from "@/components/seo/local-business-schema";
-import { getSmsHref } from "@/src/lib/cta";
-import { siteConfig } from "@/src/config/site";
-import { startingCarPrice } from "@/src/config/services";
+import { getSmsHref } from "@/lib/cta";
+import { siteConfig } from "@/config/site";
+import { startingCarPrice } from "@/config/services";
 import type { Metadata } from "next";
-import { createPageMetadata } from "@/src/lib/metadata";
+import { createPageMetadata } from "@/lib/metadata";
 
+// SEO note: the homepage owns broad/branded queries ("Dad's Mobile Detailing
+// Co.", "mobile detailing Hickory NC") — title leads with the brand name and
+// stays self-canonical at "/". The Hickory-specific page at
+// /mobile-car-detailing/hickory/nc targets more specific booking-intent
+// queries ("book mobile detailing hickory") with a distinct title/description
+// pattern (see generateCityMetaDescription in lib/seo-content.ts) and keeps
+// its own self-canonical rather than canonicalizing here, since it carries
+// real additional content (FAQ schema, city-specific CTA, cross-city links)
+// beyond what this page covers. This split avoids the two pages competing for
+// the same SERP snippet.
 export const metadata: Metadata = createPageMetadata({
-  title: `Mobile Car Detailing in Hickory, NC — Starting at $${startingCarPrice}`,
-  description: `Mobile car detailing in Hickory, NC starting at $${startingCarPrice}. We come to you — cars, trucks, SUVs & motorcycles. Text to book today.`,
+  title: `${siteConfig.title} | Mobile Car Detailing in Hickory, NC — Starting at $${startingCarPrice}`,
+  description: `${siteConfig.title} brings mobile car detailing to Hickory, NC and the surrounding area — cars, trucks, SUVs & motorcycles, starting at $${startingCarPrice}. We come to you. Text to book.`,
   canonical: "/",
 });
 
@@ -79,6 +89,7 @@ export default function HomePage() {
             <a
               href={getSmsHref()}
               aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a detail`}
+              data-cta-location="home-final"
             >
               Text to Book
             </a>

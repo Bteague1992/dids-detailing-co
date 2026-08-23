@@ -7,15 +7,15 @@ import { FAQSchema } from "@/components/seo/faq-schema";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { getSmsHref } from "@/src/lib/cta";
-import { siteConfig } from "@/src/config/site";
-import { businessConfig } from "@/src/config/business";
+import { getSmsHref } from "@/lib/cta";
+import { siteConfig } from "@/config/site";
+import { businessConfig } from "@/config/business";
 import {
   generateCitySeoIntro,
   generateCityMetaDescription,
-} from "@/src/lib/seo-content";
+} from "@/lib/seo-content";
 import type { Metadata } from "next";
-import { createPageMetadata } from "@/src/lib/metadata";
+import { createPageMetadata } from "@/lib/metadata";
 
 export async function generateStaticParams() {
   return businessConfig.serviceAreaCities.map((city) => ({
@@ -43,8 +43,16 @@ export async function generateMetadata({
 
   const description = generateCityMetaDescription(city);
 
+  // SEO note: self-canonical, deliberately not pointed at "/". This page
+  // targets booking-intent local queries ("book mobile detailing in
+  // {city}") and leads its title with "Book" rather than the homepage's
+  // brand-first "Mobile Car Detailing in Hickory, NC" pattern — see the
+  // matching comment in app/page.tsx for the full rationale. Keeping this
+  // self-canonical (rather than canonicalizing to "/") preserves this page's
+  // FAQ schema, city-specific CTA, and cross-city links as independently
+  // rankable content.
   return createPageMetadata({
-    title: `Mobile Car Detailing in ${city.name}, NC | Book A Detail Today | ${siteConfig.title}`,
+    title: `Book Mobile Car Detailing in ${city.name}, NC | Same-Day & Next-Day Availability | ${siteConfig.title}`,
     description,
     canonical: `/mobile-car-detailing/${citySlug}/nc`,
   });
@@ -95,7 +103,7 @@ export default async function CitySeoPage({
         <Container maxWidth="5xl">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-heading font-bold mb-6">
-              Mobile Car Detailing in {city.name}, NC
+              Book Mobile Car Detailing in {city.name}, NC
             </h1>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
               {seoIntro}
@@ -105,6 +113,7 @@ export default async function CitySeoPage({
                 <a
                   href={getSmsHref({ city: city.name })}
                   aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a detail in ${city.name}`}
+                  data-cta-location="area-seo-hero"
                 >
                   Text to Book
                 </a>
@@ -189,6 +198,7 @@ export default async function CitySeoPage({
               <a
                 href={getSmsHref({ city: city.name })}
                 aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a detail in ${city.name}`}
+                data-cta-location="area-seo-final"
               >
                 Text to Book
               </a>

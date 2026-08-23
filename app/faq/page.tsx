@@ -3,13 +3,13 @@ import { FAQSchema } from "@/components/seo/faq-schema";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { getSmsHref } from "@/src/lib/cta";
-import { siteConfig } from "@/src/config/site";
+import { getSmsHref } from "@/lib/cta";
+import { siteConfig } from "@/config/site";
 import {
   motorcycleBasicWashPrice,
   motorcycleFullDetailPrice,
-} from "@/src/config/services";
-import { createPageMetadata } from "@/src/lib/metadata";
+} from "@/config/services";
+import { createPageMetadata } from "@/lib/metadata";
 import {
   MessageSquare,
   HelpCircle,
@@ -210,6 +210,7 @@ export default function FAQPage() {
               <a
                 href={getSmsHref()}
                 aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a detail`}
+                data-cta-location="faq-page"
               >
                 <MessageSquare className="h-5 w-5 mr-2" />
                 Text Us Your Question

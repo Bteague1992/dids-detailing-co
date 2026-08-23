@@ -1,8 +1,9 @@
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { getSmsHref } from "@/src/lib/cta";
-import { siteConfig } from "@/src/config/site";
+import { ContactForm } from "@/components/marketing/contact-form";
+import { getSmsHref } from "@/lib/cta";
+import { siteConfig } from "@/config/site";
 import {
   MessageSquare,
   Phone,
@@ -13,7 +14,7 @@ import {
   Zap,
 } from "lucide-react";
 import type { Metadata } from "next";
-import { createPageMetadata } from "@/src/lib/metadata";
+import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Contact Us | Mobile Car Detailing in Hickory, NC | Dad's Mobile Detailing Co.",
@@ -116,12 +117,27 @@ export default function ContactPage() {
                 <a
                   href={getSmsHref()}
                   aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a detail`}
+                  data-cta-location="contact-primary"
                 >
                   <MessageSquare className="h-5 w-5 mr-2" />
                   Text to Book Now
                 </a>
               </Button>
             </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* Contact Form */}
+      <Section
+        variant="default"
+        title="Or Send Us a Message"
+        description="Prefer not to text? Fill out the form below and we'll get back to you by email or phone."
+        withBorder
+      >
+        <Container maxWidth="2xl">
+          <div className="bg-card rounded-2xl p-6 md:p-8 border-2 border-border/60 shadow-lg">
+            <ContactForm />
           </div>
         </Container>
       </Section>
@@ -169,6 +185,7 @@ export default function ContactPage() {
                             ? "text-primary"
                             : "text-secondary"
                         }`}
+                        data-cta-location="contact-methods"
                       >
                         {method.title === "Phone" ? "Call" : method.title} Us
                         <Zap className="h-4 w-4" />
@@ -272,6 +289,7 @@ export default function ContactPage() {
               <a
                 href={getSmsHref()}
                 aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a detail`}
+                data-cta-location="contact-final"
               >
                 <MessageSquare className="h-5 w-5 mr-2" />
                 Text to Book

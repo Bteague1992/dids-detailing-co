@@ -1,4 +1,4 @@
-import { startingCarPrice } from "@/src/config/services";
+import { startingCarPrice } from "@/config/services";
 
 export const siteConfig = {
   domain: "https://www.dadsdetailco.com",

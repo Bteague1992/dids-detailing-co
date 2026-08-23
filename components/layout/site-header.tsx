@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { getSmsHref } from "@/src/lib/cta";
-import { siteConfig } from "@/src/config/site";
+import { getSmsHref } from "@/lib/cta";
+import { siteConfig } from "@/config/site";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 
@@ -23,7 +23,7 @@ export function SiteHeader() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/packages", label: "Packages" },
-    // { href: "/gallery", label: "Gallery" },
+    { href: "/portfolio", label: "Portfolio" },
     { href: "/faq", label: "FAQ" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
@@ -63,6 +63,7 @@ export function SiteHeader() {
               <a
                 href={getSmsHref()}
                 aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a detail`}
+                data-cta-location="nav"
               >
                 Text to Book
               </a>
@@ -102,6 +103,7 @@ export function SiteHeader() {
                 href={getSmsHref()}
                 aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a detail`}
                 onClick={() => setIsMobileMenuOpen(false)}
+                data-cta-location="nav-mobile"
               >
                 Text to Book
               </a>

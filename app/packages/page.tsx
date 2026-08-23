@@ -1,10 +1,12 @@
-import { PackagesGrid } from "@/components/marketing/packages-grid";
+import { TierGrid } from "@/components/marketing/tier-grid";
 import { Section } from "@/components/ui/section";
 import { FAQList } from "@/components/marketing/faq-list";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { getSmsHref } from "@/src/lib/cta";
-import { siteConfig } from "@/src/config/site";
+import { getSmsHref } from "@/lib/cta";
+import { siteConfig } from "@/config/site";
+import { serviceCategories } from "@/config/service-categories";
+import { getCategoryTierGroups } from "@/lib/service-tiers";
 import {
   Car,
   CheckCircle2,
@@ -13,7 +15,21 @@ import {
   Clock,
 } from "lucide-react";
 import type { Metadata } from "next";
-import { createPageMetadata } from "@/src/lib/metadata";
+import { createPageMetadata } from "@/lib/metadata";
+
+const carCategory = serviceCategories.find((c) => c.slug === "car-detailing")!;
+const rinslessCategory = serviceCategories.find(
+  (c) => c.slug === "rinsless-wash",
+)!;
+const motoCategory = serviceCategories.find(
+  (c) => c.slug === "motorcycle-detailing",
+)!;
+const rvCategory = serviceCategories.find(
+  (c) => c.slug === "camper-rv-detailing",
+)!;
+const maintenanceCategory = serviceCategories.find(
+  (c) => c.slug === "maintenance-plans",
+)!;
 
 export const metadata: Metadata = createPageMetadata({
   title:
@@ -100,13 +116,68 @@ export default function PackagesPage() {
         </Container>
       </Section>
 
-      {/* Packages Grid */}
+      {/* Car Detailing */}
       <Section
+        id="cars"
         variant="muted"
-        title="Choose Your Package"
+        title="Cars, Trucks & SUVs"
         description="All packages include our mobile service. We bring everything we need - you just provide access to your vehicle."
       >
-        <PackagesGrid />
+        <Container maxWidth="6xl">
+          <TierGrid groups={getCategoryTierGroups(carCategory)} />
+        </Container>
+      </Section>
+
+      {/* Rinsless Wash */}
+      <Section
+        id="rinsless-wash"
+        variant="default"
+        title="Rinsless Wash"
+        description={rinslessCategory.shortDescription}
+        withBorder
+      >
+        <Container maxWidth="6xl">
+          <TierGrid groups={getCategoryTierGroups(rinslessCategory)} />
+        </Container>
+      </Section>
+
+      {/* Motorcycles */}
+      <Section
+        id="motorcycles"
+        variant="muted"
+        title="Motorcycles"
+        description={motoCategory.shortDescription}
+        withBorder
+      >
+        <Container maxWidth="6xl">
+          <TierGrid groups={getCategoryTierGroups(motoCategory)} />
+        </Container>
+      </Section>
+
+      {/* Campers & RVs */}
+      <Section
+        id="campers-rvs"
+        variant="default"
+        title="Campers & RVs"
+        description={rvCategory.shortDescription}
+        withBorder
+      >
+        <Container maxWidth="6xl">
+          <TierGrid groups={getCategoryTierGroups(rvCategory)} />
+        </Container>
+      </Section>
+
+      {/* Maintenance Plans */}
+      <Section
+        id="maintenance-plans"
+        variant="muted"
+        title="Maintenance Plans"
+        description={maintenanceCategory.shortDescription}
+        withBorder
+      >
+        <Container maxWidth="6xl">
+          <TierGrid groups={getCategoryTierGroups(maintenanceCategory)} />
+        </Container>
       </Section>
 
       {/* Package Highlights */}
@@ -178,6 +249,7 @@ export default function PackagesPage() {
               <a
                 href={getSmsHref()}
                 aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a detail`}
+                data-cta-location="packages-page"
               >
                 <MessageSquare className="h-5 w-5 mr-2" />
                 Text to Book

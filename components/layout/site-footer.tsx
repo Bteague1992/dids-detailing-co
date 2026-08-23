@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { siteConfig } from "@/src/config/site";
-import { businessConfig } from "@/src/config/business";
-import { getSmsHref } from "@/src/lib/cta";
+import { siteConfig } from "@/config/site";
+import { businessConfig } from "@/config/business";
+import { getSmsHref } from "@/lib/cta";
 import { Button } from "@/components/ui/button";
 
 export function SiteFooter() {
@@ -25,6 +25,7 @@ export function SiteFooter() {
                 <a
                   href={`tel:${siteConfig.phone}`}
                   className="text-secondary-foreground hover:text-primary"
+                  data-cta-location="footer"
                 >
                   {siteConfig.phone}
                 </a>
@@ -71,6 +72,22 @@ export function SiteFooter() {
                   className="text-secondary-foreground/80 hover:text-secondary-foreground"
                 >
                   Motorcycle Detailing
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/services"
+                  className="text-secondary-foreground/80 hover:text-secondary-foreground"
+                >
+                  All Services
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/portfolio"
+                  className="text-secondary-foreground/80 hover:text-secondary-foreground"
+                >
+                  Portfolio
                 </Link>
               </li>
               <li>
@@ -133,6 +150,7 @@ export function SiteFooter() {
             <a
               href={getSmsHref()}
               aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a detail`}
+              data-cta-location="footer"
             >
               Text to Book
             </a>

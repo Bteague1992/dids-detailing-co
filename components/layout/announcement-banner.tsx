@@ -1,4 +1,4 @@
-import { getSmsHref } from "@/src/lib/cta";
+import { getSmsHref } from "@/lib/cta";
 
 export function AnnouncementBanner() {
   return (
@@ -7,6 +7,7 @@ export function AnnouncementBanner() {
       <a
         href={getSmsHref()}
         className="font-semibold underline underline-offset-2 hover:opacity-80 transition-opacity"
+        data-cta-location="announcement-banner"
       >
         Text to book your summer detail
       </a>

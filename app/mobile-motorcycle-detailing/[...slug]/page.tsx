@@ -6,21 +6,21 @@ import { FAQSchema } from "@/components/seo/faq-schema";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { getSmsHref } from "@/src/lib/cta";
-import { siteConfig } from "@/src/config/site";
-import { businessConfig } from "@/src/config/business";
+import { getSmsHref } from "@/lib/cta";
+import { siteConfig } from "@/config/site";
+import { businessConfig } from "@/config/business";
 import {
   servicesConfig,
   motorcycleBasicWashPrice,
   motorcycleFullDetailPrice,
-} from "@/src/config/services";
+} from "@/config/services";
 import {
   generateMotorcycleCitySeoIntro,
   generateMotorcycleCityMetaDescription,
-} from "@/src/lib/seo-content";
+} from "@/lib/seo-content";
 import { Check } from "lucide-react";
 import type { Metadata } from "next";
-import { createPageMetadata } from "@/src/lib/metadata";
+import { createPageMetadata } from "@/lib/metadata";
 
 export async function generateStaticParams() {
   return businessConfig.serviceAreaCities.map((city) => ({
@@ -114,6 +114,7 @@ export default async function MotorcycleCitySeoPage({
                 <a
                   href={getSmsHref({ city: city.name })}
                   aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a motorcycle detail in ${city.name}`}
+                  data-cta-location="moto-area-seo-hero"
                 >
                   Text to Book
                 </a>
@@ -178,6 +179,7 @@ export default async function MotorcycleCitySeoPage({
                         city: city.name,
                       })}
                       aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a ${service.name} in ${city.name}`}
+                      data-cta-location="moto-area-seo-package"
                     >
                       Text to Book
                     </a>
@@ -246,6 +248,7 @@ export default async function MotorcycleCitySeoPage({
               <a
                 href={getSmsHref({ city: city.name })}
                 aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a motorcycle detail in ${city.name}`}
+                data-cta-location="moto-area-seo-final"
               >
                 Text to Book
               </a>

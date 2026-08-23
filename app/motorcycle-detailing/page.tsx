@@ -5,17 +5,17 @@ import { FAQSchema } from "@/components/seo/faq-schema";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { getSmsHref } from "@/src/lib/cta";
-import { siteConfig } from "@/src/config/site";
-import { businessConfig } from "@/src/config/business";
+import { getSmsHref } from "@/lib/cta";
+import { siteConfig } from "@/config/site";
+import { businessConfig } from "@/config/business";
 import {
   servicesConfig,
   motorcycleBasicWashPrice,
   motorcycleFullDetailPrice,
-} from "@/src/config/services";
+} from "@/config/services";
 import { Check } from "lucide-react";
 import type { Metadata } from "next";
-import { createPageMetadata } from "@/src/lib/metadata";
+import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
   title: `Mobile Motorcycle Detailing in NC | Hickory & Surrounding Areas | ${siteConfig.title}`,
@@ -76,6 +76,7 @@ export default function MotorcycleDetailingPage() {
                 <a
                   href={getSmsHref()}
                   aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a motorcycle detail`}
+                  data-cta-location="motorcycle-detailing-hero"
                 >
                   Text to Book
                 </a>
@@ -138,6 +139,7 @@ export default function MotorcycleDetailingPage() {
                     <a
                       href={getSmsHref({ packageName: service.name })}
                       aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a ${service.name}`}
+                      data-cta-location="motorcycle-detailing-package"
                     >
                       Text to Book
                     </a>
@@ -202,6 +204,7 @@ export default function MotorcycleDetailingPage() {
               <a
                 href={getSmsHref()}
                 aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a motorcycle detail`}
+                data-cta-location="motorcycle-detailing-final"
               >
                 Text to Book
               </a>

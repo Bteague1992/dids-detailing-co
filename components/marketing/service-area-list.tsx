@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { businessConfig } from "@/src/config/business";
+import { businessConfig } from "@/config/business";
 
 export function ServiceAreaList() {
   return (

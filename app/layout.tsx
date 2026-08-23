@@ -3,7 +3,8 @@ import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
 import { SiteShell } from "@/components/layout/site-shell";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
-import { startingCarPrice } from "@/src/config/services";
+import { CtaClickTracker } from "@/components/analytics/cta-click-tracker";
+import { startingCarPrice } from "@/config/services";
 
 const poppins = Poppins({
   variable: "--font-heading",
@@ -61,6 +62,7 @@ export default function RootLayout({
         className={`${poppins.variable} ${inter.variable} antialiased font-sans`}
       >
         <GoogleAnalytics />
+        <CtaClickTracker />
         <SiteShell>{children}</SiteShell>
       </body>
     </html>

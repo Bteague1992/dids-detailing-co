@@ -1,5 +1,5 @@
-import { siteConfig } from "@/src/config/site";
-import { businessConfig } from "@/src/config/business";
+import { siteConfig } from "@/config/site";
+import { businessConfig } from "@/config/business";
 
 export function LocalBusinessSchema() {
   const sameAs = Object.values(siteConfig.social).filter((url) =>

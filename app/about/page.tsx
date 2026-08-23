@@ -1,9 +1,9 @@
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { getSmsHref } from "@/src/lib/cta";
-import { siteConfig } from "@/src/config/site";
-import { businessConfig } from "@/src/config/business";
+import { getSmsHref } from "@/lib/cta";
+import { siteConfig } from "@/config/site";
+import { businessConfig } from "@/config/business";
 import {
   Heart,
   Shield,
@@ -13,7 +13,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import type { Metadata } from "next";
-import { createPageMetadata } from "@/src/lib/metadata";
+import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
   title: "About Us | Dad's Mobile Detailing Co. | Hickory, NC",
@@ -268,6 +268,7 @@ export default function AboutPage() {
               <a
                 href={getSmsHref()}
                 aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a detail`}
+                data-cta-location="about-page"
               >
                 Text to Book
               </a>

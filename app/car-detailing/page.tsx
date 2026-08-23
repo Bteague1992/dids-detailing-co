@@ -5,13 +5,13 @@ import { FAQSchema } from "@/components/seo/faq-schema";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { getSmsHref } from "@/src/lib/cta";
-import { siteConfig } from "@/src/config/site";
-import { businessConfig } from "@/src/config/business";
-import { servicesConfig, startingCarPrice } from "@/src/config/services";
+import { getSmsHref } from "@/lib/cta";
+import { siteConfig } from "@/config/site";
+import { businessConfig } from "@/config/business";
+import { servicesConfig, startingCarPrice } from "@/config/services";
 import { Check } from "lucide-react";
 import type { Metadata } from "next";
-import { createPageMetadata } from "@/src/lib/metadata";
+import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
   title: `Mobile Car Detailing in NC | Hickory & Surrounding Areas | ${siteConfig.title}`,
@@ -26,7 +26,7 @@ const basicInterior = servicesConfig.packages.find(
   (p) => p.id === "basic-interior",
 )!;
 const fullDetail = servicesConfig.packages.find(
-  (p) => p.id === "full-detail",
+  (p) => p.id === "basic-full-detail",
 )!;
 
 const faqs = [
@@ -80,6 +80,7 @@ export default function CarDetailingPage() {
                 <a
                   href={getSmsHref()}
                   aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a car detail`}
+                  data-cta-location="car-detailing-hero"
                 >
                   Text to Book
                 </a>
@@ -158,6 +159,7 @@ export default function CarDetailingPage() {
                     <a
                       href={getSmsHref({ packageName: pkg.name })}
                       aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a ${pkg.name}`}
+                      data-cta-location="car-detailing-package"
                     >
                       Text to Book
                     </a>
@@ -222,6 +224,7 @@ export default function CarDetailingPage() {
               <a
                 href={getSmsHref()}
                 aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a car detail`}
+                data-cta-location="car-detailing-final"
               >
                 Text to Book
               </a>

@@ -1,4 +1,4 @@
-import { siteConfig } from "@/src/config/site";
+import { siteConfig } from "@/config/site";
 
 export interface SmsOptions {
   packageName?: string;

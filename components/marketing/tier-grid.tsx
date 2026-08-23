@@ -1,0 +1,28 @@
+import { TierCard } from "@/components/marketing/tier-card";
+import type { TierGroup } from "@/lib/service-tiers";
+
+interface TierGridProps {
+  groups: TierGroup[];
+  city?: string;
+}
+
+export function TierGrid({ groups, city }: TierGridProps) {
+  return (
+    <div className="space-y-16">
+      {groups.map((group, idx) => (
+        <div key={group.groupLabel ?? idx}>
+          {group.groupLabel && (
+            <h3 className="text-2xl font-heading font-bold mb-6 text-center">
+              {group.groupLabel}
+            </h3>
+          )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {group.tiers.map((tier) => (
+              <TierCard key={tier.id} tier={tier} city={city} />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
