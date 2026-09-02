@@ -32,7 +32,7 @@ export const metadata: Metadata = createPageMetadata({
   title:
     "Packages & Pricing | Mobile Car Detailing Services | Dad's Mobile Detailing Co.",
   description:
-    "View our mobile car detailing packages and pricing. Basic Exterior, Basic Interior, Basic Full Detail & Premium Full Detail options available for sedans, SUVs, and trucks.",
+    "View our mobile car detailing packages and pricing. Basic Exterior, Basic Interior & Basic Full Detail options available for sedans, SUVs, and trucks.",
   canonical: "/packages",
 });
 
@@ -40,7 +40,7 @@ const pricingFAQs = [
   {
     question: "What's included in each package?",
     answer:
-      "Each package includes specific services listed on the package card. Basic Exterior covers exterior washing and cleaning, Basic Interior covers interior vacuuming and cleaning, Basic Full Detail combines both with extra attention to detail, and Premium Full Detail adds paint decontamination, protective sealant, and a full interior extraction on top of that.",
+      "Each package includes specific services listed on the package card. Basic Exterior covers exterior washing and cleaning, Basic Interior covers interior vacuuming and cleaning, and Basic Full Detail combines both with extra attention to detail.",
   },
   {
     question: "Why is there a price difference between sedan and SUV/Truck?",

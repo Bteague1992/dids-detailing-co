@@ -13,16 +13,6 @@ export function Hero() {
 
       <Container className="relative z-10">
         <div className="text-center max-w-3xl mx-auto">
-          {/* <div className="inline-block rounded-2xl bg-white p-3 shadow-xl ring-4 ring-primary/40 mb-8 animate-in fade-in zoom-in-95 duration-700">
-            <Image
-              src="/images/dmd-logo.png"
-              alt="Dad's Mobile Detailing Co. Logo"
-              width={110}
-              height={110}
-              className="rounded-xl inline-block p-3 mb-8 animate-in fade-in zoom-in-95 duration-700"
-            />
-          </div> */}
-
           <Image
             src="/images/dmd-logo.png"
             alt="Dad's Mobile Detailing Co. Logo"

@@ -62,7 +62,7 @@ const faqCategories = [
       {
         question: "How long does a detail take?",
         answer:
-          "Basic Exterior takes about 45-60 minutes, Basic Interior takes about 60-75 minutes, and a Basic Full Detail typically takes 2-3 hours depending on the size and condition of your vehicle. Premium Full Detail runs longer to allow for paint decontamination and a full interior extraction.",
+          "Basic Exterior takes about 45-60 minutes, Basic Interior takes about 60-75 minutes, and a Basic Full Detail typically takes 2-3 hours depending on the size and condition of your vehicle.",
       },
       {
         question: "What vehicles do you work on?",
@@ -82,7 +82,7 @@ const faqCategories = [
       {
         question: "What's the difference between the packages?",
         answer:
-          "Basic Exterior covers exterior washing and cleaning. Basic Interior covers interior vacuuming and cleaning. Basic Full Detail combines both with extra attention to detail in crevices and touchpoints. Premium Full Detail adds paint decontamination, a protective sealant, and a full interior extraction on top of that.",
+          "Basic Exterior covers exterior washing and cleaning. Basic Interior covers interior vacuuming and cleaning. Basic Full Detail combines both with extra attention to detail in crevices and touchpoints.",
       },
       {
         question: "What payment methods do you accept?",

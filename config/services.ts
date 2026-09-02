@@ -1,4 +1,8 @@
-export type MaintenanceFrequency = "weekly" | "biweekly" | "monthly" | "quarterly";
+export type MaintenanceFrequency =
+  | "weekly"
+  | "biweekly"
+  | "monthly"
+  | "quarterly";
 
 export interface MotorcycleService {
   id: string;
@@ -117,25 +121,25 @@ export const servicesConfig = {
       sedanPrice: 130,
       suvTruckPrice: 160,
     },
-    {
-      id: "premium-full-detail",
-      name: "Premium Full Detail",
-      slug: "premium-full-detail",
-      description:
-        "Our top-tier detail — deep paint decontamination and protection paired with a full interior extraction for a true showroom finish.",
-      features: [
-        "Everything in Basic Full Detail",
-        "Clay bar paint decontamination",
-        "Machine-applied wax/sealant (3–6 month protection)",
-        "Full carpet & upholstery shampoo/extraction",
-        "Leather/vinyl conditioning",
-        "Engine bay detail",
-        "Headlight restoration",
-        "Odor elimination treatment",
-      ],
-      sedanPrice: 200,
-      suvTruckPrice: 240,
-    },
+    // {
+    //   id: "premium-full-detail",
+    //   name: "Premium Full Detail",
+    //   slug: "premium-full-detail",
+    //   description:
+    //     "Our top-tier detail — deep paint decontamination and protection paired with a full interior extraction for a true showroom finish.",
+    //   features: [
+    //     "Everything in Basic Full Detail",
+    //     "Clay bar paint decontamination",
+    //     "Machine-applied wax/sealant (3–6 month protection)",
+    //     "Full carpet & upholstery shampoo/extraction",
+    //     "Leather/vinyl conditioning",
+    //     "Engine bay detail",
+    //     "Headlight restoration",
+    //     "Odor elimination treatment",
+    //   ],
+    //   sedanPrice: 200,
+    //   suvTruckPrice: 240,
+    // },
   ] as ServicePackage[],
   motorcycleServices: [
     {
@@ -245,7 +249,11 @@ export const maintenancePlans = {
       slug: "car-maintenance-weekly",
       description:
         "Keep your car consistently clean with a weekly exterior maintenance wash — our best rate for our most frequent customers.",
-      features: ["Quick exterior maintenance wash", "No contract — cancel anytime", "Priority scheduling"],
+      features: [
+        "Quick exterior maintenance wash",
+        "No contract — cancel anytime",
+        "Priority scheduling",
+      ],
       frequency: "weekly",
       sedanPrice: 44,
       suvTruckPrice: 56,
@@ -256,7 +264,10 @@ export const maintenancePlans = {
       slug: "car-maintenance-biweekly",
       description:
         "An exterior maintenance wash every two weeks to keep your car looking fresh between full details.",
-      features: ["Quick exterior maintenance wash", "No contract — cancel anytime"],
+      features: [
+        "Quick exterior maintenance wash",
+        "No contract — cancel anytime",
+      ],
       frequency: "biweekly",
       sedanPrice: 47,
       suvTruckPrice: 60,
@@ -265,8 +276,12 @@ export const maintenancePlans = {
       id: "car-maintenance-monthly",
       name: "Monthly Maintenance Wash",
       slug: "car-maintenance-monthly",
-      description: "A monthly exterior maintenance wash to maintain your car's shine year-round.",
-      features: ["Quick exterior maintenance wash", "No contract — cancel anytime"],
+      description:
+        "A monthly exterior maintenance wash to maintain your car's shine year-round.",
+      features: [
+        "Quick exterior maintenance wash",
+        "No contract — cancel anytime",
+      ],
       frequency: "monthly",
       sedanPrice: 50,
       suvTruckPrice: 63,
@@ -290,7 +305,10 @@ export const maintenancePlans = {
       slug: "rv-maintenance-monthly",
       description:
         "A monthly exterior wash to protect your rig from pollen, dust, and buildup between trips.",
-      features: ["Everything in Basic Exterior", "No contract — cancel anytime"],
+      features: [
+        "Everything in Basic Exterior",
+        "No contract — cancel anytime",
+      ],
       frequency: "monthly",
       pricePerFoot: 7.5,
       minimumPrice: 140,
@@ -299,8 +317,12 @@ export const maintenancePlans = {
       id: "rv-maintenance-quarterly",
       name: "Quarterly Maintenance Wash",
       slug: "rv-maintenance-quarterly",
-      description: "A seasonal exterior wash to keep your rig protected between storage periods.",
-      features: ["Everything in Basic Exterior", "No contract — cancel anytime"],
+      description:
+        "A seasonal exterior wash to keep your rig protected between storage periods.",
+      features: [
+        "Everything in Basic Exterior",
+        "No contract — cancel anytime",
+      ],
       frequency: "quarterly",
       pricePerFoot: 8,
       minimumPrice: 150,
