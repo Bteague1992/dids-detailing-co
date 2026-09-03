@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { getSmsHref } from "@/lib/cta";
 import { siteConfig } from "@/config/site";
 import type { NormalizedTier } from "@/lib/service-tiers";
@@ -20,6 +26,10 @@ interface TierCardProps {
 }
 
 export function TierCard({ tier, city, revealDelayMs = 0 }: TierCardProps) {
+  // A range price line (e.g. "$60-$110") is the signal that final pricing
+  // varies — currently only the car detailing packages are priced this way.
+  const hasPriceRange = tier.priceLines.some((line) => line.value.includes("-"));
+
   return (
     <div
       className="reveal group relative overflow-hidden rounded-2xl border border-border/60 bg-card shadow-sm hover:-translate-y-1.5 hover:shadow-xl hover:shadow-primary/10 hover:border-primary/40 flex flex-col justify-between"
@@ -39,16 +49,31 @@ export function TierCard({ tier, city, revealDelayMs = 0 }: TierCardProps) {
           </div>
           <p className="text-muted-foreground mb-6">{tier.description}</p>
 
-          <div className="mb-6 space-y-2.5">
-            {tier.features.map((feature, idx) => (
-              <div key={idx} className="flex items-start gap-2.5">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 mt-0.5">
-                  <Check className="h-3.5 w-3.5 text-primary" />
-                </span>
-                <span className="text-sm">{feature}</span>
-              </div>
-            ))}
-          </div>
+          {/* Collapsed by default to keep pages shorter — trying this out per
+              request; easy to flip back to always-expanded if it doesn't stick.
+              Uses the same Radix accordion primitive as the FAQ sections for a
+              real height-animated expand/collapse (native <details> can't
+              animate smoothly without relying on very new, spottily-supported
+              CSS). */}
+          <Accordion type="single" collapsible className="mb-6">
+            <AccordionItem value={`features-${tier.id}`} className="border-none">
+              <AccordionTrigger className="py-1 text-sm font-semibold hover:no-underline hover:text-primary">
+                What&apos;s included
+              </AccordionTrigger>
+              <AccordionContent className="pt-3 pb-0">
+                <div className="space-y-2.5">
+                  {tier.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-start gap-2.5">
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 mt-0.5">
+                        <Check className="h-3.5 w-3.5 text-primary" />
+                      </span>
+                      <span className="text-sm">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
 
         <div>
@@ -62,10 +87,19 @@ export function TierCard({ tier, city, revealDelayMs = 0 }: TierCardProps) {
               </div>
             ))}
           </div>
+          {hasPriceRange && (
+            <p className="text-xs text-muted-foreground mb-4 -mt-2">
+              Exact pricing depends on vehicle size and condition.
+            </p>
+          )}
           <Button asChild className="w-full">
             <a
-              href={getSmsHref({ packageName: tier.name, city })}
-              aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book ${tier.name}`}
+              href={getSmsHref({
+                packageName: tier.name,
+                categoryLabel: tier.categoryLabel,
+                city,
+              })}
+              aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book ${tier.name} (${tier.categoryLabel})`}
               data-cta-location="pricing-card"
             >
               Text to Book

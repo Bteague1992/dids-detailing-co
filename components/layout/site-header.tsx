@@ -23,7 +23,6 @@ export function SiteHeader() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/packages", label: "Packages" },
-    { href: "/portfolio", label: "Portfolio" },
     { href: "/faq", label: "FAQ" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },

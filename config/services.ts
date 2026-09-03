@@ -21,6 +21,9 @@ export interface ServicePackage {
   features: string[];
   sedanPrice: number;
   suvTruckPrice: number;
+  /** Top of the displayed price range (e.g. sedanPrice=60, sedanPriceMax=110 → "$60-$110"). Omit for a flat, non-range price. */
+  sedanPriceMax?: number;
+  suvTruckPriceMax?: number;
 }
 
 export interface CamperRvService {
@@ -89,8 +92,10 @@ export const servicesConfig = {
         "Tire shine",
         "Exterior glass cleaned",
       ],
-      sedanPrice: 70,
-      suvTruckPrice: 90,
+      sedanPrice: 60,
+      suvTruckPrice: 80,
+      sedanPriceMax: 110,
+      suvTruckPriceMax: 130,
     },
     {
       id: "basic-interior",
@@ -104,8 +109,10 @@ export const servicesConfig = {
         "Interior glass cleaned",
         "Light spot wipe on seats (no deep extraction)",
       ],
-      sedanPrice: 80,
-      suvTruckPrice: 100,
+      sedanPrice: 70,
+      suvTruckPrice: 90,
+      sedanPriceMax: 120,
+      suvTruckPriceMax: 140,
     },
     {
       id: "basic-full-detail",
@@ -118,8 +125,10 @@ export const servicesConfig = {
         "Everything in Basic Interior",
         "Extra attention to crevices & touchpoints",
       ],
-      sedanPrice: 130,
-      suvTruckPrice: 160,
+      sedanPrice: 120,
+      suvTruckPrice: 150,
+      sedanPriceMax: 170,
+      suvTruckPriceMax: 200,
     },
     // {
     //   id: "premium-full-detail",

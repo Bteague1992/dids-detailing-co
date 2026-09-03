@@ -11,7 +11,7 @@ import { siteConfig } from "@/config/site";
 import { businessConfig } from "@/config/business";
 import { servicesConfig, startingCarPrice } from "@/config/services";
 import { serviceCategories } from "@/config/service-categories";
-import { getCategoryTierGroups } from "@/lib/service-tiers";
+import { getCategoryTierGroups, formatPriceValue } from "@/lib/service-tiers";
 import type { Metadata } from "next";
 import { createPageMetadata } from "@/lib/metadata";
 
@@ -46,7 +46,7 @@ const faqs = [
   },
   {
     question: "How much does car detailing cost?",
-    answer: `Basic Exterior starts at $${basicExterior.sedanPrice} (sedan) / $${basicExterior.suvTruckPrice} (SUV/Truck). Basic Interior starts at $${basicInterior.sedanPrice} / $${basicInterior.suvTruckPrice}. Basic Full Detail starts at $${basicFullDetail.sedanPrice} / $${basicFullDetail.suvTruckPrice}. We come to your location — no drop-off required.`,
+    answer: `Basic Exterior runs ${formatPriceValue(basicExterior.sedanPrice, basicExterior.sedanPriceMax)} (sedan) / ${formatPriceValue(basicExterior.suvTruckPrice, basicExterior.suvTruckPriceMax)} (SUV/Truck), depending on vehicle size and condition. Basic Interior runs ${formatPriceValue(basicInterior.sedanPrice, basicInterior.sedanPriceMax)} / ${formatPriceValue(basicInterior.suvTruckPrice, basicInterior.suvTruckPriceMax)}. Basic Full Detail runs ${formatPriceValue(basicFullDetail.sedanPrice, basicFullDetail.sedanPriceMax)} / ${formatPriceValue(basicFullDetail.suvTruckPrice, basicFullDetail.suvTruckPriceMax)}. We come to your location — no drop-off required.`,
   },
   {
     question: "Do I need to provide water or power?",

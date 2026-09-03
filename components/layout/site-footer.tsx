@@ -94,14 +94,6 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link
-                  href="/portfolio"
-                  className="text-secondary-foreground/80 hover:text-secondary-foreground"
-                >
-                  Portfolio
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/faq"
                   className="text-secondary-foreground/80 hover:text-secondary-foreground"
                 >

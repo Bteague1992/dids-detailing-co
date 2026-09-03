@@ -2,6 +2,14 @@ import { siteConfig } from "@/config/site";
 
 export interface SmsOptions {
   packageName?: string;
+  /**
+   * Disambiguates packageName in the pre-filled text — e.g. "Motorcycle
+   * Detailing" so a tier named just "Premium" doesn't read as ambiguous once
+   * texted to the business owner out of context (a customer clicking the
+   * motorcycle Premium tier should text "Premium (Motorcycle Detailing)",
+   * not just "Premium").
+   */
+  categoryLabel?: string;
   vehicleType?: "sedan" | "suv-truck";
   city?: string;
 }
@@ -15,7 +23,11 @@ export function getSmsHref(options?: SmsOptions): string {
   let message = "Hi, I'm interested in booking a detail.";
 
   if (options?.packageName) {
-    message = `Hi, I'm interested in a ${options.packageName} for my `;
+    const packageLabel = options.categoryLabel
+      ? `${options.packageName} package (${options.categoryLabel})`
+      : `${options.packageName} package`;
+
+    message = `Hi, I'm interested in booking the ${packageLabel} for my `;
     if (options.vehicleType) {
       message +=
         options.vehicleType === "sedan" ? "sedan" : "SUV/Truck";

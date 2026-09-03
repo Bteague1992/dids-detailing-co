@@ -16,7 +16,12 @@ export function TierGrid({ groups, city }: TierGridProps) {
               {group.groupLabel}
             </h3>
           )}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* items-start: without it, CSS Grid stretches every card in a row
+              to match the tallest sibling — so expanding one card's "What's
+              included" accordion would visually stretch the other cards in
+              that row too, even though only one card's content actually
+              grew. */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
             {group.tiers.map((tier, tierIdx) => (
               <TierCard
                 key={tier.id}

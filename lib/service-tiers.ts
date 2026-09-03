@@ -17,6 +17,14 @@ export interface NormalizedTier {
   features: string[];
   priceLines: PriceLine[];
   frequency?: MaintenanceFrequency;
+  /**
+   * Disambiguates the tier name in booking messages (e.g. "Motorcycle
+   * Detailing" for a tier named just "Premium", or "Car & Truck Maintenance
+   * Plans" for one named "Weekly Maintenance Wash") — see TierCard's
+   * getSmsHref call. Without this, a short tier name like "Premium" reads as
+   * ambiguous once texted to the business owner out of context.
+   */
+  categoryLabel: string;
 }
 
 export interface TierGroup {
@@ -25,14 +33,24 @@ export interface TierGroup {
   tiers: NormalizedTier[];
 }
 
-function formatCurrency(amount: number): string {
+export function formatCurrency(amount: number): string {
   return Number.isInteger(amount) ? `$${amount}` : `$${amount.toFixed(2)}`;
 }
 
-function carLines(sedanPrice: number, suvTruckPrice: number): PriceLine[] {
+/** Formats a single price, or a "$low-$high" range when a max is given. */
+export function formatPriceValue(low: number, max?: number): string {
+  return max != null ? `${formatCurrency(low)}-${formatCurrency(max)}` : formatCurrency(low);
+}
+
+function carLines(
+  sedanPrice: number,
+  suvTruckPrice: number,
+  sedanPriceMax?: number,
+  suvTruckPriceMax?: number,
+): PriceLine[] {
   return [
-    { label: "Sedan", value: formatCurrency(sedanPrice) },
-    { label: "SUV/Truck", value: formatCurrency(suvTruckPrice) },
+    { label: "Sedan", value: formatPriceValue(sedanPrice, sedanPriceMax) },
+    { label: "SUV/Truck", value: formatPriceValue(suvTruckPrice, suvTruckPriceMax) },
   ];
 }
 
@@ -66,7 +84,8 @@ export function getCategoryTierGroups(category: ServiceCategory): TierGroup[] {
             name: p.name,
             description: p.description,
             features: p.features,
-            priceLines: carLines(p.sedanPrice, p.suvTruckPrice),
+            priceLines: carLines(p.sedanPrice, p.suvTruckPrice, p.sedanPriceMax, p.suvTruckPriceMax),
+            categoryLabel: category.name,
           })),
         },
       ];
@@ -80,6 +99,7 @@ export function getCategoryTierGroups(category: ServiceCategory): TierGroup[] {
             description: m.description,
             features: m.features,
             priceLines: [{ label: "Price", value: formatCurrency(m.price) }],
+            categoryLabel: category.name,
           })),
         },
       ];
@@ -93,6 +113,7 @@ export function getCategoryTierGroups(category: ServiceCategory): TierGroup[] {
             description: r.description,
             features: r.features,
             priceLines: rvLines(r.pricePerFoot, r.minimumPrice),
+            categoryLabel: category.name,
           })),
         },
       ];
@@ -108,6 +129,7 @@ export function getCategoryTierGroups(category: ServiceCategory): TierGroup[] {
             features: p.features,
             priceLines: carLines(p.sedanPrice, p.suvTruckPrice),
             frequency: p.frequency,
+            categoryLabel: "Car & Truck Maintenance Plans",
           })),
         },
         {
@@ -119,6 +141,7 @@ export function getCategoryTierGroups(category: ServiceCategory): TierGroup[] {
             features: p.features,
             priceLines: [{ label: "Price", value: formatCurrency(p.price) }],
             frequency: p.frequency,
+            categoryLabel: "Motorcycle Maintenance Plans",
           })),
         },
         {
@@ -130,6 +153,7 @@ export function getCategoryTierGroups(category: ServiceCategory): TierGroup[] {
             features: p.features,
             priceLines: rvLines(p.pricePerFoot, p.minimumPrice),
             frequency: p.frequency,
+            categoryLabel: "Camper & RV Maintenance Plans",
           })),
         },
       ];
@@ -141,7 +165,13 @@ export function getCategoryTierGroups(category: ServiceCategory): TierGroup[] {
 export function getStartingPrice(groups: TierGroup[]): number {
   const allTiers = groups.flatMap((g) => g.tiers);
   const amounts = allTiers.flatMap((t) =>
-    t.priceLines.map((line) => parseFloat(line.value.replace(/[^0-9.]/g, ""))),
+    t.priceLines.map((line) => {
+      // Extract just the first number (the low end of a "$60-$110" range, or
+      // the whole value for a flat "$70") — stripping all non-digit chars
+      // instead would concatenate a range's two numbers into one bogus value.
+      const match = line.value.match(/[\d.]+/);
+      return match ? parseFloat(match[0]) : NaN;
+    }),
   );
   return Math.min(...amounts);
 }
