@@ -11,7 +11,13 @@ interface PageMetadataOptions {
   };
 }
 
-const DEFAULT_OG_IMAGE = "/images/dmd-logo.png";
+/** The 1200×630 branded share image (scripts/generate-brand-assets.mjs). */
+export const SHARE_IMAGE = {
+  url: "/images/og-share.png",
+  width: 1200,
+  height: 630,
+  alt: `${siteConfig.title} — ${siteConfig.tagline}`,
+};
 
 export function createPageMetadata({
   title,
@@ -20,7 +26,10 @@ export function createPageMetadata({
   robots,
 }: PageMetadataOptions): Metadata {
   return {
-    title,
+    // Titles that already include the business name skip the root layout's
+    // "%s | Dad's Mobile Detailing Co." template (absolute) — otherwise the
+    // name is appended a second time. Short titles like "Gallery" still get it.
+    title: title.includes(siteConfig.title) ? { absolute: title } : title,
     description,
     alternates: {
       canonical,
@@ -32,20 +41,13 @@ export function createPageMetadata({
       url: canonical,
       siteName: siteConfig.title,
       type: "website",
-      images: [
-        {
-          url: DEFAULT_OG_IMAGE,
-          width: 512,
-          height: 512,
-          alt: `${siteConfig.title} logo`,
-        },
-      ],
+      images: [SHARE_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [DEFAULT_OG_IMAGE],
+      images: [SHARE_IMAGE.url],
     },
   };
 }

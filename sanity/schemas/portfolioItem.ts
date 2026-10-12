@@ -7,9 +7,14 @@
 // project ID/dataset from NEXT_PUBLIC_SANITY_PROJECT_ID / NEXT_PUBLIC_SANITY_DATASET)
 // and deploy it — that step is out of scope here.
 
-import { serviceCategories } from "@/config/service-categories";
-
-const serviceCategoryOptions = serviceCategories.map((c) => c.slug);
+// Stored values for the Service Category field. These are data labels, not
+// page URLs — keep them unchanged so existing portfolio items stay valid.
+const serviceCategoryOptions = [
+  "car-detailing",
+  "motorcycle-detailing",
+  "camper-rv-detailing",
+  "maintenance-plans",
+];
 
 export const portfolioItemSchema = {
   name: "portfolioItem",
@@ -26,7 +31,7 @@ export const portfolioItemSchema = {
       name: "serviceCategory",
       title: "Service Category",
       type: "string",
-      description: "Matches a slug from config/service-categories.ts",
+      description: "One of the service category values listed below",
       options: {
         list: serviceCategoryOptions,
       },

@@ -1,37 +1,24 @@
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-interface ContainerProps {
-  children: React.ReactNode;
-  className?: string;
-  maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "full";
-}
-
-const maxWidthClasses = {
-  sm: "max-w-screen-sm",
-  md: "max-w-screen-md",
-  lg: "max-w-screen-lg",
-  xl: "max-w-screen-xl",
-  "2xl": "max-w-screen-2xl",
+const widths = {
   "3xl": "max-w-3xl",
   "4xl": "max-w-4xl",
   "5xl": "max-w-5xl",
   "6xl": "max-w-6xl",
-  full: "max-w-full",
-};
+} as const;
 
 export function Container({
-  children,
+  width = "6xl",
   className,
-  maxWidth = "6xl",
-}: ContainerProps) {
+  children,
+}: {
+  width?: keyof typeof widths;
+  className?: string;
+  children: ReactNode;
+}) {
   return (
-    <div
-      className={cn(
-        "mx-auto px-4 sm:px-6 lg:px-8",
-        maxWidthClasses[maxWidth],
-        className
-      )}
-    >
+    <div className={cn("mx-auto w-full px-5 sm:px-6", widths[width], className)}>
       {children}
     </div>
   );

@@ -1,21 +1,32 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Logo } from "@/components/site/logo";
+import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 
 export default function NotFound() {
   return (
-    <div className="flex min-h-[60vh] items-center justify-center">
-      <Container maxWidth="2xl" className="text-center">
-        <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4">
-          404 - Page Not Found
+    <section className="bg-white py-12 md:py-16">
+      <Container width="3xl" className="text-center">
+        <Logo
+          variant="shield"
+          decorative
+          priority
+          sizes="240px"
+          className="mx-auto h-52 md:h-60"
+        />
+        <h1 className="mt-6 text-[2rem] font-extrabold sm:text-4xl lg:text-5xl">
+          Well, this page got lost under the seat.
         </h1>
-        <p className="text-lg text-muted-foreground mb-8">
-          The page you're looking for doesn't exist.
+        <p className="mx-auto mt-4 max-w-xl text-lg text-muted-text">
+          We looked. Found two fries and a crayon, but not this page. Let&apos;s
+          get you somewhere useful.
         </p>
-        <Button asChild size="lg">
-          <Link href="/">Go Home</Link>
-        </Button>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <ButtonLink href="/">Back to home</ButtonLink>
+          <ButtonLink href="/packages" variant="secondary">
+            See packages
+          </ButtonLink>
+        </div>
       </Container>
-    </div>
+    </section>
   );
 }

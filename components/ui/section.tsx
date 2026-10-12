@@ -1,96 +1,97 @@
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { Container } from "@/components/ui/container";
 
-type SectionVariant = "default" | "muted" | "contrast";
+type Tone = "white" | "warm" | "charcoal";
 
-interface SectionProps {
-  id?: string;
-  title?: string;
-  description?: string;
-  children: React.ReactNode;
-  variant?: SectionVariant;
+const tones: Record<Tone, string> = {
+  white: "bg-white",
+  warm: "bg-warm-gray",
+  charcoal: "on-dark bg-charcoal text-white",
+};
+
+/** Section heading with the short orange underline accent. */
+export function SectionHeading({
+  title,
+  subtitle,
+  align = "center",
+  onDark = false,
+  as: Tag = "h2",
+  className,
+}: {
+  title: ReactNode;
+  subtitle?: ReactNode;
+  align?: "center" | "left";
+  onDark?: boolean;
+  as?: "h2" | "h3";
   className?: string;
-  containerClassName?: string;
-  withBorder?: boolean;
+}) {
+  return (
+    <div
+      className={cn(
+        "mb-8 md:mb-10",
+        align === "center" && "text-center",
+        className,
+      )}
+    >
+      <Tag className="text-[1.75rem] md:text-4xl font-extrabold">{title}</Tag>
+      <span
+        aria-hidden="true"
+        className={cn(
+          "mt-3 block h-1 w-14 rounded-full bg-orange",
+          align === "center" && "mx-auto",
+        )}
+      />
+      {subtitle && (
+        <p
+          className={cn(
+            "mt-4 max-w-2xl",
+            align === "center" && "mx-auto",
+            onDark ? "text-white/85" : "text-muted-text",
+          )}
+        >
+          {subtitle}
+        </p>
+      )}
+    </div>
+  );
 }
 
 /**
- * Section component with standardized variants for visual hierarchy
- *
- * Variants:
- * - default: bg-background (light, primary content)
- * - muted: gradient off the deepened --muted token (secondary sections)
- * - contrast: navy gradient band with a dot-grid + glow accent (final CTAs)
+ * Page section. Alternate tone="white" and tone="warm" down the page.
  */
 export function Section({
   id,
+  tone = "white",
   title,
-  description,
-  children,
-  variant = "default",
+  subtitle,
+  align = "center",
+  width = "6xl",
   className,
-  containerClassName,
-  withBorder = false,
-}: SectionProps) {
-  const variantStyles = {
-    default: "bg-background text-foreground",
-    muted: "bg-linear-to-b from-muted to-background text-foreground",
-    contrast:
-      "bg-linear-to-br from-secondary via-secondary to-secondary-light text-secondary-foreground",
-  };
-
+  children,
+}: {
+  id?: string;
+  tone?: Tone;
+  title?: ReactNode;
+  subtitle?: ReactNode;
+  align?: "center" | "left";
+  width?: "3xl" | "4xl" | "5xl" | "6xl";
+  className?: string;
+  children: ReactNode;
+}) {
   return (
-    <section
-      id={id}
-      className={cn(
-        "relative py-12 md:py-16 overflow-hidden",
-        variantStyles[variant],
-        withBorder && "border-t border-border/60",
-        className
-      )}
-    >
-      {variant === "contrast" && (
-        <>
-          <div className="absolute inset-0 bg-dot-grid-light opacity-30 pointer-events-none" />
-          <div className="absolute -top-24 -right-16 h-72 w-72 rounded-full bg-primary/25 blur-3xl pointer-events-none" />
-        </>
-      )}
-      {variant === "muted" && (
-        <div className="absolute inset-0 bg-dot-grid opacity-10 pointer-events-none" />
-      )}
-      <div
-        className={cn(
-          "container relative z-10 mx-auto px-4 sm:px-6 lg:px-8",
-          containerClassName
-        )}
-      >
-        {(title || description) && (
-          <div className="mb-12 text-center">
-            {title && (
-              <h2
-                className={cn(
-                  "text-3xl md:text-4xl font-heading font-bold mb-4",
-                  variant === "contrast" && "text-secondary-foreground"
-                )}
-              >
-                {title}
-              </h2>
-            )}
-            {description && (
-              <p
-                className={cn(
-                  "text-lg max-w-2xl mx-auto",
-                  variant === "contrast"
-                    ? "text-secondary-foreground/90"
-                    : "text-muted-foreground"
-                )}
-              >
-                {description}
-              </p>
-            )}
-          </div>
+    <section id={id} className={cn("py-12 md:py-16", tones[tone], className)}>
+      <Container width={width}>
+        {title && (
+          <SectionHeading
+            title={title}
+            subtitle={subtitle}
+            align={align}
+            onDark={tone === "charcoal"}
+          />
         )}
         {children}
-      </div>
+      </Container>
     </section>
   );
 }

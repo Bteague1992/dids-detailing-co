@@ -1,57 +1,65 @@
-# SEO URL Map
+# SEO URL map
 
-Documents how the new `/services` and `/service-areas` page structure was
-reconciled with pre-existing, indexed URLs, so search ranking signal isn't
-split across near-duplicate pages. See `config/service-categories.ts`
-(`legacyPage` field + `getLegacyServicePath` / `getLegacyServiceAreaPath` /
-`getServiceCategoryHref` / `getServiceAreaCategoryHref` helpers) and the
-`redirects()` block in `next.config.ts` for the implementation.
+The site has **21 indexable pages**: the 20 from the October 2026 consolidation, plus the booking form at `/book` added afterwards. Everything else that was ever live redirects permanently to one of them. The redirects live in `redirects()` in `next.config.ts` and must never be removed.
 
-## Decision summary
+## The pages
 
-| Old URL | New equivalent | Decision | Why |
-|---|---|---|---|
-| `/car-detailing` | `/services/car-detailing` | **Keep old, redirect new** (308) | Already indexed/ranked; new page would be a near-duplicate category overview. |
-| `/motorcycle-detailing` | `/services/motorcycle-detailing` | **Keep old, redirect new** (308) | Same reasoning. |
-| `/mobile-car-detailing/[city]/nc` (8 cities) | `/service-areas/[city]/car-detailing` | **Keep old, redirect new** (308) | Already indexed per-city (e.g. Morganton has 400+ Search Console impressions). New combined page would duplicate it exactly. |
-| `/mobile-motorcycle-detailing/[city]/nc` (8 cities) | `/service-areas/[city]/motorcycle-detailing` | **Keep old, redirect new** (308) | Same reasoning. |
-| `/packages` | — | **Keep old, no new equivalent generated** | Still the single full-pricing reference page (all vehicle types + maintenance plans); nothing in the new structure replaces it. |
-| *(none — new categories)* | `/services/camper-rv-detailing`, `/services/maintenance-plans` | **New pages, generated & sitemapped** | No legacy equivalent exists; net-new coverage. |
-| *(none — new categories × 8 cities = 16 pages)* | `/service-areas/[city]/camper-rv-detailing`, `/service-areas/[city]/maintenance-plans` | **New pages, generated & sitemapped** | Same — no legacy equivalent, no cannibalization risk. |
-| *(none)* | `/service-areas/[city]` (city hub, 8 pages) | **New page, generated & sitemapped** | No old generic per-city hub existed; links out to the legacy car/moto pages plus the new RV/maintenance pages for that city. |
-| *(none)* | `/services` (category index) | **New page, generated & sitemapped** | No old equivalent; links to the legacy car/moto pages plus the new category pages. |
+The list, with each page's last-modified date for the sitemap, is in `config/pages.ts`.
 
-## How the redirect-vs-keep logic is enforced in code
+| Page | URL |
+|---|---|
+| Home | `/` |
+| Packages & pricing | `/packages` |
+| Car, truck & SUV detailing | `/car-detailing` |
+| Motorcycle detailing | `/motorcycle-detailing` |
+| RV & camper detailing | `/rv-detailing` |
+| Dad's Club | `/dads-club` |
+| Services hub | `/services` |
+| Service areas hub | `/service-areas` |
+| Portfolio | `/portfolio` |
+| About, FAQ, Contact | `/about`, `/faq`, `/contact` |
+| Booking request form | `/book` |
+| City pages (8) | `/mobile-car-detailing/[city]/nc` |
 
-- `config/service-categories.ts` marks `car-detailing` and `motorcycle-detailing`
-  with `legacyPage: true`.
-- `app/services/[serviceSlug]/page.tsx` and
-  `app/service-areas/[citySlug]/[serviceSlug]/page.tsx` only call
-  `generateStaticParams()` for non-legacy categories (via
-  `getGeneratedServiceCategories()`), so `/services/car-detailing`,
-  `/services/motorcycle-detailing`, and the car/moto combinations under
-  `/service-areas/[city]/` are never built as pages.
-- `next.config.ts` `redirects()` sends those exact paths (308, permanent) to
-  their legacy equivalents.
-- `app/sitemap.ts` only lists the legacy URLs and the non-legacy new pages —
-  never a redirected-away URL.
-- Internal links use `getServiceCategoryHref()` / `getServiceAreaCategoryHref()`
-  (in `config/service-categories.ts`) rather than hardcoding `/services/...` or
-  `/service-areas/.../...`, so every link sitewide (services index, service
-  area hub pages, and the service category page's own city grid) automatically
-  points at the legacy page for car/motorcycle detailing and the new page for
-  everything else — no link anywhere points at a redirected URL.
+Towns: hickory, morganton, lenoir, valdese, conover, newton, granite-falls, long-view.
 
-## Canonical tags
+Each city page covers every service in that town: car detailing as the main focus, plus a short section each for motorcycles, RVs and Dad's Club that links to the main page for that service.
 
-Every generated page (legacy and new) sets its own self-canonical via
-`createPageMetadata({ canonical: ... })`, matching its sitemap entry exactly.
-Redirected paths (`/services/car-detailing`, etc.) never render, so they never
-emit a canonical tag or metadata of their own — there's no loop risk since a
-redirect target is never itself redirected elsewhere.
+## October 2026 consolidation (53 pages → 20)
 
-Separately, the homepage (`/`) and `/mobile-car-detailing/hickory/nc` were
-differentiated by title/meta description (not canonicalized to each other) to
-fix homepage/Hickory-page keyword cannibalization — see the code comments in
-`app/page.tsx` and `app/mobile-car-detailing/[...slug]/page.tsx` for that
-separate decision.
+Most of the old pages were near-duplicate city × service pages that Google was partly ignoring. They were merged into the pages above and redirected.
+
+| Old URL | Now redirects to |
+|---|---|
+| `/gallery` | `/portfolio` |
+| `/services/camper-rv-detailing` | `/rv-detailing` |
+| `/services/maintenance-plans` | `/dads-club` |
+| `/service-areas/[city]` | `/mobile-car-detailing/[city]/nc` |
+| `/service-areas/[city]/maintenance-plans` | `/mobile-car-detailing/[city]/nc` |
+| `/service-areas/[city]/camper-rv-detailing` | `/rv-detailing` |
+| `/mobile-motorcycle-detailing/[city]/nc` | `/motorcycle-detailing` |
+
+Where the unique content went:
+
+- Each town's motorcycle, RV, Dad's Club and service-area paragraphs now sit on that town's city page (`lib/city-content.ts`).
+- The gallery's three before/after cards are on `/portfolio`.
+
+## Older redirects (still required)
+
+| Old URL | Redirects to |
+|---|---|
+| `/mobile-car-detailing-[city]-nc` | `/mobile-car-detailing/[city]/nc` |
+| `/mobile-motorcycle-detailing-[city]-nc` | `/motorcycle-detailing` |
+| `/services/car-detailing` | `/car-detailing` |
+| `/services/motorcycle-detailing` | `/motorcycle-detailing` |
+| `/service-areas/[city]/car-detailing` | `/mobile-car-detailing/[city]/nc` |
+| `/service-areas/[city]/motorcycle-detailing` | `/motorcycle-detailing` |
+
+## Rules
+
+- Every redirect is permanent (308) and goes to its final URL in one hop, with or without a trailing slash on the old URL.
+- Redirects only match the eight real towns. Unknown URLs return a real 404; there is no catch-all to the homepage.
+- Next's built-in trailing-slash redirect is switched off (`skipTrailingSlashRedirect`) and re-added as the last rule in `redirects()`, so `/old-url/` doesn't take two hops. Keep that rule last.
+- The sitemap lists only the 20 pages. `lastModified` is a hand-maintained date per page in `config/pages.ts`, never the build time.
+- Every page has a self-referencing canonical on `https://www.dadsdetailco.com`, with no trailing slash.
+- Don't add a page without adding it to `config/pages.ts`, and don't remove one without adding its redirect first.

@@ -1,47 +1,84 @@
-import Link from "next/link";
+import { Car, Caravan, Motorbike, Plus, Repeat } from "lucide-react";
+import { LinkCard } from "@/components/site/icon-cards";
+import { PageHero } from "@/components/site/page-hero";
+import { HowItWorks } from "@/components/site/how-it-works";
 import { Section } from "@/components/ui/section";
-import { Container } from "@/components/ui/container";
-import { serviceCategories, getServiceCategoryHref } from "@/config/service-categories";
-import { getCategoryTierGroups, getStartingPrice } from "@/lib/service-tiers";
+import {
+  addOnFromPrice,
+  bikeWash,
+  dadsClubFromPrice,
+  formatPrice,
+  rvFromRate,
+  startingCarPrice,
+} from "@/config/services";
 import { siteConfig } from "@/config/site";
 import { createPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = createPageMetadata({
-  title: `All Services | ${siteConfig.title}`,
-  description:
-    "Mobile detailing services for cars, motorcycles, campers/RVs, and recurring maintenance plans — we come to you.",
+  title: `All Services | Cars, Bikes, RVs & Dad's Club | ${siteConfig.title}`,
+  description: `Everything we do, in one place: car, truck & SUV detailing from $${startingCarPrice}, motorcycles, RVs and campers, add-ons, and Dad's Club recurring visits. We come to you.`,
   canonical: "/services",
 });
 
+const categories = [
+  {
+    icon: Car,
+    title: "Cars, trucks & SUVs",
+    text: "Four simple packages for everyday vehicles. Minivans and work trucks very much included.",
+    price: `From ${formatPrice(startingCarPrice)}`,
+    href: "/car-detailing",
+  },
+  {
+    icon: Motorbike,
+    title: "Motorcycles",
+    text: "A careful hand wash or the full treatment, chrome polish and all.",
+    price: `From ${formatPrice(bikeWash.price)}`,
+    href: "/motorcycle-detailing",
+  },
+  {
+    icon: Caravan,
+    title: "RVs & campers",
+    text: "Top-to-bottom cleaning right where the rig is parked, priced by the foot.",
+    price: `From ${formatPrice(rvFromRate)}/ft`,
+    href: "/rv-detailing",
+  },
+  {
+    icon: Repeat,
+    title: "Dad's Club",
+    text: "We keep your car clean every two weeks or every month. No contracts.",
+    price: `From ${formatPrice(dadsClubFromPrice)} a visit`,
+    href: "/dads-club",
+  },
+  {
+    icon: Plus,
+    title: "Packages, pricing & add-ons",
+    text: "Every package and price on one page, plus add-ons for pet hair, car seats, stains, and odors.",
+    price: `Add-ons from ${formatPrice(addOnFromPrice)}`,
+    href: "/packages",
+  },
+];
+
 export default function ServicesIndexPage() {
   return (
-    <Section variant="default" title="Our Services" className="pt-8">
-      <Container maxWidth="5xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {serviceCategories.map((category, idx) => {
-            const startingPrice = getStartingPrice(getCategoryTierGroups(category));
-            return (
-              <Link
-                key={category.slug}
-                href={getServiceCategoryHref(category)}
-                className="reveal border border-border/60 rounded-xl p-6 bg-card hover:shadow-lg hover:shadow-primary/10 hover:border-primary/40 hover:-translate-y-1"
-                style={{ transitionDelay: `${idx * 100}ms` }}
-              >
-                <h2 className="text-xl font-heading font-bold mb-2">
-                  {category.name}
-                </h2>
-                <p className="text-muted-foreground text-sm mb-3">
-                  {category.shortDescription}
-                </p>
-                <p className="text-primary font-semibold text-sm">
-                  Starting at ${startingPrice} →
-                </p>
-              </Link>
-            );
-          })}
-        </div>
-      </Container>
-    </Section>
+    <>
+      <PageHero
+        location="services-hero"
+        title="Everything we do, in one place."
+        sub="If it has wheels and it's messy, there's a good chance we clean it. Pick a category to see what's included and what it costs."
+      />
+
+      <Section tone="warm" title="Pick what needs cleaning">
+        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {categories.map((item) => (
+            <li key={item.href}>
+              <LinkCard item={item} />
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <HowItWorks tone="white" />
+    </>
   );
 }

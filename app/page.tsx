@@ -1,101 +1,69 @@
-import { Hero } from "@/components/marketing/hero";
-import { PackagesGrid } from "@/components/marketing/packages-grid";
-import { HowItWorks } from "@/components/marketing/how-it-works";
-import { ServiceAreaList } from "@/components/marketing/service-area-list";
-import { FAQList } from "@/components/marketing/faq-list";
+import { PageHero } from "@/components/site/page-hero";
+import { primaryTowns } from "@/config/business";
+import { RatingLine } from "@/components/site/rating-line";
+import { TrustBar } from "@/components/site/trust-bar";
+import { BeforeAfter } from "@/components/site/before-after";
+import { PackageOverview } from "@/components/site/package-overview";
+import { HowItWorks } from "@/components/site/how-it-works";
+import { Reviews } from "@/components/site/reviews";
+import { MeetDad } from "@/components/site/brand-blocks";
+import { DadsClubBanner } from "@/components/site/dads-club";
 import { Section } from "@/components/ui/section";
-import { Button } from "@/components/ui/button";
-import { Container } from "@/components/ui/container";
 import { LocalBusinessSchema } from "@/components/seo/local-business-schema";
-import { getSmsHref } from "@/lib/cta";
 import { siteConfig } from "@/config/site";
 import { startingCarPrice } from "@/config/services";
 import type { Metadata } from "next";
 import { createPageMetadata } from "@/lib/metadata";
 
 // SEO note: the homepage owns broad/branded queries ("Dad's Mobile Detailing
-// Co.", "mobile detailing Hickory NC") — title leads with the brand name and
-// stays self-canonical at "/". The Hickory-specific page at
-// /mobile-car-detailing/hickory/nc targets more specific booking-intent
-// queries ("book mobile detailing hickory") with a distinct title/description
-// pattern (see generateCityMetaDescription in lib/seo-content.ts) and keeps
-// its own self-canonical rather than canonicalizing here, since it carries
-// real additional content (FAQ schema, city-specific CTA, cross-city links)
-// beyond what this page covers. This split avoids the two pages competing for
-// the same SERP snippet.
+// Co.", "mobile detailing Hickory NC") — the title leads with the brand name
+// and stays self-canonical at "/". The per-city pages under
+// /mobile-car-detailing/[city]/nc target booking-intent local queries with
+// their own titles and self-canonicals, so the two don't compete.
 export const metadata: Metadata = createPageMetadata({
-  title: `${siteConfig.title} | Mobile Car Detailing in Hickory, NC — Starting at $${startingCarPrice}`,
-  description: `${siteConfig.title} brings mobile car detailing to Hickory, NC and the surrounding area — cars, trucks, SUVs & motorcycles, starting at $${startingCarPrice}. We come to you. Text to book.`,
+  title: `${siteConfig.title} | Mobile Detailing in ${primaryTowns}, NC`,
+  description: `Life gets messy. Dad's got it. Mobile detailing for real families and everyday vehicles around ${primaryTowns}. Honest prices from $${startingCarPrice}. We come to you.`,
   canonical: "/",
 });
-
-const homeFAQs = [
-  {
-    question: "How long does a detail take?",
-    answer:
-      "Basic Exterior takes about 45-60 minutes, Basic Interior takes about 60-75 minutes, and a Full Detail typically takes 2-3 hours depending on the size and condition of your vehicle.",
-  },
-  {
-    question: "Do you come to my home or workplace?",
-    answer:
-      "Yes! We come to wherever is convenient for you - your home, office, or any other location within our service area. Just let us know where you'd like us to meet you.",
-  },
-];
 
 export default function HomePage() {
   return (
     <>
       <LocalBusinessSchema />
-      <Hero />
+      <PageHero
+        size="home"
+        location="home-hero"
+        title={
+          <>
+            Life gets messy.{" "}
+            <span className="block text-orange-strong">Dad&apos;s got it.</span>
+          </>
+        }
+        sub={`Mobile detailing for real families and everyday vehicles in ${primaryTowns}. We come to you.`}
+      >
+        <RatingLine />
+      </PageHero>
+
+      <TrustBar />
+
+      <BeforeAfter tone="white" />
+
       <Section
         id="packages"
-        variant="muted"
-        title="Our Packages"
-        description="Choose the service that fits your needs"
-        withBorder
+        tone="warm"
+        title="Simple packages. Honest prices."
+        subtitle="Starting prices shown. No surprises. If your car needs extra love, we'll tell you before we start."
       >
-        <PackagesGrid />
+        <PackageOverview />
       </Section>
-      <HowItWorks />
-      <Section
-        id="service-area"
-        variant="muted"
-        title="We Serve These Areas"
-        description="We proudly serve Hickory, NC and surrounding communities with mobile car detailing services."
-      >
-        <ServiceAreaList />
-      </Section>
-      <Section
-        id="faq"
-        variant="default"
-        title="Frequently Asked Questions"
-        description="Got questions? We've got answers."
-        withBorder
-      >
-        <Container maxWidth="3xl">
-          <FAQList faqs={homeFAQs} />
-        </Container>
-      </Section>
-      <Section variant="contrast">
-        <Container maxWidth="3xl" className="text-center">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-secondary-foreground">
-            Ready for a Clean Ride?
-          </h2>
-          <p className="text-lg text-secondary-foreground/90 mb-8">
-            Text us to book your detail today. No forms, no hassle - just
-            convenient, quality service.
-          </p>
-          <Button asChild size="lg" className="text-lg px-8 py-6">
-            <a
-              href={getSmsHref()}
-              aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a detail`}
-              data-cta-location="home-final"
-            >
-              Text to Book
-            </a>
-          </Button>
-        </Container>
-      </Section>
+
+      <HowItWorks tone="white" />
+
+      <Reviews tone="warm" />
+
+      <MeetDad />
+
+      <DadsClubBanner />
     </>
   );
 }

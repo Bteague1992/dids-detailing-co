@@ -1,8 +1,10 @@
+import { PageHero } from "@/components/site/page-hero";
+import {
+  PortfolioGrid,
+  type PortfolioItem,
+} from "@/components/site/portfolio-grid";
+import { BeforeAfter } from "@/components/site/before-after";
 import { Section } from "@/components/ui/section";
-import { Container } from "@/components/ui/container";
-import { Button } from "@/components/ui/button";
-import { PortfolioGrid, type PortfolioItem } from "@/components/marketing/portfolio-grid";
-import { getSmsHref } from "@/lib/cta";
 import { siteConfig } from "@/config/site";
 import { sanityClient, isSanityConfigured } from "@/lib/sanity";
 import { createPageMetadata } from "@/lib/metadata";
@@ -13,9 +15,9 @@ import type { Metadata } from "next";
 export const revalidate = 60;
 
 export const metadata: Metadata = createPageMetadata({
-  title: `Portfolio | ${siteConfig.title}`,
+  title: `Portfolio | Real Before & Afters | ${siteConfig.title}`,
   description:
-    "Before and after photos of recent mobile detailing work — cars, motorcycles, campers, and RVs.",
+    "Real before and after photos from recent mobile details around Hickory, NC. Family cars, work trucks, motorcycles, campers, and RVs. No judgment, just results.",
   canonical: "/portfolio",
 });
 
@@ -46,35 +48,22 @@ export default async function PortfolioPage() {
 
   return (
     <>
-      <Section
-        variant="default"
-        title="Our Work"
-        description="Real before/after results from recent details."
-        className="pt-8"
-      >
-        <Container maxWidth="5xl">
-          <PortfolioGrid items={items} />
-        </Container>
+      <PageHero
+        location="portfolio-hero"
+        title="Proof is in the backseat."
+        sub="Real cars, real messes, real before and afters from recent jobs."
+      />
+      <Section tone="warm" title="Recent work" width="5xl">
+        <PortfolioGrid items={items} />
       </Section>
-      <Section variant="contrast">
-        <Container maxWidth="3xl" className="text-center">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-secondary-foreground">
-            Ready to See This on Your Vehicle?
-          </h2>
-          <p className="text-lg text-secondary-foreground/90 mb-8">
-            Text us to book your detail and see the difference for yourself.
-          </p>
-          <Button asChild size="lg" className="text-lg px-8 py-6">
-            <a
-              href={getSmsHref()}
-              aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a detail`}
-              data-cta-location="portfolio-page"
-            >
-              Text to Book
-            </a>
-          </Button>
-        </Container>
-      </Section>
+      {/* Carried over from the old /gallery page. Kept under its own heading,
+          separate from "Recent work", because these three are illustrations of
+          the kinds of mess we handle rather than photos of specific jobs. */}
+      <BeforeAfter
+        tone="white"
+        title="The kind of mess we handle"
+        subtitle="Snack crumbs, dog hair, job-site mud. Normal stuff. No judgment."
+      />
     </>
   );
 }

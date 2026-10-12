@@ -1,54 +1,68 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { primaryTowns } from "@/config/business";
 import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
-import { SiteShell } from "@/components/layout/site-shell";
+import { SiteShell } from "@/components/site/site-shell";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import { CtaClickTracker } from "@/components/analytics/cta-click-tracker";
-import { startingCarPrice } from "@/config/services";
+import { siteConfig } from "@/config/site";
+import { SHARE_IMAGE } from "@/lib/metadata";
 
+// next/font self-hosts both families and reserves their metrics up front, so
+// there is no layout shift when they load.
 const poppins = Poppins({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["700", "800"],
+  display: "swap",
 });
 
 const inter = Inter({
   variable: "--font-body",
   subsets: ["latin"],
+  display: "swap",
 });
+
+const defaultTitle = `${siteConfig.title} | Mobile Detailing in ${primaryTowns}, NC`;
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Dad's Mobile Detailing Co.",
-    default: `Mobile Car Detailing in Hickory, NC — Starting at $${startingCarPrice}`,
+    template: `%s | ${siteConfig.title}`,
+    default: defaultTitle,
   },
-  description: `Mobile car detailing in Hickory, NC starting at $${startingCarPrice}. We come to you — no drop-off needed. Cars, trucks, SUVs & motorcycles. Text to book.`,
-  metadataBase: new URL("https://www.dadsdetailco.com"),
+  description: siteConfig.description,
+  metadataBase: new URL(siteConfig.domain),
   alternates: {
     canonical: "/",
   },
-  openGraph: {
-    title:
-      "Mobile Car Detailing in Hickory, NC — We Come to You | Dad's Mobile Detailing Co.",
-    description: `Mobile car detailing in Hickory, NC starting at $${startingCarPrice} | We come to you — no drop-off needed | Exterior, interior & full detail. Text to book.`,
-    url: "/",
-    siteName: "Dad's Mobile Detailing Co.",
-    type: "website",
-    images: [
-      {
-        url: "/images/dmd-logo.png",
-        width: 512,
-        height: 512,
-        alt: "Dad's Mobile Detailing Co. logo",
-      },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/icons/icon-16.png", sizes: "16x16", type: "image/png" },
+      { url: "/icons/icon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icons/icon-48.png", sizes: "48x48", type: "image/png" },
     ],
+  },
+  openGraph: {
+    title: defaultTitle,
+    description: siteConfig.description,
+    url: "/",
+    siteName: siteConfig.title,
+    type: "website",
+    images: [SHARE_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: `Mobile Car Detailing in Hickory, NC | We Come to You | Starting At $${startingCarPrice} | Dad's Mobile Detailing Co.`,
-    description: `Mobile car detailing in Hickory, NC starting at $${startingCarPrice} | We come to you — no drop-off needed | Exterior, interior & full detail. Text to book.`,
-    images: ["/images/dmd-logo.png"],
+    title: defaultTitle,
+    description: siteConfig.description,
+    images: [SHARE_IMAGE.url],
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#2B2B2B",
+  // Lets the sticky mobile bar read the phone's safe-area insets.
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -58,9 +72,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${poppins.variable} ${inter.variable} antialiased font-sans`}
-      >
+      <body className={`${poppins.variable} ${inter.variable} antialiased`}>
         <GoogleAnalytics />
         <CtaClickTracker />
         <SiteShell>{children}</SiteShell>

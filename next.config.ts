@@ -1,7 +1,24 @@
 import type { NextConfig } from "next";
 
+// The eight towns with a city page. Redirects only match these, so a made-up
+// town still gets a real 404 instead of being redirected somewhere.
+const CITY = ":city(hickory|morganton|lenoir|valdese|conover|newton|granite-falls|long-view)";
+const cityPage = "/mobile-car-detailing/:city/nc";
+
+/**
+ * A permanent redirect for both the bare and trailing-slash form of an old
+ * URL, each going straight to the final URL in one hop.
+ */
+function permanent(source: string, destination: string) {
+  return [
+    { source, destination, permanent: true },
+    { source: `${source}/`, destination, permanent: true },
+  ];
+}
+
 const nextConfig: NextConfig = {
   images: {
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: "https",
@@ -9,59 +26,44 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Next's built-in "/page/" -> "/page" redirect runs before the redirects
+  // below, which would turn "/gallery/" into two hops (/gallery/ -> /gallery
+  // -> /portfolio). It's switched off here and re-added as the LAST rule in
+  // redirects(), so old URLs with a trailing slash redirect in a single hop
+  // and every other URL keeps the same trailing-slash behavior as before.
+  skipTrailingSlashRedirect: true,
   async redirects() {
     return [
-      {
-        source: "/mobile-car-detailing-:slug-nc",
-        destination: "/mobile-car-detailing/:slug/nc",
-        permanent: true,
-      },
-      {
-        source: "/mobile-car-detailing-:slug-nc/:path*",
-        destination: "/mobile-car-detailing/:slug/nc/:path*",
-        permanent: true,
-      },
-      {
-        source: "/mobile-motorcycle-detailing-:slug-nc",
-        destination: "/mobile-motorcycle-detailing/:slug/nc",
-        permanent: true,
-      },
-      {
-        source: "/mobile-motorcycle-detailing-:slug-nc/:path*",
-        destination: "/mobile-motorcycle-detailing/:slug/nc/:path*",
-        permanent: true,
-      },
-      // --- New /services and /service-areas SEO structure vs. pre-existing
-      // ranked URLs (see SEO-URL-MAP.md) ---
-      // /car-detailing and /motorcycle-detailing already carry real ranking
-      // equity, so the equivalent entries under the new /services/[slug]
-      // structure are never statically generated (see excludeStaticServiceSlugs
-      // in config/service-categories.ts) and instead redirect here.
-      {
-        source: "/services/car-detailing",
-        destination: "/car-detailing",
-        permanent: true,
-      },
-      {
-        source: "/services/motorcycle-detailing",
-        destination: "/motorcycle-detailing",
-        permanent: true,
-      },
-      // Likewise, /mobile-car-detailing/[city]/nc and
-      // /mobile-motorcycle-detailing/[city]/nc already rank per-city (e.g.
-      // Morganton has 400+ Search Console impressions) — the car/motorcycle
-      // entries under /service-areas/[city]/[service] redirect to them
-      // instead of generating a near-duplicate page.
-      {
-        source: "/service-areas/:city/car-detailing",
-        destination: "/mobile-car-detailing/:city/nc",
-        permanent: true,
-      },
-      {
-        source: "/service-areas/:city/motorcycle-detailing",
-        destination: "/mobile-motorcycle-detailing/:city/nc",
-        permanent: true,
-      },
+      // =====================================================================
+      // PERMANENT REDIRECTS — DO NOT REMOVE.
+      // These URLs were live and indexed. Each one must keep redirecting
+      // (308, treated by Google like a 301) straight to its final URL for as
+      // long as the site exists. Removing one turns an old link or search
+      // result into a 404 and throws away its ranking.
+      // =====================================================================
+
+      // --- 2026-10 consolidation: 53 pages -> 20 (see SEO-URL-MAP.md) ---
+      ...permanent("/gallery", "/portfolio"),
+      ...permanent("/services/camper-rv-detailing", "/rv-detailing"),
+      ...permanent("/services/maintenance-plans", "/dads-club"),
+      ...permanent(`/service-areas/${CITY}`, cityPage),
+      ...permanent(`/service-areas/${CITY}/maintenance-plans`, cityPage),
+      ...permanent(`/service-areas/${CITY}/camper-rv-detailing`, "/rv-detailing"),
+      ...permanent(`/mobile-motorcycle-detailing/${CITY}/nc`, "/motorcycle-detailing"),
+
+      // --- Older URL shapes, repointed so none of them chain through a
+      // removed page ---
+      ...permanent("/services/car-detailing", "/car-detailing"),
+      ...permanent("/services/motorcycle-detailing", "/motorcycle-detailing"),
+      ...permanent(`/service-areas/${CITY}/car-detailing`, cityPage),
+      ...permanent(`/service-areas/${CITY}/motorcycle-detailing`, "/motorcycle-detailing"),
+      // Original hyphenated city URLs, e.g. /mobile-car-detailing-hickory-nc
+      ...permanent(`/mobile-car-detailing-${CITY}-nc`, cityPage),
+      ...permanent(`/mobile-motorcycle-detailing-${CITY}-nc`, "/motorcycle-detailing"),
+
+      // --- Trailing slash: "/anything/" -> "/anything". Must stay LAST so
+      // the specific rules above win (see skipTrailingSlashRedirect). ---
+      { source: "/:path+/", destination: "/:path+", permanent: true },
     ];
   },
 };

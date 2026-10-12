@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { buildLeadEmail } from "@/lib/lead-email";
 import { isSpamSubmission } from "@/lib/spam-filter";
 
 interface ContactRequestBody {
@@ -10,6 +11,8 @@ interface ContactRequestBody {
   pageContext?: string;
   serviceInterest?: string;
   vehicleInfo?: string;
+  town?: string;
+  preferredTime?: string;
   source?: string;
   // Honeypot field. Named to look like a normal field to a bot; real visitors
   // never see it (visually hidden off-screen, see ContactForm/LeadCaptureModal).
@@ -35,8 +38,19 @@ export async function POST(request: Request) {
     );
   }
 
-  const { name, phone, email, message, pageContext, serviceInterest, vehicleInfo, source, company } =
-    body;
+  const {
+    name,
+    phone,
+    email,
+    message,
+    pageContext,
+    serviceInterest,
+    vehicleInfo,
+    town,
+    preferredTime,
+    source,
+    company,
+  } = body;
 
   if (!name?.trim() || !phone?.trim() || !email?.trim()) {
     return NextResponse.json(
@@ -51,29 +65,19 @@ export async function POST(request: Request) {
   const spam = isSpamSubmission({ honeypot: company, message });
 
   if (!spam) {
-    const fields: Array<[string, string | undefined]> = [
-      ["Name", name],
-      ["Phone", phone],
-      ["Email", email],
-      ["Service Interest", serviceInterest],
-      ["Vehicle", vehicleInfo],
-      ["Message", message],
-      ["Page", pageContext],
-      ["Source", source ?? "contact-form"],
-    ];
-
-    const textBody = fields
-      .filter(([, value]) => value && value.trim().length > 0)
-      .map(([label, value]) => `${label}: ${value}`)
-      .join("\n");
-
-    const htmlBody = fields
-      .filter(([, value]) => value && value.trim().length > 0)
-      .map(
-        ([label, value]) =>
-          `<p><strong>${label}:</strong> ${escapeHtml(value!)}</p>`,
-      )
-      .join("");
+    // Subject, HTML, and plain-text versions all come from lib/lead-email.ts.
+    const lead = buildLeadEmail({
+      name,
+      phone,
+      email,
+      source,
+      serviceInterest,
+      vehicleInfo,
+      town,
+      preferredTime,
+      message,
+      pageContext,
+    });
 
     try {
       const resend = new Resend(process.env.RESEND_API_KEY);
@@ -81,9 +85,9 @@ export async function POST(request: Request) {
         from: process.env.CONTACT_FROM_EMAIL!,
         to: process.env.CONTACT_TO_EMAIL!,
         replyTo: email,
-        subject: `New contact form submission from ${name}`,
-        text: textBody,
-        html: htmlBody,
+        subject: lead.subject,
+        text: lead.text,
+        html: lead.html,
       });
     } catch (error) {
       console.error("Failed to send contact form email via Resend:", error);
@@ -98,13 +102,4 @@ export async function POST(request: Request) {
     { success: true, message: SUCCESS_MESSAGE, filtered: spam },
     { status: 200 },
   );
-}
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
 }

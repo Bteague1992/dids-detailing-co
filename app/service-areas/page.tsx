@@ -1,37 +1,76 @@
 import Link from "next/link";
+import { MapPin } from "lucide-react";
+import { PageHero } from "@/components/site/page-hero";
 import { Section } from "@/components/ui/section";
-import { Container } from "@/components/ui/container";
-import { serviceAreas } from "@/config/service-areas";
+import { business, businessConfig, townList } from "@/config/business";
 import { siteConfig } from "@/config/site";
 import { createPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = createPageMetadata({
-  title: `Service Areas | ${siteConfig.title}`,
-  description:
-    "Mobile car, motorcycle, and RV detailing across the Hickory, NC area — Hickory, Morganton, Lenoir, Newton, Valdese, Conover, Granite Falls & Long View.",
+  title: `Service Areas | Mobile Detailing Across the Catawba Valley | ${siteConfig.title}`,
+  description: `We come to you, all over the Catawba Valley: ${townList("&")}. Cars, trucks, bikes, and campers.`,
   canonical: "/service-areas",
 });
 
+const linkClass =
+  "font-semibold underline decoration-orange decoration-2 underline-offset-4 hover:text-orange-dark";
+
 export default function ServiceAreasIndexPage() {
   return (
-    <Section variant="default" title="Where We Serve" className="pt-8">
-      <Container maxWidth="5xl">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {serviceAreas.map((area, idx) => (
-            <Link
-              key={area.slug}
-              href={`/service-areas/${area.slug}`}
-              className="reveal border border-border/60 rounded-xl p-4 bg-card hover:shadow-lg hover:shadow-primary/10 hover:border-primary/40 hover:-translate-y-1 text-center"
-              style={{ transitionDelay: `${(idx % 4) * 75}ms` }}
+    <>
+      <PageHero
+        location="service-areas-hero"
+        title="We come to you, all over the Catawba Valley."
+        sub={`Home base is ${business.HOME_BASE}. From there we head out to driveways and parking lots in eight towns. Find yours below.`}
+      />
+
+      <Section tone="warm" title="Pick your town">
+        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {businessConfig.serviceAreaCities.map((city) => (
+            <li
+              key={city.slug}
+              className="flex flex-col rounded-card bg-white p-6 shadow-card ring-1 ring-line"
             >
-              <p className="font-heading font-semibold">
-                {area.name}, {area.state}
+              <MapPin
+                aria-hidden="true"
+                strokeWidth={1.75}
+                className="h-8 w-8 text-orange"
+              />
+              <h3 className="mt-2 text-xl">
+                <Link
+                  href={`/mobile-car-detailing/${city.slug}/nc`}
+                  className="underline-offset-4 hover:underline"
+                >
+                  {city.name}, NC
+                </Link>
+              </h3>
+              <p className="text-sm font-semibold text-muted-text">
+                {city.county}
               </p>
-            </Link>
+              <p className="mt-2 grow text-[0.95rem] text-muted-text">
+                {city.description}
+              </p>
+              <p className="mt-4 text-[0.95rem]">
+                <Link
+                  href={`/mobile-car-detailing/${city.slug}/nc`}
+                  className={linkClass}
+                >
+                  Mobile detailing in {city.name}
+                </Link>
+              </p>
+            </li>
           ))}
-        </div>
-      </Container>
-    </Section>
+        </ul>
+      </Section>
+
+      <Section tone="white" title="What about travel?" width="3xl">
+        <p className="text-center text-lg">{business.TRAVEL_NOTE}</p>
+        <p className="mt-3 text-center text-muted-text">
+          Not sure if you&apos;re in our area? Text Dad your address and
+          we&apos;ll tell you straight.
+        </p>
+      </Section>
+    </>
   );
 }

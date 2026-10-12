@@ -1,195 +1,119 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+/* ==========================================================================
+   Design tokens — Dad's Mobile Detailing Co.
+   Balance: ~70% white / warm gray, ~20% charcoal, ~10% orange.
+   ========================================================================== */
+:root {
+  --charcoal: #2b2b2b; /* dark sections, footer, body text */
+  --orange: #f47a1f; /* brand orange: icons, underlines, stars, accents */
+  /* White text on the brand orange is only 2.7:1, so anything that carries
+     text uses a slightly deeper step:
+     --orange-strong  3.4:1 with white — buttons and large bold orange text
+     --orange-dark    5.0:1 with white — hover states, badges, small orange text */
+  --orange-strong: #e06a10;
+  --orange-dark: #b8500a;
+  --white: #ffffff; /* main background */
+  --warm-gray: #f5f3f0; /* alternating section backgrounds */
+  --muted-text: #5f5b56; /* secondary text (6.5:1 on white) */
+  --line: #e6e1da; /* hairline borders */
+
+  --radius-card: 1rem;
+  --shadow-card: 0 1px 2px rgb(43 43 43 / 0.04), 0 6px 20px rgb(43 43 43 / 0.07);
+  --shadow-header: 0 2px 12px rgb(43 43 43 / 0.08);
+
+  /* Focus ring color; dark sections flip it to white (see .on-dark). */
+  --focus: var(--charcoal);
+}
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-charcoal: var(--charcoal);
+  --color-orange: var(--orange);
+  --color-orange-strong: var(--orange-strong);
+  --color-orange-dark: var(--orange-dark);
+  --color-warm-gray: var(--warm-gray);
+  --color-muted-text: var(--muted-text);
+  --color-line: var(--line);
+
   --font-heading: var(--font-heading);
   --font-body: var(--font-body);
   --font-sans: var(--font-body);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-light: var(--secondary-light);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
-}
 
-:root {
-  --radius: 0.625rem;
-  --background: oklch(0.98 0.015 240);
-  --foreground: oklch(0.15 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0 0);
-  /* Primary: Orange for CTAs and highlights - more vibrant */
-  --primary: oklch(0.62 0.22 55);
-  --primary-foreground: oklch(0.98 0 0);
-  /* Secondary: Navy/Dark Blue for headers/navigation - deeper */
-  --secondary: oklch(0.22 0.08 250);
-  --secondary-foreground: oklch(0.98 0 0);
-  /* Secondary-light: a lifted navy used for gradient depth on the contrast band */
-  --secondary-light: oklch(0.32 0.09 252);
-  /* Muted: deepened with navy chroma so it reads as a real section break, not
-     a near-invisible off-white */
-  --muted: oklch(0.93 0.035 245);
-  --muted-foreground: oklch(0.4 0 0);
-  --accent: oklch(0.94 0.03 235);
-  --accent-foreground: oklch(0.22 0.08 250);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.82 0.02 245);
-  --input: oklch(0.88 0 0);
-  --ring: oklch(0.62 0.22 55);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.25 0.05 250);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.96 0 0);
-  --sidebar-accent-foreground: oklch(0.25 0.05 250);
-  --sidebar-border: oklch(0.9 0 0);
-  --sidebar-ring: oklch(0.65 0.2 60);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --secondary-light: oklch(0.34 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --radius-card: var(--radius-card);
+  --shadow-card: var(--shadow-card);
+  --shadow-header: var(--shadow-header);
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  html {
+    scroll-behavior: smooth;
+    /* Keeps anchor targets clear of the sticky header. */
+    scroll-padding-top: 6rem;
   }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   body {
-    @apply bg-background text-foreground font-body;
+    background: var(--white);
+    color: var(--charcoal);
+    font-family: var(--font-body), system-ui, sans-serif;
+    font-size: 1.0625rem; /* 17px */
+    line-height: 1.65;
   }
+
   h1,
   h2,
   h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-heading;
+  h4 {
+    font-family: var(--font-heading), system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  .on-dark {
+    --focus: var(--white);
+  }
+
+  /* <details> accordions: hide the default marker, we draw our own chevron. */
+  summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  summary::-webkit-details-marker {
+    display: none;
   }
 }
 
 @layer utilities {
-  /* Subtle dot-grid texture for hero/contrast sections — no image asset needed. */
-  .bg-dot-grid {
-    background-image: radial-gradient(
-      circle,
-      color-mix(in oklch, var(--foreground) 14%, transparent) 1px,
-      transparent 1px
-    );
-    background-size: 26px 26px;
+  /* Vehicle size toggle (components/site/size-toggle.tsx).
+     Prices for every size are in the HTML; these rules show only the one that
+     matches the checked radio — no JavaScript needed. */
+  [data-size-price] {
+    display: none;
+  }
+  :root:has(input[name="vehicle-size"][value="car"]:checked) [data-size-price="car"],
+  :root:has(input[name="vehicle-size"][value="suvTruck"]:checked) [data-size-price="suvTruck"],
+  :root:has(input[name="vehicle-size"][value="large"]:checked) [data-size-price="large"] {
+    display: inline;
   }
 
-  .bg-dot-grid-light {
-    background-image: radial-gradient(
-      circle,
-      color-mix(in oklch, white 25%, transparent) 1px,
-      transparent 1px
-    );
-    background-size: 26px 26px;
+  /* Room for the phone-only sticky Book / Text / Call bar. */
+  .pb-sticky-bar {
+    padding-bottom: calc(4.75rem + env(safe-area-inset-bottom));
   }
-
-  /* One-time scroll-reveal: fade + rise into place the first time an element
-     enters the viewport (see components/ui/scroll-reveal-init.tsx). Kept to a
-     short duration and small travel distance so it reads as "polish" rather
-     than a slideshow effect. */
-  /* NOTE: elements using .reveal should NOT also use Tailwind's transition-all
-     / duration-* utilities — shorthand `transition` here fully owns
-     transition-property, so a competing shorthand/longhand from Tailwind on
-     the same element would silently cancel one side's animation. Any
-     interactive (hover/data-state) transition an element needs should be
-     added to this comma list instead. */
-  .reveal {
-    opacity: 0;
-    transform: translateY(14px);
-    transition:
-      opacity 0.5s ease-out,
-      transform 0.5s ease-out,
-      box-shadow 0.3s ease,
-      border-color 0.3s ease,
-      background-color 0.3s ease;
-  }
-  .reveal.revealed {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .reveal {
-      opacity: 1;
-      transform: none;
-      transition: none;
+  @media (min-width: 768px) {
+    .pb-sticky-bar {
+      padding-bottom: 0;
     }
   }
 }

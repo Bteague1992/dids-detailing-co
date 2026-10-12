@@ -1,232 +1,148 @@
-import { FAQList } from "@/components/marketing/faq-list";
+import { MessageCircle } from "lucide-react";
+import { PageHero } from "@/components/site/page-hero";
+import { FaqAccordion, type FaqItem } from "@/components/site/faq-accordion";
 import { FAQSchema } from "@/components/seo/faq-schema";
+import { ButtonLink } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
-import { Container } from "@/components/ui/container";
-import { Button } from "@/components/ui/button";
-import { getSmsHref } from "@/lib/cta";
-import { siteConfig } from "@/config/site";
+import { business, townList } from "@/config/business";
 import {
-  motorcycleBasicWashPrice,
-  motorcycleFullDetailPrice,
+  addOnsConfig,
+  carDurationSummary,
+  motorcyclePriceSummary,
+  servicesConfig,
 } from "@/config/services";
+import { siteConfig } from "@/config/site";
+import { WATER_POWER_ANSWER } from "@/lib/city-content";
+import { getSmsHref } from "@/lib/cta";
 import { createPageMetadata } from "@/lib/metadata";
-import {
-  MessageSquare,
-  HelpCircle,
-  Clock,
-  DollarSign,
-  Car,
-  MapPin,
-  CheckCircle2,
-} from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "FAQ | Mobile Car Detailing in Hickory, NC | Dad's Mobile Detailing Co.",
+  title: `FAQ | Questions? Dad's Got Answers | ${siteConfig.title}`,
   description:
-    "Frequently asked questions about mobile car detailing in Hickory, NC and surrounding areas. Pricing, booking, service area, and more.",
+    "Straight answers about mobile detailing around Hickory, NC: booking, pricing, how long it takes, water and power, what happens if your car is really messy, and the Dad Promise.",
   canonical: "/faq",
 });
 
-const faqCategories = [
+const heavyMess = addOnsConfig.items.find((a) => a.id === "heavy-mess");
+
+const groups: { title: string; faqs: FaqItem[] }[] = [
   {
-    title: "Booking & Process",
-    icon: MessageSquare,
+    title: "Booking & payment",
     faqs: [
       {
-        question: "How do I book a detail?",
-        answer:
-          "Simply text us at 828-548-0018 with your vehicle type, preferred package, and location. We'll coordinate a time that works for you. No forms, no hassle!",
-      },
-      {
-        question: "Do you come to my home or workplace?",
-        answer:
-          "Yes! We come to wherever is convenient for you - your home, office, or any other location within our service area. Just let us know where you'd like us to meet you.",
+        question: "How do I book?",
+        answer: `Two ways. Fill out the quick booking form on our Book page, or text us at ${business.PHONE} with what you drive, the package you want, and where you are. Either way, Dad confirms a time with you.`,
       },
       {
         question: "What if I need to cancel or reschedule?",
         answer:
-          "No problem! Just text us as soon as possible if you need to cancel or reschedule. We appreciate advance notice so we can adjust our schedule.",
+          "No problem. Just text us as soon as you know, so we can shuffle the schedule.",
+      },
+      {
+        question: "How do I pay?",
+        answer:
+          "Cash, Venmo, or other digital payments. You pay when the job's done, not before.",
+      },
+      {
+        question: "Do you offer any discounts?",
+        answer:
+          "Book a second vehicle the same day and it's 10% off. We also run a seasonal special now and then, so text us to ask what's current.",
+      },
+      {
+        question: "What areas do you serve?",
+        answer: `${townList()}. Travel: ${business.TRAVEL_NOTE} Not sure if you're in range? Text us your address.`,
       },
     ],
   },
   {
-    title: "Services & Equipment",
-    icon: Car,
+    title: "Packages & pricing",
     faqs: [
       {
-        question: "Do I need to provide water or power?",
-        answer:
-          "Yes, we need access to a water hookup and power outlet at your location. Most driveways work perfectly.",
+        question: "What's the difference between the packages?",
+        answer: servicesConfig.packages
+          .map((p) => `${p.name}: ${p.description}`)
+          .join(" "),
       },
       {
-        question: "How long does a detail take?",
-        answer:
-          "Basic Exterior takes about 45-60 minutes, Basic Interior takes about 60-75 minutes, and a Basic Full Detail typically takes 2-3 hours depending on the size and condition of your vehicle.",
+        question: "What if my car is really messy?",
+        answer: `Then you're in the right place. Messy cars are normal, and we don't judge. If it needs something extra${heavyMess ? `, like the ${heavyMess.name.toLowerCase()} at ${heavyMess.price}` : ""}, we'll tell you the exact price before we start. You decide from there.`,
       },
       {
         question: "What vehicles do you work on?",
         answer:
-          "We work on cars, trucks, SUVs, motorcycles, and campers/RVs. Text us if you have questions about a specific vehicle type.",
+          "Cars, trucks, SUVs, minivans, motorcycles, campers, and RVs. Got something else? Text us and ask.",
       },
       {
         question: "Do you detail motorcycles?",
-        answer: `Yes! We offer mobile motorcycle detailing starting at $${motorcycleBasicWashPrice} for our Basic wash, with a Premium detail at $${motorcycleFullDetailPrice}. We come to you — no drop-off needed. Text us to book or get a quote.`,
+        answer: `Yes. ${motorcyclePriceSummary} We come to you, same as with cars.`,
       },
     ],
   },
   {
-    title: "Pricing & Packages",
-    icon: DollarSign,
+    title: "On the day",
     faqs: [
       {
-        question: "What's the difference between the packages?",
+        question: "Do you come to my home or workplace?",
         answer:
-          "Basic Exterior covers exterior washing and cleaning. Basic Interior covers interior vacuuming and cleaning. Basic Full Detail combines both with extra attention to detail in crevices and touchpoints.",
+          "Yes. Home, office, wherever the car is parked in our service area. Just tell us where to meet it.",
       },
       {
-        question: "What payment methods do you accept?",
-        answer:
-          "We accept cash, Venmo, and other digital payment methods. Payment is due upon completion of the service.",
+        question: "Do you bring your own water and power?",
+        answer: WATER_POWER_ANSWER,
       },
       {
-        question: "Do you offer any discounts or specials?",
-        answer:
-          "We occasionally run specials and seasonal offers. Text us to ask about any current deals.",
+        question: "How long does it take?",
+        answer: `${carDurationSummary} Bigger vehicles can take a little longer.`,
       },
     ],
   },
   {
-    title: "Service Area",
-    icon: MapPin,
+    title: "The Dad Promise",
     faqs: [
       {
-        question: "What areas do you serve?",
-        answer:
-          "We serve Hickory, NC and surrounding communities including Conover, Newton, Long View, Granite Falls, Morganton, Valdese, and Lenoir. If you're unsure if we serve your area, just text us!",
+        id: "dad-promise",
+        question: "What's the Dad Promise?",
+        answer: business.DAD_PROMISE,
       },
     ],
   },
 ];
 
-const quickFacts = [
-  {
-    icon: Clock,
-    text: "45-60 min for Basic Exterior",
-  },
-  {
-    icon: Car,
-    text: "Cars, Trucks & SUVs",
-  },
-  {
-    icon: MapPin,
-    text: "8+ Cities Served",
-  },
-  {
-    icon: CheckCircle2,
-    text: "We come to you!",
-  },
-];
+const allFaqs = groups.flatMap((group) => group.faqs);
 
 export default function FAQPage() {
-  // Flatten all FAQs for the main FAQ list
-  const allFAQs = faqCategories.flatMap((category) => category.faqs);
-
   return (
     <>
-      <FAQSchema faqs={allFAQs} pagePath="/faq" />
-      {/* Hero Section */}
-      <Section
-        variant="default"
-        className="pt-8 pb-12 relative overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.05),transparent_50%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(251,146,60,0.08),transparent_50%)] pointer-events-none" />
-        <Container maxWidth="4xl" className="relative">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold mb-6">
-              <HelpCircle className="h-5 w-5" />
-              <span>Common Questions</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
-              Frequently Asked Questions
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-              Got questions? We've got answers. If you don't see what you're
-              looking for, just text us!
-            </p>
-          </div>
-        </Container>
-      </Section>
+      <FAQSchema faqs={allFaqs} pagePath="/faq" />
+      <PageHero
+        location="faq-hero"
+        title="Questions? Dad's got answers."
+        sub="The stuff people ask most, answered straight. If yours isn't here, text us."
+      />
 
-      {/* Quick Facts */}
-      <Section variant="muted" withBorder>
-        <Container maxWidth="5xl">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-            {quickFacts.map((fact, idx) => {
-              const Icon = fact.icon;
-              return (
-                <div
-                  key={idx}
-                  className="reveal bg-card rounded-xl p-4 border border-border/60 shadow-sm text-center hover:shadow-md hover:shadow-primary/10 hover:-translate-y-0.5"
-                  style={{ transitionDelay: `${idx * 75}ms` }}
-                >
-                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-linear-to-br from-primary/20 to-secondary/10 text-primary mb-2">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <p className="text-sm font-medium text-foreground">
-                    {fact.text}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </Container>
-      </Section>
+      {groups.map((group, i) => (
+        <Section
+          key={group.title}
+          tone={i % 2 === 0 ? "warm" : "white"}
+          title={group.title}
+          width="3xl"
+        >
+          <FaqAccordion faqs={group.faqs} />
+        </Section>
+      ))}
 
-      {/* Main FAQ Section */}
-      <Section variant="default" withBorder>
-        <Container maxWidth="4xl">
-          <div className="mb-12">
-            <FAQList faqs={allFAQs} />
-          </div>
-        </Container>
-      </Section>
-
-      {/* Still Have Questions CTA */}
-      <Section variant="contrast">
-        <Container maxWidth="3xl" className="text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20 text-primary mb-6 ring-4 ring-primary/10">
-            <MessageSquare className="h-8 w-8" />
-          </div>
-          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-secondary-foreground">
-            Still Have Questions?
-          </h2>
-          <p className="text-lg text-secondary-foreground/90 mb-8 max-w-2xl mx-auto">
-            We're here to help! Text us and we'll get back to you as soon as
-            possible. No question is too small.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8 py-6">
-              <a
-                href={getSmsHref()}
-                aria-label={`Text ${siteConfig.title} at ${siteConfig.phone} to book a detail`}
-                data-cta-location="faq-page"
-              >
-                <MessageSquare className="h-5 w-5 mr-2" />
-                Text Us Your Question
-              </a>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="text-lg px-8 py-6 bg-secondary-foreground/10 text-secondary-foreground border-secondary-foreground/20 hover:bg-secondary-foreground/20"
-            >
-              <a href="/contact">View Contact Info</a>
-            </Button>
-          </div>
-        </Container>
+      <Section tone="warm" title="Still have a question? Text Dad." width="3xl">
+        <div className="text-center">
+          <ButtonLink
+            href={getSmsHref()}
+            size="lg"
+            data-cta-location="faq-text-dad"
+          >
+            <MessageCircle aria-hidden="true" className="h-5 w-5" />
+            Text Dad
+          </ButtonLink>
+        </div>
       </Section>
     </>
   );

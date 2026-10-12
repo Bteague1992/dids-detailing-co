@@ -1,63 +1,73 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+import Link from "next/link";
+import type { ComponentProps, ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
-import { cn } from "@/lib/utils"
+type Variant = "primary" | "secondary";
+type Size = "sm" | "md" | "lg";
 
-const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-  {
-    variants: {
-      variant: {
-        default:
-          "bg-primary text-primary-foreground shadow-md shadow-primary/25 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/35 hover:scale-[1.02] active:scale-[0.97]",
-        destructive:
-          "bg-destructive text-white hover:bg-destructive/90 hover:scale-[1.02] active:scale-[0.97] focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
-        outline:
-          "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground hover:scale-[1.02] active:scale-[0.97] dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:scale-[1.02] active:scale-[0.97]",
-        ghost:
-          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        default: "h-9 px-4 py-2 has-[>svg]:px-3",
-        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
-        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
-        icon: "size-9",
-        "icon-sm": "size-8",
-        "icon-lg": "size-10",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-)
+// Primary buttons keep bold text at 19px+ so white on --orange-strong meets
+// WCAG AA for large text. Don't shrink the label below that.
+const base =
+  "inline-flex items-center justify-center gap-2 rounded-full font-heading font-bold leading-none text-center whitespace-nowrap transition-colors disabled:opacity-60 disabled:pointer-events-none";
 
-function Button({
+const variants: Record<Variant, string> = {
+  primary: "bg-orange-strong text-white hover:bg-orange-dark",
+  secondary:
+    "bg-white text-charcoal border-2 border-charcoal hover:bg-charcoal hover:text-white",
+};
+
+const sizes: Record<Size, string> = {
+  sm: "min-h-11 px-5 text-[1.1875rem]",
+  md: "min-h-12 px-6 text-[1.1875rem]",
+  lg: "min-h-12 px-6 text-[1.1875rem] sm:min-h-14 sm:px-8 sm:text-xl",
+};
+
+export function buttonClass({
+  variant = "primary",
+  size = "md",
   className,
-  variant = "default",
-  size = "default",
-  asChild = false,
-  ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }) {
-  const Comp = asChild ? Slot : "button"
-
-  return (
-    <Comp
-      data-slot="button"
-      data-variant={variant}
-      data-size={size}
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    />
-  )
+}: { variant?: Variant; size?: Size; className?: string } = {}) {
+  return cn(base, variants[variant], sizes[size], className);
 }
 
-export { Button, buttonVariants }
+interface StyleProps {
+  variant?: Variant;
+  size?: Size;
+}
+
+export function Button({
+  variant,
+  size,
+  className,
+  ...props
+}: ComponentProps<"button"> & StyleProps) {
+  return (
+    <button className={buttonClass({ variant, size, className })} {...props} />
+  );
+}
+
+/** A link that looks like a button. Internal paths use next/link; sms:, tel:,
+ * mailto: and external URLs render a plain anchor. */
+export function ButtonLink({
+  href,
+  variant,
+  size,
+  className,
+  children,
+  ...props
+}: Omit<ComponentProps<"a">, "href"> &
+  StyleProps & { href: string; children: ReactNode }) {
+  const classes = buttonClass({ variant, size, className });
+  if (href.startsWith("/")) {
+    return (
+      <Link href={href} className={classes} {...props}>
+        {children}
+      </Link>
+    );
+  }
+  return (
+    <a href={href} className={classes} {...props}>
+      {children}
+    </a>
+  );
+}

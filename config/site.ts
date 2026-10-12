@@ -1,18 +1,15 @@
+import { business, primaryTowns } from "@/config/business";
 import { startingCarPrice } from "@/config/services";
 
+// Site-level settings. Contact details, hours, and the booking link live in
+// config/business.ts — the values below are re-exported from there so they
+// only ever need changing in one place.
 export const siteConfig = {
   domain: "https://www.dadsdetailco.com",
-  title: "Dad's Mobile Detailing Co.",
-  description: `Mobile car detailing in Hickory, NC starting at $${startingCarPrice}. Honest pricing, dad-level care for cars, trucks, SUVs & motorcycles. We come to you — text to book.`,
-  phone: "828-548-0018",
-  email: "dadsmobiledetailingnc@gmail.com",
-  hours: {
-    days: "Sunday–Saturday",
-    time: "9am–5pm",
-    full: "Sunday–Saturday, 9am–5pm",
-  },
-  social: {
-    facebook: "https://www.facebook.com/profile.php?id=61585206203853", // Placeholder
-    instagram: "https://www.instagram.com/dadsdetailco/", // Placeholder
-  },
+  title: business.NAME,
+  tagline: business.TAGLINE,
+  description: `Mobile detailing for real families and everyday vehicles around ${primaryTowns}, NC. Honest prices from $${startingCarPrice}. We come to you.`,
+  phone: business.PHONE,
+  email: business.EMAIL,
+  hours: business.HOURS,
 } as const;

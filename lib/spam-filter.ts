@@ -25,5 +25,3 @@ export function isSpamSubmission({ honeypot, message }: SpamCheckInput): boolean
 
   return false;
 }
-
-export { PHONE_ONLY_REGEX };
