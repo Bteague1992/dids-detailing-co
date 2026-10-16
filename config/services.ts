@@ -89,6 +89,8 @@ export interface AddOn {
   name: string;
   /** Display-ready price, e.g. "$60" or "Light $40 / Heavy $75". */
   price: string;
+  /** Lowest price in `price`, for "from $X" copy. Keep the two in sync. */
+  fromPrice: number;
 }
 
 export const servicesConfig = {
@@ -119,20 +121,18 @@ export const servicesConfig = {
         "Floor mats cleaned",
       ],
       duration: "about 2 hours",
-      prices: { car: 130, suvTruck: 160, large: 190 },
+      prices: { car: 110, suvTruck: 135, large: 160 },
     },
     {
       id: "full-dad-treatment",
       name: "The Full Dad Treatment",
-      description:
-        "Inside and out, plus ceramic spray protection. Our most popular for a reason.",
+      description: "Inside and out, done right. Our most popular for a reason.",
       features: [
         "Everything in the Exterior Refresh",
         "Everything in the Interior Reset",
-        "Ceramic spray sealant (about 6 months of protection)",
       ],
-      duration: "3–4 hours",
-      prices: { car: 220, suvTruck: 260, large: 300 },
+      duration: "about 3 hours",
+      prices: { car: 150, suvTruck: 175, large: 200 },
       mostPopular: true,
     },
     {
@@ -142,6 +142,7 @@ export const servicesConfig = {
         "Our deepest clean, for the cars that have been through it all.",
       features: [
         "Everything in The Full Dad Treatment",
+        "Ceramic spray sealant (about 6 months of protection)",
         "Full seat and carpet shampoo/extraction",
         "Cupholders and vents steam-cleaned",
         "Odor neutralizing",
@@ -243,35 +244,71 @@ export const addOnsConfig = {
   intro:
     "Car need a little extra love? We'll always tell you the price before we start.",
   items: [
-    { id: "pet-hair", name: "Pet hair removal", price: "Light $40 / Heavy $75" },
+    {
+      id: "pet-hair",
+      name: "Pet hair removal",
+      price: "Light $40 / Heavy $75",
+      fromPrice: 40,
+    },
     {
       id: "seat-carpet-shampoo",
       name: "Seat & carpet shampoo",
       price: "$75 car / $100 SUV and larger",
+      fromPrice: 75,
     },
     {
       id: "child-car-seat",
       name: "Child car seat deep clean",
       price: "$35 each",
+      fromPrice: 35,
     },
-    { id: "spot-stain", name: "Spot stain extraction", price: "From $25" },
+    {
+      id: "spot-stain",
+      name: "Spot stain extraction",
+      price: "From $25",
+      fromPrice: 25,
+    },
     {
       id: "odor-treatment",
       name: "Odor treatment (smoke, vomit, spoiled milk)",
       price: "$60",
+      fromPrice: 60,
     },
     {
       id: "heavy-mess",
       name: "Heavy mess fee (sand, mud, buried crumbs)",
       price: "$50",
+      fromPrice: 50,
     },
-    { id: "leather", name: "Leather clean & condition", price: "$40" },
-    { id: "headlights", name: "Headlight restoration", price: "$75" },
-    { id: "engine-bay", name: "Engine bay detail", price: "$50" },
+    {
+      id: "leather",
+      name: "Leather clean & condition",
+      price: "$40",
+      fromPrice: 40,
+    },
+    {
+      id: "headlights",
+      name: "Headlight restoration",
+      price: "$75",
+      fromPrice: 75,
+    },
+    {
+      id: "engine-bay",
+      name: "Engine bay detail",
+      price: "$50",
+      fromPrice: 50,
+    },
+    {
+      id: "ceramic-sealant",
+      name: "Ceramic spray sealant (about 6 months)",
+      price: "$40 car / $50 SUV and larger",
+      fromPrice: 40,
+    },
     {
       id: "paint-polish",
       name: "One-step paint polish",
       price: "+$200 car / +$250 SUV and larger",
+      fromPrice: 200,
     },
   ] as AddOn[],
 } as const;
@@ -289,13 +326,17 @@ export const pricingPolicies: string[] = [
 export const startingPriceNote =
   "Starting prices. If your vehicle needs add-ons, we'll quote them before we start.";
 
+/** The package every new Dad's Club member starts with (The Full Dad Treatment). */
+export const dadsClubStarterPackage = servicesConfig.packages.find(
+  (p) => p.id === "full-dad-treatment",
+)!;
+
 /** Dad's Club — the recurring plans (formerly "Maintenance Plans"). */
 export const dadsClubConfig = {
   name: "Dad's Club",
   intro:
     "Never deal with a dirty car again. We'll keep it clean on a schedule, so you don't have to think about it. No contracts, cancel anytime.",
-  requirement:
-    "Starts with a full detail, so we're always maintaining a clean car.",
+  requirement: `Starts with ${dadsClubStarterPackage.name} (from ${formatPrice(getFromPrice(dadsClubStarterPackage.prices))}), so we're always maintaining a clean car.`,
   includedEachVisit: [
     "Exterior hand wash",
     "Quick interior vacuum",
@@ -388,7 +429,7 @@ export const carDurationSummary = `${joinList(
   carPackages.map((p) => `${p.name} takes ${p.duration}`),
 )}.`;
 
-/** e.g. "Exterior Refresh starts at $75, Interior Reset starts at $130, …" */
+/** e.g. "Exterior Refresh starts at $75, Interior Reset starts at $110, …" */
 export const carPriceSummary = `${joinList(
   carPackages.map((p) => `${p.name} starts at $${getFromPrice(p.prices)}`),
 )}.`;
@@ -412,11 +453,9 @@ export const dadsClubFromPrice = Math.min(
   ...maintenancePlans.car.map((p) => getFromPrice(p.prices)),
 );
 
-/** Lowest add-on price — reads the number out of the "From $25" style labels. */
+/** Lowest add-on price, for "Add-ons from $X" copy. */
 export const addOnFromPrice = Math.min(
-  ...addOnsConfig.items.flatMap((a) =>
-    (a.price.match(/d+/g) ?? []).map(Number),
-  ),
+  ...addOnsConfig.items.map((a) => a.fromPrice),
 );
 
 export function formatPrice(amount: number): string {
