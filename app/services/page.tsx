@@ -11,14 +11,14 @@ import {
   rvFromRate,
   startingCarPrice,
 } from "@/config/services";
-import { siteConfig } from "@/config/site";
-import { createPageMetadata } from "@/lib/metadata";
+import { createPageMetadata, SHORT_BRAND } from "@/lib/metadata";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = createPageMetadata({
-  title: `All Services | Cars, Bikes, RVs & Dad's Club | ${siteConfig.title}`,
-  description: `Everything we do, in one place: car, truck & SUV detailing from $${startingCarPrice}, motorcycles, RVs and campers, add-ons, and Dad's Club recurring visits. We come to you.`,
+  title: `Car, Bike & RV Detailing in Hickory, NC | ${SHORT_BRAND}`,
+  description: `Everything we do around Hickory, NC: car, truck & SUV detailing from ${formatPrice(startingCarPrice)}, motorcycles, RVs and campers, add-ons, and Dad's Club. We come to you.`,
   canonical: "/services",
+  absoluteTitle: true,
 });
 
 const categories = [

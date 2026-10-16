@@ -1,15 +1,15 @@
 import { MotorcyclePage } from "@/components/pages/motorcycle-page";
 import { FAQSchema } from "@/components/seo/faq-schema";
-import { bikeFullDetail, bikeWash } from "@/config/services";
-import { siteConfig } from "@/config/site";
+import { bikeFullDetail, bikeWash, formatPrice } from "@/config/services";
 import { getMotoFaqs } from "@/lib/city-content";
 import type { Metadata } from "next";
-import { createPageMetadata } from "@/lib/metadata";
+import { createPageMetadata, SHORT_BRAND } from "@/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
-  title: `Mobile Motorcycle Detailing in NC | Hickory & the Catawba Valley | ${siteConfig.title}`,
-  description: `Bike looking rough after the Parkway? Mobile motorcycle detailing around Hickory, NC from $${bikeWash.price}. ${bikeWash.name} and ${bikeFullDetail.name}. We come to you.`,
+  title: `Mobile Motorcycle Detailing in Hickory, NC | ${SHORT_BRAND}`,
+  description: `Bike looking rough after the Parkway? Mobile motorcycle detailing around Hickory, NC from ${formatPrice(bikeWash.price)}. ${bikeWash.name} and ${bikeFullDetail.name}. We come to you.`,
   canonical: "/motorcycle-detailing",
+  absoluteTitle: true,
 });
 
 const faqs = getMotoFaqs();

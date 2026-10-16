@@ -14,22 +14,22 @@ import { Section } from "@/components/ui/section";
 import { business } from "@/config/business";
 import {
   bikeWash,
-  carPackageNameList,
   dadsClubConfig,
   formatPrice,
   pricingPolicies,
   rvFromRate,
   servicesConfig,
+  startingCarPrice,
   vehicleSizes,
 } from "@/config/services";
-import { siteConfig } from "@/config/site";
 import type { Metadata } from "next";
-import { createPageMetadata } from "@/lib/metadata";
+import { createPageMetadata, SHORT_BRAND } from "@/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
-  title: `Packages & Pricing | Simple Packages, Honest Prices | ${siteConfig.title}`,
-  description: `Mobile detailing packages with the prices right on the page: ${carPackageNameList}. Pick your vehicle size and see your number. No surprises.`,
+  title: `Mobile Detailing Prices in Hickory, NC | ${SHORT_BRAND}`,
+  description: `Mobile detailing packages around Hickory, NC, with the prices right on the page. Cars from ${formatPrice(startingCarPrice)}. Pick your vehicle size and see your number.`,
   canonical: "/packages",
+  absoluteTitle: true,
 });
 
 const pricingFaqs = [

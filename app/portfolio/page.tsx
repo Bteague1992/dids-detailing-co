@@ -17,7 +17,7 @@ export const revalidate = 60;
 export const metadata: Metadata = createPageMetadata({
   title: `Portfolio | Real Before & Afters | ${siteConfig.title}`,
   description:
-    "Real before and after photos from recent mobile details around Hickory, NC. Family cars, work trucks, motorcycles, campers, and RVs. No judgment, just results.",
+    "Before-and-after results from mobile details around Hickory, NC: snack-covered back seats, dog hair, and muddy work trucks. No judgment, just clean cars.",
   canonical: "/portfolio",
 });
 
