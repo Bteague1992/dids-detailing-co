@@ -61,7 +61,7 @@ export async function generateMetadata({
   // note in app/page.tsx.
   return createPageMetadata({
     title: `Mobile Car Detailing in ${city.name}, NC | We Come to You | ${siteConfig.title}`,
-    description: `Mobile car detailing in ${city.name}, NC. We come to your driveway or work and clean it right there. Cars, trucks & SUVs from $${startingCarPrice}, plus motorcycles, RVs, and Dad's Club. Text Dad to book.`,
+    description: `Mobile car detailing in ${city.name}, NC. We come to your driveway or work and clean it right there. Cars, trucks & SUVs from $${startingCarPrice}, plus motorcycles, RVs, and Dad's Club. Book online or text Dad.`,
     canonical: `/mobile-car-detailing/${city.slug}/nc`,
   });
 }
@@ -75,7 +75,7 @@ function getFaqs(cityName: string) {
     {
       question: "How do I book?",
       answer:
-        "Text us what you drive, which package you're thinking about, and where you are. We'll find a time that works.",
+        "Hit Book Now to pick your package and a time online. No deposit needed. Or text us what you drive, which package you're thinking about, and where you are, and we'll find a time that works.",
     },
     {
       question: "What if I'm not sure which package I need?",

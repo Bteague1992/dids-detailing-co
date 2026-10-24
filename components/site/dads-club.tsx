@@ -18,7 +18,7 @@ const planLabels: Record<string, string> = {
 };
 
 /** Dad's Club car/truck/SUV plans: price table by size, requirement,
- * what's included each visit, and the Join button. */
+ * what's included each visit, and the Text to Join button. */
 export function DadsClubCarPlans() {
   return (
     <div className="grid gap-6 lg:grid-cols-[3fr_2fr]">
@@ -79,7 +79,7 @@ export function DadsClubCarPlans() {
           className="mt-5 w-full"
           data-cta-location="dads-club-join"
         >
-          Join Dad&apos;s Club
+          Text to Join
         </ButtonLink>
       </div>
     </div>
@@ -98,8 +98,11 @@ export function DadsClubBikePlans() {
           price={formatPrice(plan.price)}
           priceNote={`Per visit · ${planLabels[plan.frequency]}`}
           features={plan.features}
-          smsHref={getDadsClubSmsHref(plan.name)}
-          buttonLabel="Text to Join"
+          cta={{
+            href: getDadsClubSmsHref(plan.name),
+            label: "Text to Join",
+            location: "dads-club-plan-join",
+          }}
         />
       ))}
     </>
@@ -118,8 +121,11 @@ export function DadsClubRvPlans() {
           price={`${formatPrice(plan.pricePerFoot)}/ft`}
           priceNote={`Per visit · ${formatPrice(plan.minimumPrice)} minimum`}
           features={plan.features}
-          smsHref={getDadsClubSmsHref(plan.name)}
-          buttonLabel="Text to Join"
+          cta={{
+            href: getDadsClubSmsHref(plan.name),
+            label: "Text to Join",
+            location: "dads-club-plan-join",
+          }}
         />
       ))}
     </>
@@ -147,7 +153,7 @@ export function DadsClubBanner() {
               href={getDadsClubSmsHref()}
               data-cta-location="dads-club-banner-join"
             >
-              Join Dad&apos;s Club
+              Text to Join
             </ButtonLink>
             <Link
               href="/dads-club"

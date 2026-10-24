@@ -25,7 +25,9 @@ npm run lint
 
 ### Booking link
 
-Every "Book Online" / "Book" button uses `BOOKING_URL` in `config/business.ts`. It points at the booking request form at `/book`, which emails the request through `/api/contact` (the same endpoint as the contact form and the pop-up). To use an outside booking system, paste its link there. Set `SHOW_BOOKING` to `false` to hide every Book button.
+Every "Book Now" / "Book" button (header, heroes, closing call to action, phone sticky bar, and the car and motorcycle package cards) uses `BOOKING_URL` in `config/business.ts`. It points at `/book`, which shows the Square Appointments booking widget. The Square links live in `SQUARE` in the same file, and the payment and cancellation wording shown on `/book` and the packages page is in `BOOKING_TERMS`. Set `SHOW_BOOKING` to `false` to hide every Book button (package cards then fall back to "Text to Book").
+
+RV package cards say "Text for a Quote" (RVs are priced per foot), and Dad's Club buttons say "Text to Join". Both open a prefilled text.
 
 ### Logo and icons
 

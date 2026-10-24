@@ -22,7 +22,7 @@ const methods = [
   {
     icon: MessageCircle,
     title: "Text",
-    text: "The fastest way to reach us and to book. Send a text anytime.",
+    text: "The fastest way to reach us. Send a text anytime.",
     action: "Text Dad",
     href: getSmsHref(),
     primary: true,

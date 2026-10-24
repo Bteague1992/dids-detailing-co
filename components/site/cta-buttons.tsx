@@ -3,7 +3,7 @@ import { getBookingHref, getSmsHref } from "@/lib/cta";
 import { cn } from "@/lib/utils";
 
 /**
- * The standard pair: "Book Online" (primary) + "Text Dad" (secondary).
+ * The standard pair: "Book Now" (primary) + "Text Dad" (secondary).
  * While booking buttons are switched off (SHOW_BOOKING in config/business.ts),
  * only "Text Dad" shows, as the primary button.
  */
@@ -35,7 +35,7 @@ export function CtaButtons({
           size={size}
           data-cta-location={`${location}-book`}
         >
-          Book Online
+          Book Now
         </ButtonLink>
       )}
       <ButtonLink

@@ -1,6 +1,6 @@
 # SEO URL map
 
-The site has **21 indexable pages**: the 20 from the October 2026 consolidation, plus the booking form at `/book` added afterwards. Everything else that was ever live redirects permanently to one of them. The redirects live in `redirects()` in `next.config.ts` and must never be removed.
+The site has **21 indexable pages**: the 20 from the October 2026 consolidation, plus the booking page at `/book` (Square Appointments) added afterwards. Everything else that was ever live redirects permanently to one of them. The redirects live in `redirects()` in `next.config.ts` and must never be removed.
 
 ## The pages
 
@@ -18,7 +18,7 @@ The list, with each page's last-modified date for the sitemap, is in `config/pag
 | Service areas hub | `/service-areas` |
 | Portfolio | `/portfolio` |
 | About, FAQ, Contact | `/about`, `/faq`, `/contact` |
-| Booking request form | `/book` |
+| Booking page (Square) | `/book` |
 | City pages (8) | `/mobile-car-detailing/[city]/nc` |
 
 Towns: hickory, morganton, lenoir, valdese, conover, newton, granite-falls, long-view.

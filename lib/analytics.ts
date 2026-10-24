@@ -6,7 +6,6 @@
 // site (Admin > Events > Mark as key event) — these are also the canonical
 // event names other code should fire by exact string match:
 //   - contact_form_submit
-//   - booking_form_submit
 //   - exit_intent_modal_submit
 //   - cta_text_click
 //   - cta_call_click

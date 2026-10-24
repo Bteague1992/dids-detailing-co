@@ -1,7 +1,7 @@
 import { businessConfig } from "@/config/business";
 
 // ---------------------------------------------------------------------------
-// The site's indexable pages (the 20 from the restructure, plus /book), and when each last really changed.
+// The site's indexable pages (the 20 from the restructure, plus the /book booking page), and when each last really changed.
 //
 // This is the only source for the sitemap. `lastModified` is a real date that
 // you update by hand when a page's content changes — NOT the build time.
@@ -35,7 +35,7 @@ const corePages: SitePage[] = [
   { path: "/about", lastModified: RESTRUCTURE },
   { path: "/faq", lastModified: RESTRUCTURE },
   { path: "/contact", lastModified: RESTRUCTURE },
-  { path: "/book", lastModified: "2026-10-12" },
+  { path: "/book", lastModified: "2026-10-23" },
 ];
 
 /** Per-town dates. Bump one when that town's copy in lib/city-content.ts changes. */

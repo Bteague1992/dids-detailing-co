@@ -1,16 +1,9 @@
 import { MessageCircle, Phone } from "lucide-react";
 import { PageHero } from "@/components/site/page-hero";
-import { BookingForm } from "@/components/site/booking-form";
 import { HowItWorks } from "@/components/site/how-it-works";
 import { ButtonLink } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
-import { business, businessConfig, primaryTowns } from "@/config/business";
-import {
-  dadsClubConfig,
-  maintenancePlans,
-  servicesConfig,
-  vehicleSizes,
-} from "@/config/services";
+import { business, primaryTowns } from "@/config/business";
 import { siteConfig } from "@/config/site";
 import { getCallHref, getSmsHref } from "@/lib/cta";
 import { createPageMetadata } from "@/lib/metadata";
@@ -18,34 +11,9 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = createPageMetadata({
   title: `Book a Detail Online | ${siteConfig.title}`,
-  description: `Book mobile detailing around ${primaryTowns}, NC. Tell us what you drive and when works, and Dad will confirm a time. Takes about a minute.`,
+  description: `Book mobile detailing around ${primaryTowns}, NC. Pick your service and a time that works, and you're on the schedule. No deposit, takes about a minute.`,
   canonical: "/book",
 });
-
-// Every choice comes from the central pricing file, so new or renamed
-// packages show up here automatically.
-const services = [
-  {
-    group: "Cars, trucks & SUVs",
-    options: servicesConfig.packages.map((p) => p.name),
-  },
-  {
-    group: "Motorcycles",
-    options: servicesConfig.motorcycleServices.map((m) => m.name),
-  },
-  {
-    group: "RVs & campers",
-    options: servicesConfig.camperRvServices.map((r) => `RV ${r.name}`),
-  },
-  {
-    group: dadsClubConfig.name,
-    options: [
-      ...maintenancePlans.car.map((p) => p.name),
-      ...maintenancePlans.motorcycle.map((p) => `${dadsClubConfig.name}: ${p.name}`),
-      ...maintenancePlans.camperRv.map((p) => `${dadsClubConfig.name}: ${p.name}`),
-    ],
-  },
-];
 
 export default function BookPage() {
   return (
@@ -54,23 +22,41 @@ export default function BookPage() {
         location="book-hero"
         showCta={false}
         title="Book your detail."
-        sub="Tell us what you drive and when works. Dad will confirm a time, usually within a few hours. Takes about a minute."
+        sub="Pick your service and a time that works. You'll get a confirmation right away. No deposit to book."
       />
 
       <Section tone="warm" width="3xl">
-        <div className="rounded-card bg-white p-6 shadow-card ring-1 ring-line sm:p-8">
-          <BookingForm
-            services={services}
-            vehicleSizes={vehicleSizes.map((size) => size.label)}
-            towns={businessConfig.serviceAreaCities.map((city) => city.name)}
+        <div className="overflow-hidden rounded-card bg-white shadow-card ring-1 ring-line">
+          {/* The same iframe Square's embed script inserts, rendered directly
+              so it doesn't depend on that script running inside React. */}
+          <iframe
+            src={business.SQUARE.WIDGET_URL}
+            title="Book an appointment with Dad's Mobile Detailing Co."
+            allow="payment app.squareup.com"
+            className="block h-[52rem] w-full border-0"
           />
         </div>
+        <p className="mt-4 text-center text-sm text-muted-text">
+          Booking not loading?{" "}
+          <a
+            href={business.SQUARE.BOOKING_URL}
+            className="font-semibold text-charcoal underline decoration-orange decoration-2 underline-offset-4"
+            data-cta-location="book-page-square-book"
+          >
+            Open the booking page
+          </a>
+        </p>
+
+        <ul className="mt-6 space-y-2 text-center text-sm text-muted-text">
+          <li>{business.BOOKING_TERMS.payment}</li>
+          <li>{business.BOOKING_TERMS.cancellation}</li>
+        </ul>
       </Section>
 
       <Section
         tone="white"
         title="Rather just text?"
-        subtitle={`That works too. Text or call ${business.PHONE}, ${business.HOURS.full}.`}
+        subtitle={`That works too, and it's the way to go for RV quotes and Dad's Club. Text or call ${business.PHONE}, ${business.HOURS.full}.`}
         width="3xl"
       >
         <div className="flex flex-wrap justify-center gap-3">

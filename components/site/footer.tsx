@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { Clock, MessageCircle, Phone } from "lucide-react";
+import { CalendarDays, Clock, MessageCircle, Phone } from "lucide-react";
 import { Logo } from "@/components/site/logo";
 import { business, businessConfig } from "@/config/business";
-import { getCallHref, getSmsHref } from "@/lib/cta";
+import { getBookingHref, getCallHref, getSmsHref } from "@/lib/cta";
 
 // Only pages that exist. No Terms or Gift Cards yet.
 const footerLinks = [
@@ -23,6 +23,7 @@ const linkClass = "underline-offset-4 hover:text-orange hover:underline";
 
 export function Footer() {
   const cities = businessConfig.serviceAreaCities;
+  const bookingHref = getBookingHref();
   return (
     <footer className="on-dark pb-sticky-bar bg-charcoal text-white">
       <div className="mx-auto max-w-6xl px-5 py-12 sm:px-6">
@@ -50,6 +51,14 @@ export function Footer() {
             </p>
 
             <ul className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 md:justify-start">
+              {bookingHref && (
+                <li>
+                  <Link href={bookingHref} className={`inline-flex items-center gap-2 font-semibold ${linkClass}`} data-cta-location="footer-book">
+                    <CalendarDays aria-hidden="true" className="h-5 w-5 text-orange" />
+                    Book Now
+                  </Link>
+                </li>
+              )}
               <li>
                 <a href={getCallHref()} className={`inline-flex items-center gap-2 font-semibold ${linkClass}`} data-cta-location="footer-call">
                   <Phone aria-hidden="true" className="h-5 w-5 text-orange" />
@@ -59,7 +68,7 @@ export function Footer() {
               <li>
                 <a href={getSmsHref()} className={`inline-flex items-center gap-2 font-semibold ${linkClass}`} data-cta-location="footer-text">
                   <MessageCircle aria-hidden="true" className="h-5 w-5 text-orange" />
-                  Text to Book
+                  {bookingHref ? "Text Dad" : "Text to Book"}
                 </a>
               </li>
               <li className="inline-flex items-center gap-2">

@@ -1,6 +1,6 @@
 import { Hand, Sparkles, Truck } from "lucide-react";
 import { PageHero } from "@/components/site/page-hero";
-import { PackageCard, packageCardRows } from "@/components/site/package-card";
+import { getBookCta, PackageCard, packageCardRows } from "@/components/site/package-card";
 import { DadsClubBikePlans } from "@/components/site/dads-club";
 import { IconCards } from "@/components/site/icon-cards";
 import { Reviews } from "@/components/site/reviews";
@@ -8,7 +8,6 @@ import { FaqAccordion, type FaqItem } from "@/components/site/faq-accordion";
 import { TownsWeServe } from "@/components/site/brand-blocks";
 import { Section } from "@/components/ui/section";
 import { formatPrice, servicesConfig } from "@/config/services";
-import { getSmsHref } from "@/lib/cta";
 
 const whyRiders = [
   {
@@ -53,7 +52,7 @@ export function MotorcyclePage({ faqs }: { faqs: FaqItem[] }) {
                 priceNote="Flat price"
                 features={bike.features}
                 popular={i === 1}
-                smsHref={getSmsHref({ packageName: bike.name })}
+                cta={getBookCta({ packageName: bike.name })}
               />
             </li>
           ))}

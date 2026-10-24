@@ -20,7 +20,7 @@ export function DadsClubPage() {
         location="packages-hero"
         title="Never deal with a dirty car again."
         textHref={getDadsClubSmsHref()}
-        textLabel="Join Dad's Club"
+        textLabel="Text to Join"
         sub="Join Dad's Club and we'll keep your car clean every two weeks or every month. Set it and forget it. No contracts, cancel anytime."
       />
 

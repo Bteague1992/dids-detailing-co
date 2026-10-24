@@ -5,7 +5,7 @@ import { Logo } from "@/components/site/logo";
 import { cn } from "@/lib/utils";
 
 /**
- * Top-of-page hero: H1, short sub, Book Online + Text Dad.
+ * Top-of-page hero: H1, short sub, Book Now + Text Dad.
  * size="home" is the larger homepage version (two columns on desktop, with
  * the shield logo on the right); every other page uses the centered "page".
  */
@@ -29,7 +29,7 @@ export function PageHero({
   /** Override the text button (see CtaButtons). */
   textHref?: string;
   textLabel?: string;
-  /** false hides the Book Online + Text Dad buttons (used on /book itself). */
+  /** false hides the Book Now + Text Dad buttons (used on /book itself). */
   showCta?: boolean;
   /** Extra content under the buttons (e.g. the Google rating line). */
   children?: ReactNode;

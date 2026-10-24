@@ -9,8 +9,8 @@ export type FormStatus = "idle" | "submitting" | "success" | "error";
 type FieldReader = (name: string) => string;
 
 /**
- * Submit logic shared by the booking form, the contact form, and the pop-up.
- * All three post to /api/contact, which emails the lead (lib/lead-email.ts).
+ * Submit logic shared by the contact form and the pop-up.
+ * Both post to /api/contact, which emails the lead (lib/lead-email.ts).
  */
 export function useLeadForm({
   source,
@@ -19,7 +19,7 @@ export function useLeadForm({
   getFields,
   getEventParams,
 }: {
-  /** Which form this is: "booking-form" | "contact-form" | "exit-intent-modal". */
+  /** Which form this is: "contact-form" | "exit-intent-modal". */
   source: string;
   /** The page the form was submitted from. */
   pageContext: string;

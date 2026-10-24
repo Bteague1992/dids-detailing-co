@@ -13,7 +13,7 @@ export interface SmsOptions {
 }
 
 /**
- * Every "Book Online" / "Book" button. Returns null while booking buttons are
+ * Every "Book Now" / "Book" button. Returns null while booking buttons are
  * switched off (SHOW_BOOKING in config/business.ts) — callers hide the button.
  */
 export function getBookingHref(): string | null {
@@ -30,7 +30,7 @@ export function getEmailHref(): string {
 }
 
 /**
- * "Text Dad" / "Text to Book" links: an sms: link with a prefilled message,
+ * "Text Dad" / "Text to Book" / "Text for a Quote" links: an sms: link with a prefilled message,
  * naming the package when one is given.
  */
 export function getSmsHref(options?: SmsOptions): string {

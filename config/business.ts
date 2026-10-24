@@ -19,25 +19,44 @@ export const business = {
   DEFAULT_SMS_BODY,
 
   /**
-   * Show the "Book Online" / "Book" buttons? Set to false to hide every Book
+   * Show the "Book Now" / "Book" buttons? Set to false to hide every Book
    * button across the site ("Text Dad" then becomes the main button).
    */
   SHOW_BOOKING: true as boolean,
 
   /**
-   * Where every "Book Online" / "Book" button goes: the booking request form
-   * at /book. If you move to a booking system later, paste its https:// link
-   * here and every Book button follows.
+   * Where every "Book Now" / "Book" button goes: the /book page, which shows
+   * the Square Appointments booking widget.
    */
   BOOKING_URL: "/book",
 
+  /**
+   * Square Appointments. WIDGET_URL is the page Square's embed script loads in
+   * an iframe (we render that iframe directly on /book); BOOKING_URL is the
+   * full-page booking flow, used as a fallback link.
+   */
+  SQUARE: {
+    WIDGET_URL:
+      "https://app.squareup.com/appointments/buyer/widget/aw5n0ch3tb3uqr/LM31RK7X2TP74",
+    BOOKING_URL:
+      "https://app.squareup.com/appointments/book/aw5n0ch3tb3uqr/LM31RK7X2TP74/start",
+  },
+
+  /** Booking, payment, and cancellation terms (FAQ, /book, packages page). */
+  BOOKING_TERMS: {
+    payment:
+      "No deposit to book. You pay when the job's done, cash or card.",
+    cancellation:
+      "Need to cancel or reschedule? Give us at least 2 days' notice. Late cancellations have a $30 fee, paid before your next booking.",
+  },
+
   HOURS: {
     days: "7 days a week",
-    time: "8am–6pm",
-    full: "7 days a week, 8am–6pm",
+    time: "9am–5pm",
+    full: "7 days a week, 9am–5pm",
     /** 24h values for structured data. */
-    opens: "08:00",
-    closes: "18:00",
+    opens: "09:00",
+    closes: "17:00",
   },
 
   /** Paste your Google reviews link here. While empty, review links are hidden. */

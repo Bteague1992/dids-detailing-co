@@ -19,7 +19,7 @@ const navLinks = [
 export function Header({
   bookingHref,
 }: {
-  /** null hides the Book Online buttons. */
+  /** null hides the Book Now buttons. */
   bookingHref: string | null;
 }) {
   const [scrolled, setScrolled] = useState(false);
@@ -77,7 +77,7 @@ export function Header({
               className="hidden sm:inline-flex"
               data-cta-location="header-book"
             >
-              Book Online
+              Book Now
             </ButtonLink>
           )}
           <button
@@ -130,7 +130,7 @@ export function Header({
               onClick={closeMenu}
               data-cta-location="mobile-menu-book"
             >
-              Book Online
+              Book Now
             </ButtonLink>
           )}
         </nav>

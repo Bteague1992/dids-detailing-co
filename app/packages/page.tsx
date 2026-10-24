@@ -72,9 +72,15 @@ const teasers = [
   },
 ];
 
-// The Dad Promise isn't a pricing rule, so it lives in config/business.ts —
-// it's added to the strip here alongside the policies from the pricing file.
-const policies = [...pricingPolicies, `The Dad Promise: ${business.DAD_PROMISE}`];
+// The booking terms and the Dad Promise aren't pricing rules, so they live in
+// config/business.ts — they're added to the strip here alongside the policies
+// from the pricing file.
+const policies = [
+  ...pricingPolicies,
+  business.BOOKING_TERMS.payment,
+  business.BOOKING_TERMS.cancellation,
+  `The Dad Promise: ${business.DAD_PROMISE}`,
+];
 
 export default function PackagesPage() {
   return (

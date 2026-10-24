@@ -1,5 +1,5 @@
-// Builds the notification email Dad receives when someone submits the booking
-// form, the contact form, or the pop-up (all three post to /api/contact).
+// Builds the notification email Dad receives when someone submits the contact
+// form or the pop-up (both post to /api/contact).
 //
 // Email clients ignore stylesheets and modern layout CSS, so this is plain
 // tables with inline styles and no images — it renders the same in Gmail,
@@ -26,11 +26,6 @@ const LINE = "#E6E1DA";
 const FONT = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
 
 const kinds: Record<string, { heading: string; subject: string; from: string }> = {
-  "booking-form": {
-    heading: "New booking request",
-    subject: "New booking request",
-    from: "the booking form",
-  },
   "exit-intent-modal": {
     heading: "New lead from the pop-up",
     subject: "New pop-up lead",
@@ -77,7 +72,6 @@ export function buildLeadEmail(input: LeadEmailInput): {
   const email = clean(input.email);
   const phone = formatPhone(input.phone);
   const service = clean(input.serviceInterest);
-  const isBooking = input.source === "booking-form";
 
   const details: Array<[string, string]> = (
     [
@@ -85,7 +79,7 @@ export function buildLeadEmail(input: LeadEmailInput): {
       ["Vehicle", clean(input.vehicleInfo)],
       ["Town", clean(input.town)],
       ["Day / time", clean(input.preferredTime)],
-      [isBooking ? "Notes" : "Message", clean(input.message)],
+      ["Message", clean(input.message)],
     ] as Array<[string, string]>
   ).filter(([, value]) => value.length > 0);
 

@@ -32,17 +32,20 @@ const groups: { title: string; faqs: FaqItem[] }[] = [
     faqs: [
       {
         question: "How do I book?",
-        answer: `Two ways. Fill out the quick booking form on our Book page, or text us at ${business.PHONE} with what you drive, the package you want, and where you are. Either way, Dad confirms a time with you.`,
+        answer: `Two ways. Hit Book Now, pick your service and a time, and you're on the schedule with a confirmation right away. Or text us at ${business.PHONE} with what you drive, the package you want, and where you are, and we'll find a time together. RVs and campers are quote first, so text us your rig's length.`,
+      },
+      {
+        question: "Do I need to pay a deposit?",
+        answer: "Nope. Booking is free. You don't pay anything until the job's done.",
       },
       {
         question: "What if I need to cancel or reschedule?",
         answer:
-          "No problem. Just text us as soon as you know, so we can shuffle the schedule.",
+          "Give us at least 2 days' notice and there's no charge. Use the link in your booking confirmation or just text us. Cancellations with less than 2 days' notice have a $30 late cancellation fee, paid before your next booking.",
       },
       {
         question: "How do I pay?",
-        answer:
-          "Cash, Venmo, or other digital payments. You pay when the job's done, not before.",
+        answer: "Cash or card, when the job's done. Not before.",
       },
       {
         question: "Do you offer any discounts?",

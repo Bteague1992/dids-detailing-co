@@ -1,7 +1,7 @@
 // Single source of truth for every service, package, price, add-on, plan, and
 // pricing policy on the site. Pages and components read from here (mostly via
 // lib/service-tiers.ts) — change a price or name in this file and it updates
-// everywhere, including meta descriptions, FAQs, and Text to Book messages.
+// everywhere, including meta descriptions, FAQs, and prefilled text messages.
 
 type MaintenanceFrequency = "biweekly" | "monthly" | "quarterly";
 
@@ -313,13 +313,12 @@ export const addOnsConfig = {
   ] as AddOn[],
 } as const;
 
-/** Shown near pricing on the packages page. */
+/** Shown near pricing on the packages page (payment and cancellation terms
+ * are added there from BOOKING_TERMS in config/business.ts). */
 export const pricingPolicies: string[] = [
   "Second vehicle, same day: 10% off",
   "Travel: free in our home area; small $20 trip fee for some outer areas on jobs under $200",
   "Prices shown are starting prices. If your vehicle needs add-ons, we'll quote the exact price before we start. No surprises.",
-  "Cash and digital payments accepted",
-  "Payment due upon completion",
 ];
 
 /** Short version of the starting-price policy, shown on car package cards. */

@@ -3,8 +3,32 @@ import { Check, Clock } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { SizeLabel, SizePrice, SizeToggle } from "@/components/site/size-toggle";
 import { servicesConfig, startingPriceNote } from "@/config/services";
-import { getSmsHref } from "@/lib/cta";
+import { getBookingHref, getSmsHref, type SmsOptions } from "@/lib/cta";
 import { cn } from "@/lib/utils";
+
+/** A package card's button: where it goes, what it says, and its analytics location. */
+export interface PackageCta {
+  href: string;
+  label: string;
+  /** data-cta-location; Book buttons end in "-book" (see CtaClickTracker). */
+  location: string;
+}
+
+/**
+ * "Book Now" to the /book page, or "Text to Book" (naming the package in the
+ * text) while booking buttons are switched off.
+ */
+export function getBookCta(sms?: SmsOptions): PackageCta {
+  const bookingHref = getBookingHref();
+  return bookingHref
+    ? { href: bookingHref, label: "Book Now", location: "package-card-book" }
+    : { href: getSmsHref(sms), label: "Text to Book", location: "package-card-text" };
+}
+
+/** "Text for a Quote", for packages priced per job (RVs). */
+export function getQuoteCta(sms?: SmsOptions): PackageCta {
+  return { href: getSmsHref(sms), label: "Text for a Quote", location: "package-card-quote" };
+}
 
 export function MostPopularBadge({ className }: { className?: string }) {
   return (
@@ -47,7 +71,8 @@ export function CheckList({ items }: { items: readonly string[] }) {
 export const packageCardRows = "row-span-5 grid grid-rows-subgrid gap-y-0";
 
 /**
- * Detailed package card: name, price, time, "What's included", Text to Book.
+ * Detailed package card: name, price, time, "What's included", and a button
+ * (Book Now, Text for a Quote, or Text to Join).
  * Used for car, motorcycle, RV, and plan cards — pass whatever price markup
  * fits (a flat "$85", a <SizePrice>, or "$9/ft").
  */
@@ -58,9 +83,8 @@ export function PackageCard({
   priceNote,
   duration,
   features,
-  smsHref,
+  cta,
   popular = false,
-  buttonLabel = "Text to Book",
 }: {
   name: string;
   description: string;
@@ -69,9 +93,8 @@ export function PackageCard({
   priceNote?: ReactNode;
   duration?: string;
   features: readonly string[];
-  smsHref: string;
+  cta: PackageCta;
   popular?: boolean;
-  buttonLabel?: string;
 }) {
   return (
     <article
@@ -115,13 +138,13 @@ export function PackageCard({
 
       {/* Row 5 */}
       <ButtonLink
-        href={smsHref}
+        href={cta.href}
         variant={popular ? "primary" : "secondary"}
         className="mt-6 w-full self-end"
-        aria-label={`${buttonLabel}: ${name}`}
-        data-cta-location="package-card"
+        aria-label={`${cta.label}: ${name}`}
+        data-cta-location={cta.location}
       >
-        {buttonLabel}
+        {cta.label}
       </ButtonLink>
     </article>
   );
@@ -146,7 +169,7 @@ export function CarPackages({ city }: { city?: string }) {
               duration={pkg.duration}
               features={pkg.features}
               popular={pkg.mostPopular}
-              smsHref={getSmsHref({ packageName: pkg.name, city })}
+              cta={getBookCta({ packageName: pkg.name, city })}
             />
           </li>
         ))}

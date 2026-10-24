@@ -1,13 +1,12 @@
 import { Leaf, Ruler, Snowflake } from "lucide-react";
 import { PageHero } from "@/components/site/page-hero";
-import { PackageCard, packageCardRows } from "@/components/site/package-card";
+import { getQuoteCta, PackageCard, packageCardRows } from "@/components/site/package-card";
 import { DadsClubRvPlans } from "@/components/site/dads-club";
 import { IconCards } from "@/components/site/icon-cards";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { TownsWeServe } from "@/components/site/brand-blocks";
 import { Section } from "@/components/ui/section";
 import { formatPrice, servicesConfig } from "@/config/services";
-import { getSmsHref } from "@/lib/cta";
 import { rvFaqs } from "@/lib/city-content";
 
 const CATEGORY = "Camper & RV Detailing";
@@ -56,7 +55,7 @@ export function RvPage() {
                 price={`${formatPrice(rv.pricePerFoot)}/ft`}
                 priceNote={`${formatPrice(rv.minimumPrice)} minimum`}
                 features={rv.features}
-                smsHref={getSmsHref({
+                cta={getQuoteCta({
                   packageName: rv.name,
                   categoryLabel: CATEGORY,
                 })}
